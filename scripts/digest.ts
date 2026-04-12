@@ -13,6 +13,7 @@ const FEED_FETCH_TIMEOUT_MS = 15_000;
 const FEED_CONCURRENCY = 10;
 const GEMINI_BATCH_SIZE = 10;
 const MAX_CONCURRENT_GEMINI = 2;
+const AI_JSON_MAX_ATTEMPTS = 2;
 const HAWAII_TIME_ZONE = 'Pacific/Honolulu';
 
 const HAWAII_DATE_TIME_FORMATTER = new Intl.DateTimeFormat('en-CA', {
@@ -180,8 +181,12 @@ interface GeminiSummaryResult {
   }>;
 }
 
+interface AIRequestOptions {
+  responseType?: 'json' | 'text';
+}
+
 interface AIClient {
-  call(prompt: string): Promise<string>;
+  call(prompt: string, options?: AIRequestOptions): Promise<string>;
 }
 
 interface BatchResultMap<T> {
@@ -413,7 +418,24 @@ async function fetchAllFeeds(feeds: typeof RSS_FEEDS): Promise<Article[]> {
 // AI Providers (Gemini + OpenAI-compatible fallback)
 // ============================================================================
 
-async function callGemini(prompt: string, apiKey: string): Promise<string> {
+function extractTextParts(parts: Array<{ text?: string }> | undefined): string {
+  if (!Array.isArray(parts)) return '';
+  return parts
+    .map(part => typeof part.text === 'string' ? part.text : '')
+    .filter(Boolean)
+    .join('\n')
+    .trim();
+}
+
+function formatAIDetails(details: Record<string, string | undefined>): string {
+  const parts = Object.entries(details)
+    .filter(([, value]) => Boolean(value))
+    .map(([key, value]) => `${key}=${value}`);
+
+  return parts.length > 0 ? ` (${parts.join(', ')})` : '';
+}
+
+async function callGemini(prompt: string, apiKey: string, options: AIRequestOptions = {}): Promise<string> {
   const response = await fetch(`${GEMINI_API_URL}?key=${apiKey}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -423,6 +445,7 @@ async function callGemini(prompt: string, apiKey: string): Promise<string> {
         temperature: 0.3,
         topP: 0.8,
         topK: 40,
+        ...(options.responseType === 'json' ? { responseMimeType: 'application/json' } : {}),
       },
     }),
   });
@@ -434,18 +457,30 @@ async function callGemini(prompt: string, apiKey: string): Promise<string> {
   
   const data = await response.json() as {
     candidates?: Array<{
+      finishReason?: string;
       content?: { parts?: Array<{ text?: string }> };
     }>;
+    promptFeedback?: {
+      blockReason?: string;
+    };
   };
-  
-  return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+
+  const candidate = data.candidates?.[0];
+  const text = extractTextParts(candidate?.content?.parts);
+  if (text) return text;
+
+  throw new Error(`Gemini returned no text content${formatAIDetails({
+    finishReason: candidate?.finishReason,
+    blockReason: data.promptFeedback?.blockReason,
+  })}`);
 }
 
 async function callOpenAICompatible(
   prompt: string,
   apiKey: string,
   apiBase: string,
-  model: string
+  model: string,
+  _options: AIRequestOptions = {}
 ): Promise<string> {
   const normalizedBase = apiBase.replace(/\/+$/, '');
   const response = await fetch(`${normalizedBase}/chat/completions`, {
@@ -469,21 +504,26 @@ async function callOpenAICompatible(
 
   const data = await response.json() as {
     choices?: Array<{
+      finish_reason?: string;
       message?: {
         content?: string | Array<{ type?: string; text?: string }>;
+        refusal?: string;
       };
     }>;
   };
 
-  const content = data.choices?.[0]?.message?.content;
-  if (typeof content === 'string') return content;
+  const choice = data.choices?.[0];
+  const content = choice?.message?.content;
+  if (typeof content === 'string' && content.trim()) return content;
   if (Array.isArray(content)) {
-    return content
-      .filter(item => item.type === 'text' && typeof item.text === 'string')
-      .map(item => item.text)
-      .join('\n');
+    const text = extractTextParts(content);
+    if (text) return text;
   }
-  return '';
+
+  throw new Error(`OpenAI-compatible API returned no text content${formatAIDetails({
+    finishReason: choice?.finish_reason,
+    refusal: choice?.message?.refusal,
+  })}`);
 }
 
 function inferOpenAIModel(apiBase: string): string {
@@ -512,10 +552,10 @@ function createAIClient(config: {
   }
 
   return {
-    async call(prompt: string): Promise<string> {
+    async call(prompt: string, options: AIRequestOptions = {}): Promise<string> {
       if (state.geminiEnabled && state.geminiApiKey) {
         try {
-          return await callGemini(prompt, state.geminiApiKey);
+          return await callGemini(prompt, state.geminiApiKey, options);
         } catch (error) {
           if (state.openaiApiKey) {
             if (!state.fallbackLogged) {
@@ -524,14 +564,14 @@ function createAIClient(config: {
               state.fallbackLogged = true;
             }
             state.geminiEnabled = false;
-            return callOpenAICompatible(prompt, state.openaiApiKey, state.openaiApiBase, state.openaiModel);
+            return callOpenAICompatible(prompt, state.openaiApiKey, state.openaiApiBase, state.openaiModel, options);
           }
           throw error;
         }
       }
 
       if (state.openaiApiKey) {
-        return callOpenAICompatible(prompt, state.openaiApiKey, state.openaiApiBase, state.openaiModel);
+        return callOpenAICompatible(prompt, state.openaiApiKey, state.openaiApiBase, state.openaiModel, options);
       }
 
       throw new Error('No AI API key configured. Set GEMINI_API_KEY and/or OPENAI_API_KEY.');
@@ -545,23 +585,71 @@ function parseJsonResponse<T>(text: string): T {
   if (jsonText.startsWith('```')) {
     jsonText = jsonText.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
   }
-  try {
-    return JSON.parse(jsonText) as T;
-  } catch {
-    // Try to recover partial JSON from truncated responses
-    const lastBrace = jsonText.lastIndexOf('}');
-    const lastBracket = jsonText.lastIndexOf(']');
-    const truncateAt = Math.max(lastBrace, lastBracket);
-    if (truncateAt > 10) {
-      const partial = jsonText.slice(0, truncateAt + 1);
-      try {
-        return JSON.parse(partial) as T;
-      } catch {
-        // fall through to final error
-      }
-    }
-    throw new SyntaxError(`Invalid JSON (truncated or malformed response): ${jsonText.slice(0, 200)}`);
+  jsonText = jsonText.trim();
+
+  if (!jsonText) {
+    throw new SyntaxError('AI returned empty response body instead of JSON.');
   }
+
+  const candidates = new Set<string>([jsonText]);
+  const firstBrace = jsonText.indexOf('{');
+  const lastBrace = jsonText.lastIndexOf('}');
+  const firstBracket = jsonText.indexOf('[');
+  const lastBracket = jsonText.lastIndexOf(']');
+
+  if (firstBrace >= 0 && lastBrace > firstBrace) {
+    candidates.add(jsonText.slice(firstBrace, lastBrace + 1));
+  }
+  if (firstBracket >= 0 && lastBracket > firstBracket) {
+    candidates.add(jsonText.slice(firstBracket, lastBracket + 1));
+  }
+
+  const truncateAt = Math.max(lastBrace, lastBracket);
+  if (truncateAt > 10 && truncateAt + 1 < jsonText.length) {
+    candidates.add(jsonText.slice(0, truncateAt + 1));
+  }
+
+  for (const candidate of candidates) {
+    try {
+      return JSON.parse(candidate) as T;
+    } catch {
+      // Try the next candidate.
+    }
+  }
+
+  throw new SyntaxError(`Invalid JSON (truncated or malformed response): ${jsonText.slice(0, 200)}`);
+}
+
+function isRetryableAIOutputError(error: unknown): boolean {
+  if (error instanceof SyntaxError) return true;
+  if (!(error instanceof Error)) return false;
+
+  return /no text content|empty response body/i.test(error.message);
+}
+
+async function callJsonWithRetry<T>(aiClient: AIClient, prompt: string, taskLabel: string): Promise<T> {
+  let lastError: unknown;
+
+  for (let attempt = 1; attempt <= AI_JSON_MAX_ATTEMPTS; attempt++) {
+    const attemptPrompt = attempt === 1
+      ? prompt
+      : `${prompt}\n\n再次提醒：只返回一个合法 JSON 对象，不要输出解释、代码块或省略内容。`;
+
+    try {
+      const responseText = await aiClient.call(attemptPrompt, { responseType: 'json' });
+      return parseJsonResponse<T>(responseText);
+    } catch (error) {
+      lastError = error;
+      if (attempt < AI_JSON_MAX_ATTEMPTS && isRetryableAIOutputError(error)) {
+        const reason = error instanceof Error ? error.message : String(error);
+        console.warn(`[digest] ${taskLabel}: retrying after unusable AI output (${reason})`);
+        continue;
+      }
+      break;
+    }
+  }
+
+  throw lastError instanceof Error ? lastError : new Error(String(lastError));
 }
 
 // ============================================================================
@@ -655,8 +743,7 @@ async function scoreArticlesWithAI(
     const promises = batchGroup.map(async (batch) => {
       try {
         const prompt = buildScoringPrompt(batch);
-        const responseText = await aiClient.call(prompt);
-        const parsed = parseJsonResponse<GeminiScoringResult>(responseText);
+        const parsed = await callJsonWithRetry<GeminiScoringResult>(aiClient, prompt, 'Scoring batch');
         
         if (parsed.results && Array.isArray(parsed.results)) {
           for (const result of parsed.results) {
@@ -770,8 +857,7 @@ async function summarizeArticles(
     const promises = batchGroup.map(async (batch) => {
       try {
         const prompt = buildSummaryPrompt(batch, lang);
-        const responseText = await aiClient.call(prompt);
-        const parsed = parseJsonResponse<GeminiSummaryResult>(responseText);
+        const parsed = await callJsonWithRetry<GeminiSummaryResult>(aiClient, prompt, 'Summary batch');
         
         if (parsed.results && Array.isArray(parsed.results)) {
           for (const result of parsed.results) {
@@ -830,7 +916,7 @@ ${articleList}
 直接返回纯文本总结，不要 JSON，不要 markdown 格式。`;
 
   try {
-    const text = await aiClient.call(prompt);
+    const text = await aiClient.call(prompt, { responseType: 'text' });
     return text.trim();
   } catch (error) {
     console.warn(`[digest] Highlights generation failed: ${error instanceof Error ? error.message : String(error)}`);
