@@ -13,6 +13,18 @@ const FEED_FETCH_TIMEOUT_MS = 15_000;
 const FEED_CONCURRENCY = 10;
 const GEMINI_BATCH_SIZE = 10;
 const MAX_CONCURRENT_GEMINI = 2;
+const HAWAII_TIME_ZONE = 'Pacific/Honolulu';
+
+const HAWAII_DATE_TIME_FORMATTER = new Intl.DateTimeFormat('en-CA', {
+  timeZone: HAWAII_TIME_ZONE,
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+  hourCycle: 'h23',
+  hour12: false,
+});
 
 // 90 RSS feeds from Hacker News Popularity Contest 2025 (curated by Karpathy)
 const RSS_FEEDS: Array<{ name: string; xmlUrl: string; htmlUrl: string }> = [
@@ -172,6 +184,12 @@ interface AIClient {
   call(prompt: string): Promise<string>;
 }
 
+interface BatchResultMap<T> {
+  values: Map<number, T>;
+  failedBatches: number;
+  totalBatches: number;
+}
+
 // ============================================================================
 // RSS/Atom Parsing (using Bun's built-in HTMLRewriter or manual XML parsing)
 // ============================================================================
@@ -214,6 +232,35 @@ function getAttrValue(xml: string, tagName: string, attrName: string): string {
   const pattern = new RegExp(`<${tagName}[^>]*\\s${attrName}=["']([^"']*)["'][^>]*/?>`, 'i');
   const match = xml.match(pattern);
   return match?.[1] || '';
+}
+
+function getHawaiiDateTimeParts(date: Date): { date: string; time: string } {
+  const values = new Map<string, string>();
+
+  for (const part of HAWAII_DATE_TIME_FORMATTER.formatToParts(date)) {
+    if (part.type !== 'literal') {
+      values.set(part.type, part.value);
+    }
+  }
+
+  const year = values.get('year') || '0000';
+  const month = values.get('month') || '01';
+  const day = values.get('day') || '01';
+  const hour = values.get('hour') || '00';
+  const minute = values.get('minute') || '00';
+
+  return {
+    date: `${year}-${month}-${day}`,
+    time: `${hour}:${minute}`,
+  };
+}
+
+function formatHawaiiDate(date: Date): string {
+  return getHawaiiDateTimeParts(date).date;
+}
+
+function formatHawaiiCompactDate(date: Date): string {
+  return formatHawaiiDate(date).replace(/-/g, '');
 }
 
 function parseDate(dateStr: string): Date | null {
@@ -567,8 +614,9 @@ ${articlesList}
 async function scoreArticlesWithAI(
   articles: Article[],
   aiClient: AIClient
-): Promise<Map<number, { relevance: number; quality: number; timeliness: number; category: CategoryId; keywords: string[] }>> {
+): Promise<BatchResultMap<{ relevance: number; quality: number; timeliness: number; category: CategoryId; keywords: string[] }>> {
   const allScores = new Map<number, { relevance: number; quality: number; timeliness: number; category: CategoryId; keywords: string[] }>();
+  let failedBatches = 0;
   
   const indexed = articles.map((article, index) => ({
     index,
@@ -608,6 +656,7 @@ async function scoreArticlesWithAI(
           }
         }
       } catch (error) {
+        failedBatches++;
         console.warn(`[digest] Scoring batch failed: ${error instanceof Error ? error.message : String(error)}`);
         for (const item of batch) {
           allScores.set(item.index, { relevance: 5, quality: 5, timeliness: 5, category: 'other', keywords: [] });
@@ -619,7 +668,11 @@ async function scoreArticlesWithAI(
     console.log(`[digest] Scoring progress: ${Math.min(i + MAX_CONCURRENT_GEMINI, batches.length)}/${batches.length} batches`);
   }
   
-  return allScores;
+  return {
+    values: allScores,
+    failedBatches,
+    totalBatches: batches.length,
+  };
 }
 
 // ============================================================================
@@ -677,8 +730,9 @@ async function summarizeArticles(
   articles: Array<Article & { index: number }>,
   aiClient: AIClient,
   lang: 'zh' | 'en'
-): Promise<Map<number, { titleZh: string; summary: string; reason: string }>> {
+): Promise<BatchResultMap<{ titleZh: string; summary: string; reason: string }>> {
   const summaries = new Map<number, { titleZh: string; summary: string; reason: string }>();
+  let failedBatches = 0;
   
   const indexed = articles.map(a => ({
     index: a.index,
@@ -713,6 +767,7 @@ async function summarizeArticles(
           }
         }
       } catch (error) {
+        failedBatches++;
         console.warn(`[digest] Summary batch failed: ${error instanceof Error ? error.message : String(error)}`);
         for (const item of batch) {
           summaries.set(item.index, { titleZh: item.title, summary: item.title, reason: '' });
@@ -724,7 +779,11 @@ async function summarizeArticles(
     console.log(`[digest] Summary progress: ${Math.min(i + MAX_CONCURRENT_GEMINI, batches.length)}/${batches.length} batches`);
   }
   
-  return summaries;
+  return {
+    values: summaries,
+    failedBatches,
+    totalBatches: batches.length,
+  };
 }
 
 // ============================================================================
@@ -776,109 +835,7 @@ function humanizeTime(pubDate: Date): string {
   if (diffMins < 60) return `${diffMins} 分钟前`;
   if (diffHours < 24) return `${diffHours} 小时前`;
   if (diffDays < 7) return `${diffDays} 天前`;
-  return pubDate.toISOString().slice(0, 10);
-}
-
-function generateKeywordBarChart(articles: ScoredArticle[]): string {
-  const kwCount = new Map<string, number>();
-  for (const a of articles) {
-    for (const kw of a.keywords) {
-      const normalized = kw.toLowerCase();
-      kwCount.set(normalized, (kwCount.get(normalized) || 0) + 1);
-    }
-  }
-
-  const sorted = Array.from(kwCount.entries())
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 12);
-
-  if (sorted.length === 0) return '';
-
-  const labels = sorted.map(([k]) => `"${k}"`).join(', ');
-  const values = sorted.map(([, v]) => v).join(', ');
-  const maxVal = sorted[0][1];
-
-  let chart = '```mermaid\n';
-  chart += `xychart-beta horizontal\n`;
-  chart += `    title "高频关键词"\n`;
-  chart += `    x-axis [${labels}]\n`;
-  chart += `    y-axis "出现次数" 0 --> ${maxVal + 2}\n`;
-  chart += `    bar [${values}]\n`;
-  chart += '```\n';
-
-  return chart;
-}
-
-function generateCategoryPieChart(articles: ScoredArticle[]): string {
-  const catCount = new Map<CategoryId, number>();
-  for (const a of articles) {
-    catCount.set(a.category, (catCount.get(a.category) || 0) + 1);
-  }
-
-  if (catCount.size === 0) return '';
-
-  const sorted = Array.from(catCount.entries()).sort((a, b) => b[1] - a[1]);
-
-  let chart = '```mermaid\n';
-  chart += `pie showData\n`;
-  chart += `    title "文章分类分布"\n`;
-  for (const [cat, count] of sorted) {
-    const meta = CATEGORY_META[cat];
-    chart += `    "${meta.emoji} ${meta.label}" : ${count}\n`;
-  }
-  chart += '```\n';
-
-  return chart;
-}
-
-function generateAsciiBarChart(articles: ScoredArticle[]): string {
-  const kwCount = new Map<string, number>();
-  for (const a of articles) {
-    for (const kw of a.keywords) {
-      const normalized = kw.toLowerCase();
-      kwCount.set(normalized, (kwCount.get(normalized) || 0) + 1);
-    }
-  }
-
-  const sorted = Array.from(kwCount.entries())
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 10);
-
-  if (sorted.length === 0) return '';
-
-  const maxVal = sorted[0][1];
-  const maxBarWidth = 20;
-  const maxLabelLen = Math.max(...sorted.map(([k]) => k.length));
-
-  let chart = '```\n';
-  for (const [label, value] of sorted) {
-    const barLen = Math.max(1, Math.round((value / maxVal) * maxBarWidth));
-    const bar = '█'.repeat(barLen) + '░'.repeat(maxBarWidth - barLen);
-    chart += `${label.padEnd(maxLabelLen)} │ ${bar} ${value}\n`;
-  }
-  chart += '```\n';
-
-  return chart;
-}
-
-function generateTagCloud(articles: ScoredArticle[]): string {
-  const kwCount = new Map<string, number>();
-  for (const a of articles) {
-    for (const kw of a.keywords) {
-      const normalized = kw.toLowerCase();
-      kwCount.set(normalized, (kwCount.get(normalized) || 0) + 1);
-    }
-  }
-
-  const sorted = Array.from(kwCount.entries())
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 20);
-
-  if (sorted.length === 0) return '';
-
-  return sorted
-    .map(([word, count], i) => i < 3 ? `**${word}**(${count})` : `${word}(${count})`)
-    .join(' · ');
+  return formatHawaiiDate(pubDate);
 }
 
 // ============================================================================
@@ -894,7 +851,7 @@ function generateDigestReport(articles: ScoredArticle[], highlights: string, sta
   lang: string;
 }): string {
   const now = new Date();
-  const dateStr = now.toISOString().split('T')[0];
+  const { date: dateStr, time: timeStr } = getHawaiiDateTimeParts(now);
   
   let report = `# 📰 AI 博客每日精选 — ${dateStr}\n\n`;
   report += `> 来自 Karpathy 推荐的 ${stats.totalFeeds} 个顶级技术博客，AI 精选 Top ${articles.length}\n\n`;
@@ -927,35 +884,6 @@ function generateDigestReport(articles: ScoredArticle[], highlights: string, sta
     report += `---\n\n`;
   }
 
-  // ── Visual Statistics ──
-  report += `## 📊 数据概览\n\n`;
-
-  report += `| 扫描源 | 抓取文章 | 时间范围 | 精选 |\n`;
-  report += `|:---:|:---:|:---:|:---:|\n`;
-  report += `| ${stats.successFeeds}/${stats.totalFeeds} | ${stats.totalArticles} 篇 → ${stats.filteredArticles} 篇 | ${stats.hours}h | **${articles.length} 篇** |\n\n`;
-
-  const pieChart = generateCategoryPieChart(articles);
-  if (pieChart) {
-    report += `### 分类分布\n\n${pieChart}\n`;
-  }
-
-  const barChart = generateKeywordBarChart(articles);
-  if (barChart) {
-    report += `### 高频关键词\n\n${barChart}\n`;
-  }
-
-  const asciiChart = generateAsciiBarChart(articles);
-  if (asciiChart) {
-    report += `<details>\n<summary>📈 纯文本关键词图（终端友好）</summary>\n\n${asciiChart}\n</details>\n\n`;
-  }
-
-  const tagCloud = generateTagCloud(articles);
-  if (tagCloud) {
-    report += `### 🏷️ 话题标签\n\n${tagCloud}\n\n`;
-  }
-
-  report += `---\n\n`;
-
   // ── Category-Grouped Articles ──
   const categoryGroups = new Map<CategoryId, ScoredArticle[]>();
   for (const a of articles) {
@@ -987,9 +915,8 @@ function generateDigestReport(articles: ScoredArticle[], highlights: string, sta
   }
 
   // ── Footer ──
-  report += `*生成于 ${dateStr} ${now.toISOString().split('T')[1]?.slice(0, 5) || ''} | 扫描 ${stats.successFeeds} 源 → 获取 ${stats.totalArticles} 篇 → 精选 ${articles.length} 篇*\n`;
+  report += `*生成于 ${dateStr} ${timeStr} (Pacific/Honolulu) | 扫描 ${stats.successFeeds} 源 → 获取 ${stats.totalArticles} 篇 → 精选 ${articles.length} 篇*\n`;
   report += `*基于 [Hacker News Popularity Contest 2025](https://refactoringenglish.com/tools/hn-popularity/) RSS 源列表，由 [Andrej Karpathy](https://x.com/karpathy) 推荐*\n`;
-  report += `*由「懂点儿AI」制作，欢迎关注同名微信公众号获取更多 AI 实用技巧 💡*\n`;
 
   return report;
 }
@@ -1065,7 +992,7 @@ async function main(): Promise<void> {
   });
   
   if (!outputPath) {
-    const dateStr = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    const dateStr = formatHawaiiCompactDate(new Date());
     outputPath = `./digest-${dateStr}.md`;
   }
   
@@ -1103,7 +1030,14 @@ async function main(): Promise<void> {
   }
   
   console.log(`[digest] Step 3/5: AI scoring ${recentArticles.length} articles...`);
-  const scores = await scoreArticlesWithAI(recentArticles, aiClient);
+  const scoringResult = await scoreArticlesWithAI(recentArticles, aiClient);
+  const scores = scoringResult.values;
+
+  if (scoringResult.totalBatches > 0 && scoringResult.failedBatches === scoringResult.totalBatches) {
+    console.error('[digest] Error: AI scoring failed for every batch. Check Actions secrets and provider settings.');
+    console.error('[digest] Expected at least one successful scoring batch, but all requests fell back to default scores.');
+    process.exit(1);
+  }
   
   const scoredArticles = recentArticles.map((article, index) => {
     const score = scores.get(index) || { relevance: 5, quality: 5, timeliness: 5, category: 'other' as CategoryId, keywords: [] };
@@ -1121,7 +1055,14 @@ async function main(): Promise<void> {
   
   console.log(`[digest] Step 4/5: Generating AI summaries...`);
   const indexedTopArticles = topArticles.map((a, i) => ({ ...a, index: i }));
-  const summaries = await summarizeArticles(indexedTopArticles, aiClient, lang);
+  const summaryResult = await summarizeArticles(indexedTopArticles, aiClient, lang);
+  const summaries = summaryResult.values;
+
+  if (summaryResult.totalBatches > 0 && summaryResult.failedBatches === summaryResult.totalBatches) {
+    console.error('[digest] Error: AI summarization failed for every batch. Check Actions secrets and provider settings.');
+    console.error('[digest] Expected at least one successful summary batch, but all requests fell back to raw titles.');
+    process.exit(1);
+  }
   
   const finalArticles: ScoredArticle[] = topArticles.map((a, i) => {
     const sm = summaries.get(i) || { titleZh: a.title, summary: a.description.slice(0, 200), reason: '' };

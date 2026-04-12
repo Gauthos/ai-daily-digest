@@ -7,6 +7,14 @@ const DEFAULT_OUTPUT_DIR = 'docs';
 const DEFAULT_KEEP = 30;
 const SITE_TITLE = 'AI Daily Digest';
 const SITE_DESCRIPTION = 'AI-curated daily digest built from top technical blogs and published as a static RSS feed.';
+const HAWAII_TIME_ZONE = 'Pacific/Honolulu';
+
+const HAWAII_DATE_FORMATTER = new Intl.DateTimeFormat('en-CA', {
+  timeZone: HAWAII_TIME_ZONE,
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
 
 interface ManifestItem {
   date: string;
@@ -36,6 +44,7 @@ interface ParsedDigest {
   title: string;
   excerpt: string;
   contentHtml: string;
+  markdown: string;
 }
 
 function printUsage(): never {
@@ -142,6 +151,30 @@ function escapeXml(text: string): string {
 
 function sanitizeCdata(text: string): string {
   return text.replace(/\]\]>/g, ']]]]><![CDATA[>');
+}
+
+function escapeRegExp(text: string): string {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function formatHawaiiDate(date: Date): string {
+  const values = new Map<string, string>();
+
+  for (const part of HAWAII_DATE_FORMATTER.formatToParts(date)) {
+    if (part.type !== 'literal') {
+      values.set(part.type, part.value);
+    }
+  }
+
+  const year = values.get('year') || '0000';
+  const month = values.get('month') || '01';
+  const day = values.get('day') || '01';
+  return `${year}-${month}-${day}`;
+}
+
+function isPromotionalFooterLine(line: string): boolean {
+  const normalized = line.trim();
+  return normalized.includes('懂点儿AI') || normalized.includes('微信公众号');
 }
 
 function stripMarkdown(markdown: string): string {
@@ -355,7 +388,7 @@ function extractTitle(markdown: string): string {
 function extractDate(title: string): string {
   const match = title.match(/(\d{4}-\d{2}-\d{2})/);
   if (match?.[1]) return match[1];
-  return new Date().toISOString().slice(0, 10);
+  return formatHawaiiDate(new Date());
 }
 
 function extractExcerpt(markdown: string): string {
@@ -366,13 +399,42 @@ function extractExcerpt(markdown: string): string {
   return plain.slice(0, 280);
 }
 
+function stripFooterAds(markdown: string): string {
+  return markdown
+    .replace(/\r\n/g, '\n')
+    .split('\n')
+    .filter((line) => !isPromotionalFooterLine(line))
+    .join('\n')
+    .replace(/\n{3,}/g, '\n\n');
+}
+
+function stripFooterAdsFromHtml(html: string): string {
+  const promotionalEmphasisPattern = /\s*<em>[^<]*(?:懂点儿AI|微信公众号)[^<]*<\/em>/g;
+  const promotionalTextPattern = /[^<]*(?:懂点儿AI|微信公众号)[^<]*/g;
+
+  return html
+    .replace(promotionalEmphasisPattern, '')
+    .replace(promotionalTextPattern, '')
+    .replace(/<p>\s*<\/p>/g, '');
+}
+
+function sanitizeManifestItem(item: ManifestItem): ManifestItem {
+  return {
+    ...item,
+    excerpt: isPromotionalFooterLine(item.excerpt) ? '' : item.excerpt,
+    contentHtml: stripFooterAdsFromHtml(item.contentHtml),
+  };
+}
+
 function parseDigest(markdown: string): ParsedDigest {
-  const title = extractTitle(markdown);
+  const normalizedMarkdown = stripFooterAds(markdown);
+  const title = extractTitle(normalizedMarkdown);
   return {
     title,
     date: extractDate(title),
-    excerpt: extractExcerpt(markdown),
-    contentHtml: renderMarkdown(markdown),
+    excerpt: extractExcerpt(normalizedMarkdown),
+    contentHtml: renderMarkdown(normalizedMarkdown),
+    markdown: normalizedMarkdown,
   };
 }
 
@@ -401,240 +463,323 @@ function renderPageLayout(params: {
   <link rel="alternate" type="application/rss+xml" title="${escapeHtml(SITE_TITLE)}" href="${escapeHtml(feedUrl)}" />
   <style>
     :root {
-      color-scheme: light;
-      --bg: #f6f3ec;
-      --paper: #fffdf7;
-      --ink: #1f1a17;
-      --muted: #6a5f58;
-      --line: #d8cfc1;
-      --accent: #a94e2d;
-      --accent-soft: #f2d7c8;
-      --code: #f3ede3;
-      --shadow: 0 20px 50px rgba(57, 42, 31, 0.08);
+      /* Apple Design System Colors */
+      --color-black: #000000;
+      --color-light-gray: #f5f5f7;
+      --color-near-black: #1d1d1f;
+      --color-apple-blue: #0071e3;
+      --color-link-blue: #0066cc;
+      --color-link-blue-bright: #2997ff;
+      --color-text-secondary: rgba(0, 0, 0, 0.8);
+      --color-text-tertiary: rgba(0, 0, 0, 0.48);
+      --color-dark-surface: #272729;
+      --color-white: #ffffff;
+      --color-line: rgba(0, 0, 0, 0.1);
+      --color-overlay: rgba(210, 210, 215, 0.64);
+      --color-code-bg: #f5f5f7;
+      --shadow-card: rgba(0, 0, 0, 0.12) 0px 4px 20px 0px;
+      --shadow-elevated: rgba(0, 0, 0, 0.22) 3px 5px 30px 0px;
+
+      /* Spacing (8px base) */
+      --space-4: 4px;
+      --space-8: 8px;
+      --space-12: 12px;
+      --space-16: 16px;
+      --space-20: 20px;
+      --space-24: 24px;
+      --space-32: 32px;
+      --space-48: 48px;
+      --space-56: 56px;
     }
 
-    * { box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at top left, rgba(169, 78, 45, 0.08), transparent 32%),
-        linear-gradient(180deg, #efe6d9 0%, var(--bg) 22%, #f5f0e7 100%);
-      line-height: 1.65;
+      font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.47;
+      letter-spacing: -0.022em;
+      color: var(--color-near-black);
+      background: var(--color-light-gray);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    a { color: var(--accent); }
+    /* ── Typography ── */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--color-near-black);
+    }
+
+    h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 700; line-height: 1.05; letter-spacing: -0.03em; }
+    h2 { font-size: clamp(24px, 3.5vw, 36px); }
+    h3 { font-size: 21px; font-weight: 600; line-height: 1.2; letter-spacing: -0.01em; }
+    h4 { font-size: 17px; font-weight: 600; }
+
+    p { margin: 0 0 1em; }
+
+    a {
+      color: var(--color-link-blue);
+      text-decoration: none;
+    }
+    a:hover { text-decoration: underline; }
+    a:focus-visible {
+      outline: 2px solid var(--color-apple-blue);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    /* ── Layout Shell ── */
     .shell {
-      width: min(1100px, calc(100% - 32px));
+      width: min(980px, calc(100% - 32px));
       margin: 0 auto;
-      padding: 32px 0 64px;
+      padding: var(--space-32) var(--space-16) var(--space-56);
     }
 
-    .masthead,
-    .panel,
-    .digest {
-      background: color-mix(in srgb, var(--paper) 92%, white 8%);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      border-radius: 24px;
+    /* ── Cards ── */
+    .card {
+      background: var(--color-white);
+      border-radius: var(--radius-large, 18px);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
     }
 
     .masthead {
-      padding: 28px 28px 22px;
-      margin-bottom: 24px;
+      padding: var(--space-48) var(--space-32) var(--space-32);
+      margin-bottom: var(--space-16);
+      background: var(--color-white);
+      border-radius: 24px;
+      box-shadow: var(--shadow-card);
     }
 
     .kicker {
-      display: inline-flex;
-      gap: 10px;
-      align-items: center;
-      font-size: 13px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    h1, h2, h3, h4, h5, h6 {
-      line-height: 1.2;
-      margin: 1.3em 0 0.5em;
-      font-family: Georgia, "Times New Roman", serif;
-    }
-
-    .masthead h1 {
-      margin: 12px 0 10px;
-      font-size: clamp(34px, 5vw, 56px);
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: var(--color-text-tertiary);
+      margin-bottom: var(--space-8);
     }
 
     .masthead p,
-    .meta,
-    .archive-intro {
-      color: var(--muted);
+    .meta {
+      color: var(--color-text-secondary);
       margin: 0;
+      font-size: 17px;
     }
 
     .action-row {
-      margin-top: 18px;
+      margin-top: var(--space-20);
       display: flex;
-      gap: 12px;
+      gap: var(--space-8);
       flex-wrap: wrap;
     }
 
     .action-row a {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
+      gap: 6px;
+      padding: var(--space-8) var(--space-16);
+      background: var(--color-apple-blue);
+      color: var(--color-white);
+      border-radius: 980px;
+      font-size: 15px;
+      font-weight: 400;
       text-decoration: none;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: var(--paper);
+      transition: background 0.2s ease;
+    }
+    .action-row a:hover {
+      background: #0077ed;
+      text-decoration: none;
+    }
+    .action-row a:focus-visible {
+      outline: 2px solid var(--color-apple-blue);
+      outline-offset: 3px;
     }
 
+    /* ── Two-column layout ── */
     .layout {
       display: grid;
-      grid-template-columns: minmax(0, 1.9fr) minmax(260px, 0.9fr);
-      gap: 24px;
+      grid-template-columns: minmax(0, 1.7fr) minmax(220px, 0.8fr);
+      gap: var(--space-16);
       align-items: start;
     }
 
+    /* ── Main Digest ── */
     .digest {
-      padding: 30px;
+      background: var(--color-white);
+      border-radius: 24px;
+      box-shadow: var(--shadow-card);
+      padding: var(--space-32);
       overflow-x: auto;
     }
 
+    .digest > *:first-child { margin-top: 0; }
+    .digest > *:last-child { margin-bottom: 0; }
+
+    .digest h1,
+    .digest h2 {
+      margin: 1.5em 0 0.5em;
+    }
+    .digest h1:first-child,
+    .digest h2:first-child { margin-top: 0; }
+
+    /* ── Sidebar Panel ── */
     .panel {
-      padding: 24px;
+      background: var(--color-white);
+      border-radius: 24px;
+      box-shadow: var(--shadow-card);
+      padding: var(--space-24);
       position: sticky;
-      top: 24px;
+      top: var(--space-24);
     }
 
     .panel h2 {
-      margin-top: 0;
-      font-size: 22px;
+      font-size: 21px;
+      margin: 0 0 var(--space-16);
+      padding-bottom: var(--space-12);
+      border-bottom: 1px solid var(--color-line);
     }
 
+    /* ── Archive List ── */
     .archive-list {
       list-style: none;
-      margin: 18px 0 0;
+      margin: 0;
       padding: 0;
-      display: grid;
-      gap: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-12);
     }
 
     .archive-list li {
-      padding-top: 14px;
-      border-top: 1px solid var(--line);
+      padding: var(--space-12) 0;
+      border-bottom: 1px solid var(--color-line);
     }
-
-    .archive-list li:first-child {
-      padding-top: 0;
-      border-top: 0;
-    }
+    .archive-list li:last-child { border-bottom: none; }
 
     .archive-list a {
-      font-weight: 700;
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--color-near-black);
       text-decoration: none;
     }
+    .archive-list a:hover { color: var(--color-apple-blue); text-decoration: none; }
 
     .archive-list p {
-      margin: 6px 0 0;
-      font-size: 14px;
-      color: var(--muted);
+      margin: 4px 0 0;
+      font-size: 13px;
+      color: var(--color-text-tertiary);
     }
 
-    .digest h1:first-child,
-    .digest h2:first-child {
-      margin-top: 0;
+    .footer-note {
+      margin-top: var(--space-20);
+      padding-top: var(--space-16);
+      border-top: 1px solid var(--color-line);
+      font-size: 13px;
+      color: var(--color-text-tertiary);
     }
 
+    /* ── Content Elements ── */
     blockquote {
       margin: 1.2em 0;
-      padding: 14px 16px;
-      border-left: 4px solid var(--accent);
-      background: var(--accent-soft);
-      border-radius: 0 18px 18px 0;
+      padding: 14px 18px;
+      border-left: 4px solid var(--color-apple-blue);
+      background: rgba(0, 113, 227, 0.05);
+      border-radius: 0 8px 8px 0;
+      color: var(--color-text-secondary);
     }
+    blockquote p:last-child { margin-bottom: 0; }
 
     hr {
       border: 0;
-      border-top: 1px solid var(--line);
-      margin: 26px 0;
+      border-top: 1px solid var(--color-line);
+      margin: var(--space-32) 0;
     }
 
+    /* ── Table ── */
     table {
       width: 100%;
       border-collapse: collapse;
       margin: 1.2em 0;
       font-size: 15px;
+      border-radius: 12px;
+      overflow: hidden;
     }
-
     th, td {
-      border: 1px solid var(--line);
-      padding: 10px 12px;
-      vertical-align: top;
-    }
-
-    th {
-      background: #f1e8dc;
+      padding: 10px 14px;
       text-align: left;
+      border-bottom: 1px solid var(--color-line);
     }
+    th {
+      background: var(--color-light-gray);
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.01em;
+      color: var(--color-text-secondary);
+    }
+    tr:last-child td { border-bottom: none; }
 
+    /* ── Code ── */
     pre {
       overflow-x: auto;
-      padding: 16px;
-      border-radius: 18px;
-      background: var(--code);
-      border: 1px solid var(--line);
-      font-size: 14px;
+      padding: var(--space-16);
+      border-radius: 12px;
+      background: var(--color-code-bg);
+      border: 1px solid var(--color-line);
+      font-size: 13px;
+      line-height: 1.5;
     }
-
     code {
-      font-family: "SFMono-Regular", "Menlo", monospace;
+      font-family: 'SFMono-Regular', 'Menlo', 'Monaco', monospace;
+      font-size: 0.9em;
     }
-
     p code,
     li code,
     td code,
     blockquote code {
-      background: var(--code);
-      padding: 0.08em 0.35em;
-      border-radius: 6px;
+      background: var(--color-code-bg);
+      padding: 0.15em 0.4em;
+      border-radius: 5px;
     }
 
+    /* ── Details/Summary ── */
     details {
-      margin: 18px 0;
-      padding: 14px 16px;
-      border-radius: 18px;
-      background: #f6efe4;
-      border: 1px solid var(--line);
+      margin: 1.2em 0;
+      padding: var(--space-16);
+      border-radius: 12px;
+      background: var(--color-light-gray);
+      border: 1px solid var(--color-line);
     }
-
     details summary {
       cursor: pointer;
-      font-weight: 700;
+      font-weight: 600;
+      font-size: 15px;
     }
+    details[open] summary { margin-bottom: var(--space-12); }
 
-    .footer-note {
-      margin-top: 24px;
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    @media (max-width: 900px) {
+    /* ── Responsive ── */
+    @media (max-width: 834px) {
       .layout {
         grid-template-columns: 1fr;
       }
-
       .panel {
         position: static;
       }
-
-      .digest,
-      .panel,
       .masthead {
-        padding: 22px;
-        border-radius: 20px;
+        padding: var(--space-32) var(--space-24);
+      }
+      .digest {
+        padding: var(--space-24);
+      }
+      .shell {
+        padding: var(--space-24) var(--space-12) var(--space-48);
       }
     }
   </style>
@@ -724,7 +869,7 @@ function renderIndexPage(siteUrl: string, items: ManifestItem[]): string {
 
       <aside class="panel">
         <h2>归档列表</h2>
-        <p class="archive-intro">GitHub Actions 每日运行一次，生成静态页面并回写仓库。</p>
+        <p class="archive-intro">GitHub Actions 每日运行一次，生成静态页面并发布到 docs 分支。</p>
         <ul class="archive-list">${archiveList || '<li><p>还没有归档条目。</p></li>'}</ul>
       </aside>
     </section>
@@ -786,7 +931,7 @@ async function readExistingManifest(outputDir: string): Promise<ManifestFile> {
           && typeof item.contentHtml === 'string'
           && typeof item.publishedAt === 'string'
         );
-      }) : [],
+      }).map((item) => sanitizeManifestItem(item)) : [],
     };
   } catch {
     return { siteUrl: '', generatedAt: '', items: [] };
@@ -803,6 +948,20 @@ async function pruneOldArchives(outputDir: string, keptItems: ManifestItem[], pr
   for (const item of previousItems) {
     if (keptDates.has(item.date)) continue;
     await rm(join(outputDir, 'digests', item.date), { recursive: true, force: true });
+  }
+}
+
+async function sanitizeArchiveMarkdown(archiveDir: string): Promise<void> {
+  const markdownPath = join(archiveDir, 'digest.md');
+
+  try {
+    const current = await readFile(markdownPath, 'utf8');
+    const sanitized = stripFooterAds(current);
+    if (sanitized !== current) {
+      await writeTextFile(markdownPath, sanitized);
+    }
+  } catch {
+    // Historical markdown is optional when bootstrapping from an empty docs branch.
   }
 }
 
@@ -839,10 +998,19 @@ async function main(): Promise<void> {
     items: mergedItems,
   };
 
-  const archiveDir = join(config.outputDir, 'digests', parsedDigest.date);
-  await mkdir(archiveDir, { recursive: true });
-  await writeTextFile(join(archiveDir, 'digest.md'), markdown);
-  await writeTextFile(join(archiveDir, 'index.html'), renderArchivePage(config.siteUrl, nextItem, mergedItems));
+  for (const item of mergedItems) {
+    const archiveDir = join(config.outputDir, 'digests', item.date);
+    await mkdir(archiveDir, { recursive: true });
+
+    if (item.date === parsedDigest.date) {
+      await writeTextFile(join(archiveDir, 'digest.md'), parsedDigest.markdown);
+    } else {
+      await sanitizeArchiveMarkdown(archiveDir);
+    }
+
+    await writeTextFile(join(archiveDir, 'index.html'), renderArchivePage(config.siteUrl, item, mergedItems));
+  }
+
   await writeTextFile(join(config.outputDir, 'index.html'), renderIndexPage(config.siteUrl, mergedItems));
   await writeTextFile(join(config.outputDir, 'feed.xml'), renderFeed(config.siteUrl, mergedItems));
   await writeTextFile(join(config.outputDir, 'manifest.json'), JSON.stringify(nextManifest, null, 2) + '\n');
