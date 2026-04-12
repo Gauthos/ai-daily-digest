@@ -14,6 +14,8 @@ const FEED_CONCURRENCY = 10;
 const GEMINI_BATCH_SIZE = 10;
 const MAX_CONCURRENT_GEMINI = 2;
 const AI_JSON_MAX_ATTEMPTS = 2;
+const AI_REQUEST_TIMEOUT_MS = 180_000;
+const AI_REQUEST_DELAY_MS = 8_000;
 const HAWAII_TIME_ZONE = 'Pacific/Honolulu';
 
 const HAWAII_DATE_TIME_FORMATTER = new Intl.DateTimeFormat('en-CA', {
@@ -268,6 +270,10 @@ function formatHawaiiCompactDate(date: Date): string {
   return formatHawaiiDate(date).replace(/-/g, '');
 }
 
+function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function parseDate(dateStr: string): Date | null {
   if (!dateStr) return null;
   
@@ -436,43 +442,58 @@ function formatAIDetails(details: Record<string, string | undefined>): string {
 }
 
 async function callGemini(prompt: string, apiKey: string, options: AIRequestOptions = {}): Promise<string> {
-  const response = await fetch(`${GEMINI_API_URL}?key=${apiKey}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: {
-        temperature: 0.3,
-        topP: 0.8,
-        topK: 40,
-        ...(options.responseType === 'json' ? { responseMimeType: 'application/json' } : {}),
-      },
-    }),
-  });
-  
-  if (!response.ok) {
-    const errorText = await response.text().catch(() => 'Unknown error');
-    throw new Error(`Gemini API error (${response.status}): ${errorText}`);
-  }
-  
-  const data = await response.json() as {
-    candidates?: Array<{
-      finishReason?: string;
-      content?: { parts?: Array<{ text?: string }> };
-    }>;
-    promptFeedback?: {
-      blockReason?: string;
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), AI_REQUEST_TIMEOUT_MS);
+
+  try {
+    const response = await fetch(`${GEMINI_API_URL}?key=${apiKey}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      signal: controller.signal,
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: {
+          temperature: 0.3,
+          topP: 0.8,
+          topK: 40,
+          ...(options.responseType === 'json' ? { responseMimeType: 'application/json' } : {}),
+        },
+      }),
+    });
+    
+    if (!response.ok) {
+      const errorText = await response.text().catch(() => 'Unknown error');
+      throw new Error(`Gemini API error (${response.status}): ${errorText}`);
+    }
+    
+    const data = await response.json() as {
+      candidates?: Array<{
+        finishReason?: string;
+        content?: { parts?: Array<{ text?: string }> };
+      }>;
+      promptFeedback?: {
+        blockReason?: string;
+      };
     };
-  };
 
-  const candidate = data.candidates?.[0];
-  const text = extractTextParts(candidate?.content?.parts);
-  if (text) return text;
+    const candidate = data.candidates?.[0];
+    const text = extractTextParts(candidate?.content?.parts);
+    if (text) return text;
 
-  throw new Error(`Gemini returned no text content${formatAIDetails({
-    finishReason: candidate?.finishReason,
-    blockReason: data.promptFeedback?.blockReason,
-  })}`);
+    throw new Error(`Gemini returned no text content${formatAIDetails({
+      finishReason: candidate?.finishReason,
+      blockReason: data.promptFeedback?.blockReason,
+    })}`);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    if (message.includes('abort')) {
+      throw new Error(`Gemini request timed out after ${AI_REQUEST_TIMEOUT_MS / 1000} seconds`);
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+    await sleep(AI_REQUEST_DELAY_MS);
+  }
 }
 
 async function callOpenAICompatible(
@@ -483,47 +504,62 @@ async function callOpenAICompatible(
   _options: AIRequestOptions = {}
 ): Promise<string> {
   const normalizedBase = apiBase.replace(/\/+$/, '');
-  const response = await fetch(`${normalizedBase}/chat/completions`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model,
-      messages: [{ role: 'user', content: prompt }],
-      temperature: 0.3,
-      top_p: 0.8,
-    }),
-  });
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), AI_REQUEST_TIMEOUT_MS);
 
-  if (!response.ok) {
-    const errorText = await response.text().catch(() => 'Unknown error');
-    throw new Error(`OpenAI-compatible API error (${response.status}): ${errorText}`);
+  try {
+    const response = await fetch(`${normalizedBase}/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
+      signal: controller.signal,
+      body: JSON.stringify({
+        model,
+        messages: [{ role: 'user', content: prompt }],
+        temperature: 0.3,
+        top_p: 0.8,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text().catch(() => 'Unknown error');
+      throw new Error(`OpenAI-compatible API error (${response.status}): ${errorText}`);
+    }
+
+    const data = await response.json() as {
+      choices?: Array<{
+        finish_reason?: string;
+        message?: {
+          content?: string | Array<{ type?: string; text?: string }>;
+          refusal?: string;
+        };
+      }>;
+    };
+
+    const choice = data.choices?.[0];
+    const content = choice?.message?.content;
+    if (typeof content === 'string' && content.trim()) return content;
+    if (Array.isArray(content)) {
+      const text = extractTextParts(content);
+      if (text) return text;
+    }
+
+    throw new Error(`OpenAI-compatible API returned no text content${formatAIDetails({
+      finishReason: choice?.finish_reason,
+      refusal: choice?.message?.refusal,
+    })}`);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    if (message.includes('abort')) {
+      throw new Error(`OpenAI-compatible request timed out after ${AI_REQUEST_TIMEOUT_MS / 1000} seconds`);
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+    await sleep(AI_REQUEST_DELAY_MS);
   }
-
-  const data = await response.json() as {
-    choices?: Array<{
-      finish_reason?: string;
-      message?: {
-        content?: string | Array<{ type?: string; text?: string }>;
-        refusal?: string;
-      };
-    }>;
-  };
-
-  const choice = data.choices?.[0];
-  const content = choice?.message?.content;
-  if (typeof content === 'string' && content.trim()) return content;
-  if (Array.isArray(content)) {
-    const text = extractTextParts(content);
-    if (text) return text;
-  }
-
-  throw new Error(`OpenAI-compatible API returned no text content${formatAIDetails({
-    finishReason: choice?.finish_reason,
-    refusal: choice?.message?.refusal,
-  })}`);
 }
 
 function inferOpenAIModel(apiBase: string): string {
