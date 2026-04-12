@@ -28,7 +28,7 @@
 
 | 扫描源 | 抓取文章 | 时间范围 | 精选 |
 |:---:|:---:|:---:|:---:|
-| 82/92 | 2402 篇 → 21 篇 | 48h | **15 篇** |
+| 83/92 | 2425 篇 → 23 篇 | 48h | **15 篇** |
 
 ### 分类分布
 
@@ -122,7 +122,23 @@ pie showData
 
 ---
 
-### 11. How do you add or remove a handle from an active Wait­For­Multiple­Objects?, part 2
+### 11. Cheapest way to keep a UK mobile number using an eSIM
+
+[Cheapest way to keep a UK mobile number using an eSIM](https://shkspr.mobi/blog/2026/04/cheapest-way-to-keep-a-uk-mobile-number-using-an-esim/) — **shkspr.mobi** · 13 小时前 · ⭐ 15/30
+
+> Cheapest way to keep a UK mobile number using an eSIM
+
+---
+
+### 12. [RSS Club] Why do you use RSS rather than Atom?
+
+[[RSS Club] Why do you use RSS rather than Atom?](https://shkspr.mobi/blog/2026/04/rss-club-why-do-you-use-rss-rather-than-atom/) — **shkspr.mobi** · 1 天前 · ⭐ 15/30
+
+> [RSS Club] Why do you use RSS rather than Atom?
+
+---
+
+### 13. How do you add or remove a handle from an active Wait­For­Multiple­Objects?, part 2
 
 [How do you add or remove a handle from an active Wait­For­Multiple­Objects?, part 2](https://devblogs.microsoft.com/oldnewthing/20260410-00/?p=112223) — **devblogs.microsoft.com/oldnewthing** · 1 天前 · ⭐ 15/30
 
@@ -130,7 +146,7 @@ pie showData
 
 ---
 
-### 12. The Center Has a Bias
+### 14. The Center Has a Bias
 
 [The Center Has a Bias](https://lucumr.pocoo.org/2026/4/11/the-center-has-a-bias/) — **lucumr.pocoo.org** · 1 天前 · ⭐ 15/30
 
@@ -138,7 +154,7 @@ pie showData
 
 ---
 
-### 13. Distribution of digits in fractions
+### 15. Distribution of digits in fractions
 
 [Distribution of digits in fractions](https://www.johndcook.com/blog/2026/04/10/fraction-digits/) — **johndcook.com** · 1 天前 · ⭐ 15/30
 
@@ -146,22 +162,6 @@ pie showData
 
 ---
 
-### 14. Why I quit "The Strive"
-
-[Why I quit "The Strive"](https://www.joanwestenberg.com/why-i-quit-the-strive/) — **joanwestenberg.com** · 1 天前 · ⭐ 15/30
-
-> Why I quit "The Strive"
-
----
-
-### 15. Package Registries and Pagination
-
-[Package Registries and Pagination](https://nesbitt.io/2026/04/10/package-registries-and-pagination.html) — **nesbitt.io** · 1 天前 · ⭐ 15/30
-
-> Package Registries and Pagination
-
----
-
-*生成于 2026-04-12 01:02 | 扫描 82 源 → 获取 2402 篇 → 精选 15 篇*
+*生成于 2026-04-12 01:24 | 扫描 83 源 → 获取 2425 篇 → 精选 15 篇*
 *基于 [Hacker News Popularity Contest 2025](https://refactoringenglish.com/tools/hn-popularity/) RSS 源列表，由 [Andrej Karpathy](https://x.com/karpathy) 推荐*
 *由「懂点儿AI」制作，欢迎关注同名微信公众号获取更多 AI 实用技巧 💡*
