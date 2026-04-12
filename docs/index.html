@@ -9,240 +9,323 @@
   <link rel="alternate" type="application/rss+xml" title="AI Daily Digest" href="https://Gauthos.github.io/ai-daily-digest/feed.xml" />
   <style>
     :root {
-      color-scheme: light;
-      --bg: #f6f3ec;
-      --paper: #fffdf7;
-      --ink: #1f1a17;
-      --muted: #6a5f58;
-      --line: #d8cfc1;
-      --accent: #a94e2d;
-      --accent-soft: #f2d7c8;
-      --code: #f3ede3;
-      --shadow: 0 20px 50px rgba(57, 42, 31, 0.08);
+      /* Apple Design System Colors */
+      --color-black: #000000;
+      --color-light-gray: #f5f5f7;
+      --color-near-black: #1d1d1f;
+      --color-apple-blue: #0071e3;
+      --color-link-blue: #0066cc;
+      --color-link-blue-bright: #2997ff;
+      --color-text-secondary: rgba(0, 0, 0, 0.8);
+      --color-text-tertiary: rgba(0, 0, 0, 0.48);
+      --color-dark-surface: #272729;
+      --color-white: #ffffff;
+      --color-line: rgba(0, 0, 0, 0.1);
+      --color-overlay: rgba(210, 210, 215, 0.64);
+      --color-code-bg: #f5f5f7;
+      --shadow-card: rgba(0, 0, 0, 0.12) 0px 4px 20px 0px;
+      --shadow-elevated: rgba(0, 0, 0, 0.22) 3px 5px 30px 0px;
+
+      /* Spacing (8px base) */
+      --space-4: 4px;
+      --space-8: 8px;
+      --space-12: 12px;
+      --space-16: 16px;
+      --space-20: 20px;
+      --space-24: 24px;
+      --space-32: 32px;
+      --space-48: 48px;
+      --space-56: 56px;
     }
 
-    * { box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", serif;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at top left, rgba(169, 78, 45, 0.08), transparent 32%),
-        linear-gradient(180deg, #efe6d9 0%, var(--bg) 22%, #f5f0e7 100%);
-      line-height: 1.65;
+      font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.47;
+      letter-spacing: -0.022em;
+      color: var(--color-near-black);
+      background: var(--color-light-gray);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    a { color: var(--accent); }
+    /* ── Typography ── */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--color-near-black);
+    }
+
+    h1 { font-size: clamp(32px, 5vw, 52px); font-weight: 700; line-height: 1.05; letter-spacing: -0.03em; }
+    h2 { font-size: clamp(24px, 3.5vw, 36px); }
+    h3 { font-size: 21px; font-weight: 600; line-height: 1.2; letter-spacing: -0.01em; }
+    h4 { font-size: 17px; font-weight: 600; }
+
+    p { margin: 0 0 1em; }
+
+    a {
+      color: var(--color-link-blue);
+      text-decoration: none;
+    }
+    a:hover { text-decoration: underline; }
+    a:focus-visible {
+      outline: 2px solid var(--color-apple-blue);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    /* ── Layout Shell ── */
     .shell {
-      width: min(1100px, calc(100% - 32px));
+      width: min(980px, calc(100% - 32px));
       margin: 0 auto;
-      padding: 32px 0 64px;
+      padding: var(--space-32) var(--space-16) var(--space-56);
     }
 
-    .masthead,
-    .panel,
-    .digest {
-      background: color-mix(in srgb, var(--paper) 92%, white 8%);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
-      border-radius: 24px;
+    /* ── Cards ── */
+    .card {
+      background: var(--color-white);
+      border-radius: var(--radius-large, 18px);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
     }
 
     .masthead {
-      padding: 28px 28px 22px;
-      margin-bottom: 24px;
+      padding: var(--space-48) var(--space-32) var(--space-32);
+      margin-bottom: var(--space-16);
+      background: var(--color-white);
+      border-radius: 24px;
+      box-shadow: var(--shadow-card);
     }
 
     .kicker {
-      display: inline-flex;
-      gap: 10px;
-      align-items: center;
-      font-size: 13px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    h1, h2, h3, h4, h5, h6 {
-      line-height: 1.2;
-      margin: 1.3em 0 0.5em;
-      font-family: Georgia, "Times New Roman", serif;
-    }
-
-    .masthead h1 {
-      margin: 12px 0 10px;
-      font-size: clamp(34px, 5vw, 56px);
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      color: var(--color-text-tertiary);
+      margin-bottom: var(--space-8);
     }
 
     .masthead p,
-    .meta,
-    .archive-intro {
-      color: var(--muted);
+    .meta {
+      color: var(--color-text-secondary);
       margin: 0;
+      font-size: 17px;
     }
 
     .action-row {
-      margin-top: 18px;
+      margin-top: var(--space-20);
       display: flex;
-      gap: 12px;
+      gap: var(--space-8);
       flex-wrap: wrap;
     }
 
     .action-row a {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
+      gap: 6px;
+      padding: var(--space-8) var(--space-16);
+      background: var(--color-apple-blue);
+      color: var(--color-white);
+      border-radius: 980px;
+      font-size: 15px;
+      font-weight: 400;
       text-decoration: none;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: var(--paper);
+      transition: background 0.2s ease;
+    }
+    .action-row a:hover {
+      background: #0077ed;
+      text-decoration: none;
+    }
+    .action-row a:focus-visible {
+      outline: 2px solid var(--color-apple-blue);
+      outline-offset: 3px;
     }
 
+    /* ── Two-column layout ── */
     .layout {
       display: grid;
-      grid-template-columns: minmax(0, 1.9fr) minmax(260px, 0.9fr);
-      gap: 24px;
+      grid-template-columns: minmax(0, 1.7fr) minmax(220px, 0.8fr);
+      gap: var(--space-16);
       align-items: start;
     }
 
+    /* ── Main Digest ── */
     .digest {
-      padding: 30px;
+      background: var(--color-white);
+      border-radius: 24px;
+      box-shadow: var(--shadow-card);
+      padding: var(--space-32);
       overflow-x: auto;
     }
 
+    .digest > *:first-child { margin-top: 0; }
+    .digest > *:last-child { margin-bottom: 0; }
+
+    .digest h1,
+    .digest h2 {
+      margin: 1.5em 0 0.5em;
+    }
+    .digest h1:first-child,
+    .digest h2:first-child { margin-top: 0; }
+
+    /* ── Sidebar Panel ── */
     .panel {
-      padding: 24px;
+      background: var(--color-white);
+      border-radius: 24px;
+      box-shadow: var(--shadow-card);
+      padding: var(--space-24);
       position: sticky;
-      top: 24px;
+      top: var(--space-24);
     }
 
     .panel h2 {
-      margin-top: 0;
-      font-size: 22px;
+      font-size: 21px;
+      margin: 0 0 var(--space-16);
+      padding-bottom: var(--space-12);
+      border-bottom: 1px solid var(--color-line);
     }
 
+    /* ── Archive List ── */
     .archive-list {
       list-style: none;
-      margin: 18px 0 0;
+      margin: 0;
       padding: 0;
-      display: grid;
-      gap: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-12);
     }
 
     .archive-list li {
-      padding-top: 14px;
-      border-top: 1px solid var(--line);
+      padding: var(--space-12) 0;
+      border-bottom: 1px solid var(--color-line);
     }
-
-    .archive-list li:first-child {
-      padding-top: 0;
-      border-top: 0;
-    }
+    .archive-list li:last-child { border-bottom: none; }
 
     .archive-list a {
-      font-weight: 700;
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--color-near-black);
       text-decoration: none;
     }
+    .archive-list a:hover { color: var(--color-apple-blue); text-decoration: none; }
 
     .archive-list p {
-      margin: 6px 0 0;
-      font-size: 14px;
-      color: var(--muted);
+      margin: 4px 0 0;
+      font-size: 13px;
+      color: var(--color-text-tertiary);
     }
 
-    .digest h1:first-child,
-    .digest h2:first-child {
-      margin-top: 0;
+    .footer-note {
+      margin-top: var(--space-20);
+      padding-top: var(--space-16);
+      border-top: 1px solid var(--color-line);
+      font-size: 13px;
+      color: var(--color-text-tertiary);
     }
 
+    /* ── Content Elements ── */
     blockquote {
       margin: 1.2em 0;
-      padding: 14px 16px;
-      border-left: 4px solid var(--accent);
-      background: var(--accent-soft);
-      border-radius: 0 18px 18px 0;
+      padding: 14px 18px;
+      border-left: 4px solid var(--color-apple-blue);
+      background: rgba(0, 113, 227, 0.05);
+      border-radius: 0 8px 8px 0;
+      color: var(--color-text-secondary);
     }
+    blockquote p:last-child { margin-bottom: 0; }
 
     hr {
       border: 0;
-      border-top: 1px solid var(--line);
-      margin: 26px 0;
+      border-top: 1px solid var(--color-line);
+      margin: var(--space-32) 0;
     }
 
+    /* ── Table ── */
     table {
       width: 100%;
       border-collapse: collapse;
       margin: 1.2em 0;
       font-size: 15px;
+      border-radius: 12px;
+      overflow: hidden;
     }
-
     th, td {
-      border: 1px solid var(--line);
-      padding: 10px 12px;
-      vertical-align: top;
-    }
-
-    th {
-      background: #f1e8dc;
+      padding: 10px 14px;
       text-align: left;
+      border-bottom: 1px solid var(--color-line);
     }
+    th {
+      background: var(--color-light-gray);
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.01em;
+      color: var(--color-text-secondary);
+    }
+    tr:last-child td { border-bottom: none; }
 
+    /* ── Code ── */
     pre {
       overflow-x: auto;
-      padding: 16px;
-      border-radius: 18px;
-      background: var(--code);
-      border: 1px solid var(--line);
-      font-size: 14px;
+      padding: var(--space-16);
+      border-radius: 12px;
+      background: var(--color-code-bg);
+      border: 1px solid var(--color-line);
+      font-size: 13px;
+      line-height: 1.5;
     }
-
     code {
-      font-family: "SFMono-Regular", "Menlo", monospace;
+      font-family: 'SFMono-Regular', 'Menlo', 'Monaco', monospace;
+      font-size: 0.9em;
     }
-
     p code,
     li code,
     td code,
     blockquote code {
-      background: var(--code);
-      padding: 0.08em 0.35em;
-      border-radius: 6px;
+      background: var(--color-code-bg);
+      padding: 0.15em 0.4em;
+      border-radius: 5px;
     }
 
+    /* ── Details/Summary ── */
     details {
-      margin: 18px 0;
-      padding: 14px 16px;
-      border-radius: 18px;
-      background: #f6efe4;
-      border: 1px solid var(--line);
+      margin: 1.2em 0;
+      padding: var(--space-16);
+      border-radius: 12px;
+      background: var(--color-light-gray);
+      border: 1px solid var(--color-line);
     }
-
     details summary {
       cursor: pointer;
-      font-weight: 700;
+      font-weight: 600;
+      font-size: 15px;
     }
+    details[open] summary { margin-bottom: var(--space-12); }
 
-    .footer-note {
-      margin-top: 24px;
-      font-size: 14px;
-      color: var(--muted);
-    }
-
-    @media (max-width: 900px) {
+    /* ── Responsive ── */
+    @media (max-width: 834px) {
       .layout {
         grid-template-columns: 1fr;
       }
-
       .panel {
         position: static;
       }
-
-      .digest,
-      .panel,
       .masthead {
-        padding: 22px;
-        border-radius: 20px;
+        padding: var(--space-32) var(--space-24);
+      }
+      .digest {
+        padding: var(--space-24);
+      }
+      .shell {
+        padding: var(--space-24) var(--space-12) var(--space-48);
       }
     }
   </style>
@@ -278,6 +361,7 @@
 <blockquote><p>问题在于包注册表的版本列表接口如果缺少合理分页，会让客户端为少量实际需求下载过量元数据。作者给出的具体例子是某个包仅版本元数据就达到 100MB，对应 10,451 个版本，这种 API 设计会显著放大带宽、延迟和解析成本。文章讨论了包生态中的注册表实现为何容易忽视分页，以及这种“把全部历史一次性返回”的做法如何伤害镜像服务、CLI 工具和普通用户体验。核心观点是，分页不只是性能优化，而是包注册表在可扩展性和长期演进上必须具备的基础能力。</p></blockquote>
 <p>💡 <strong>为什么值得读</strong>: 值得读，因为它用一个 100MB 元数据的真实案例，把看似普通的 API 分页问题上升成了包基础设施设计的可扩展性警告。</p>
 <p>🏷️ package registry, pagination, metadata, scalability</p>
+<hr />
 <hr />
 <h2>📝 其他</h2>
 <h3>1. SQLite 3.53.0</h3>
@@ -347,12 +431,12 @@
 <blockquote><p>问题在于包注册表的版本列表接口如果缺少合理分页，会让客户端为少量实际需求下载过量元数据。作者给出的具体例子是某个包仅版本元数据就达到 100MB，对应 10,451 个版本，这种 API 设计会显著放大带宽、延迟和解析成本。文章讨论了包生态中的注册表实现为何容易忽视分页，以及这种“把全部历史一次性返回”的做法如何伤害镜像服务、CLI 工具和普通用户体验。核心观点是，分页不只是性能优化，而是包注册表在可扩展性和长期演进上必须具备的基础能力。</p></blockquote>
 <p>🏷️ package registry, pagination, metadata, scalability</p>
 <hr />
-<p><em>生成于 2026-04-12 01:33 | 扫描 83 源 → 获取 2422 篇 → 精选 15 篇</em> <em>基于 <a href="https://refactoringenglish.com/tools/hn-popularity/">Hacker News Popularity Contest 2025</a> RSS 源列表，由 <a href="https://x.com/karpathy">Andrej Karpathy</a> 推荐</em></p></article>
+<p><em>生成于 2026-04-12 01:33 | 扫描 83 源 → 获取 2422 篇 → 精选 15 篇</em> <em>基于 <a href="https://refactoringenglish.com/tools/hn-popularity/">Hacker News Popularity Contest 2025</a> RSS 源列表，由 <a href="https://x.com/karpathy">Andrej Karpathy</a> 推荐</em> </p></article>
 
       <aside class="panel">
         <h2>归档列表</h2>
-        <p class="archive-intro">GitHub Actions 每日运行一次，生成静态页面并回写仓库。</p>
-        <ul class="archive-list"><li><a href="https://Gauthos.github.io/ai-daily-digest/digests/2026-04-12/">📰 AI 博客每日精选 — 2026-04-12</a><p>📰 AI 博客每日精选 — 2026 04 12 来自 Karpathy 推荐的 92 个顶级技术博客，AI 精选 Top 15 🏆 今日必读 🥇 中心立场也有偏见 The Center Has a Bias — lucumr.pocoo.org · 1 天前 · 💡 观点 / 杂谈 围绕 AI 编码代理的讨论并不只是“拥抱”与“拒绝”两极对立，所谓温和、中立的中间派同样会带着系统性偏见。作者指出，许多针对 AI coding agents 的批评本身并非无效，但常出自缺乏一线使用经验的人，这使得他们容易高估工具的缺陷、低估其在真实工作流中的适配 · <a href="https://Gauthos.github.io/ai-daily-digest/digests/2026-04-12/digest.md">Markdown</a></p></li></ul>
+        <p class="archive-intro">GitHub Actions 每日运行一次，生成静态页面并发布到 docs 分支。</p>
+        <ul class="archive-list"><li><a href="https://Gauthos.github.io/ai-daily-digest/digests/2026-04-12/">📰 AI 博客每日精选 — 2026-04-12</a><p>📰 AI 博客每日精选 — 2026 04 12 来自 Karpathy 推荐的 92 个顶级技术博客，AI 精选 Top 15 🏆 今日必读 🥇 中心立场也有偏见 The Center Has a Bias — lucumr.pocoo.org · 1 天前 · 💡 观点 / 杂谈 围绕 AI 编码代理的讨论并不只是“拥抱”与“拒绝”两极对立，所谓温和、中立的中间派同样会带着系统性偏见。作者指出，许多针对 AI coding agents 的批评本身并非无效，但常出自缺乏一线使用经验的人，这使得他们容易高估工具的缺陷、低估其在真实工作流中的适配 · <a href="https://Gauthos.github.io/ai-daily-digest/digests/2026-04-12/digest.md">Markdown</a></p></li><li><a href="https://Gauthos.github.io/ai-daily-digest/digests/2026-04-11/">📰 AI 博客每日精选 — 2026-04-11</a><p>今天技术圈的主线，一边是基础设施继续打磨到更深处：从 SQLite 3.53.0 的集中升级，到包注册表分页、并发等待句柄管理这类底层问题，工程关注点明显回到“性能、正确性和可维护性”的硬功夫。另一边，AI 话题正从单纯拼能力，转向对产品真实体验与组织结构的再审视：语音模式并不等于最强模型，说明“看起来更自然”不代表“底层更先进”。与此同时，围绕 OpenAI 和 AI 编码代理的争论，也暴露出技术圈正在重新讨论谁在塑造判断——是模型本身、产品包装，还是背后的人才、治理与话语偏见。整体看，今天的讨论更务实了：既盯底层系统怎么做得更稳，也追问 AI 叙事到 · <a href="https://Gauthos.github.io/ai-daily-digest/digests/2026-04-11/digest.md">Markdown</a></p></li></ul>
       </aside>
     </section>
   </main>

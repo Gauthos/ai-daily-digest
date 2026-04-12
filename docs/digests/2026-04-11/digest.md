@@ -1,0 +1,206 @@
+# 📰 AI 博客每日精选 — 2026-04-11
+
+> 来自 Karpathy 推荐的 92 个顶级技术博客，AI 精选 Top 15
+
+## 📝 今日看点
+
+今天技术圈的主线，一边是基础设施继续打磨到更深处：从 SQLite 3.53.0 的集中升级，到包注册表分页、并发等待句柄管理这类底层问题，工程关注点明显回到“性能、正确性和可维护性”的硬功夫。另一边，AI 话题正从单纯拼能力，转向对产品真实体验与组织结构的再审视：语音模式并不等于最强模型，说明“看起来更自然”不代表“底层更先进”。与此同时，围绕 OpenAI 和 AI 编码代理的争论，也暴露出技术圈正在重新讨论谁在塑造判断——是模型本身、产品包装，还是背后的人才、治理与话语偏见。整体看，今天的讨论更务实了：既盯底层系统怎么做得更稳，也追问 AI 叙事到底有多少成分是真实力、多少是幻觉。
+
+---
+
+## 🏆 今日必读
+
+🥇 **SQLite 3.53.0**
+
+[SQLite 3.53.0](https://simonwillison.net/2026/Apr/11/sqlite/#atom-everything) — simonwillison.net · 8 小时前 · ⚙️ 工程
+
+> SQLite 3.53.0 是一次积累了大量改进的重要版本，因为 3.52.0 已被撤回，许多面向用户和内部实现的更新集中落在这一版。最突出的变化之一是 `ALTER TABLE` 现在可以直接添加和移除 `NOT NULL` 与 `CHECK` 约束，减少了过去需要借助外部工具或重建表结构的繁琐操作。文章还强调这次发布不仅有 SQL 层面的能力增强，也包含不少底层与可用性改进，使 SQLite 在模式演进和日常维护上更实用。作者的核心判断是，这是一版值得开发者认真关注的 SQLite 更新，尤其适合经常做 schema 变更的人。
+
+💡 **为什么值得读**: 如果你在生产环境中使用 SQLite，这一版对表结构迁移能力的增强非常实用，能直接影响开发和运维效率。
+
+🏷️ SQLite, database, release, SQL
+
+🥈 **中间立场也有偏见**
+
+[The Center Has a Bias](https://lucumr.pocoo.org/2026/4/11/the-center-has-a-bias/) — lucumr.pocoo.org · 1 天前 · 💡 观点 / 杂谈
+
+> 围绕 AI 编码代理的争论并不只是“拥护者 vs 反对者”，所谓看似理性的中间立场同样可能带有系统性偏见。作者指出，很多针对这类工具的批评本身并非无效，但往往来自缺乏足够一手使用经验的人，因此容易把局部问题、错误预期或不熟悉工作流造成的摩擦，当成对技术整体价值的否定。文章的关键观点是，评估 AI coding agents 需要基于真实、持续、具备上下文的实践，而不是靠阵营化讨论或抽象判断。最终结论是：比起急于站队，更重要的是承认自身经验边界，并用实际使用结果校正观点。
+
+💡 **为什么值得读**: 这篇文章值得读，因为它不是在替 AI 工具站台，而是在提醒你如何避免用“看似客观”的姿态做出失真的技术判断。
+
+🏷️ AI agents, coding assistants, adoption, bias
+
+🥉 **付费：OpenAI 黑粉指南**
+
+[Premium: The Hater's Guide to OpenAI](https://www.wheresyoured.at/hatersguide-openai/) — wheresyoured.at · 1 天前 · 💡 观点 / 杂谈
+
+> 文章从 OpenAI 2023 年董事会风波切入，聚焦 Sam Altman 在被短暂罢免前后的治理争议、沟通方式以及外界所指的“欺骗模式”。作者显然采取强烈批判立场，试图梳理 OpenAI 在公司治理、权力结构、公共叙事和商业化路径上的问题，而不只是停留在产品层面的成败评价。核心论点不是单点指责，而是将 Altman 的个人领导风格与 OpenAI 长期存在的组织性矛盾联系起来，解释为何这家公司会持续陷入信任危机。结论上，这是一篇从批评者视角审视 OpenAI 的长文，意在说明其问题并非偶发事件，而是深层治理缺陷的外在表现。
+
+💡 **为什么值得读**: 如果你想理解 OpenAI 的争议为何总是超出技术范畴、不断演变为治理与信任问题，这篇文章提供了一个强批判但有脉络的观察框架。
+
+🏷️ OpenAI, Sam Altman, governance, AI industry
+
+---
+
+## 💡 观点 / 杂谈
+
+### 1. 中间立场也有偏见
+
+[The Center Has a Bias](https://lucumr.pocoo.org/2026/4/11/the-center-has-a-bias/) — **lucumr.pocoo.org** · 1 天前 · ⭐ 24/30
+
+> 围绕 AI 编码代理的争论并不只是“拥护者 vs 反对者”，所谓看似理性的中间立场同样可能带有系统性偏见。作者指出，很多针对这类工具的批评本身并非无效，但往往来自缺乏足够一手使用经验的人，因此容易把局部问题、错误预期或不熟悉工作流造成的摩擦，当成对技术整体价值的否定。文章的关键观点是，评估 AI coding agents 需要基于真实、持续、具备上下文的实践，而不是靠阵营化讨论或抽象判断。最终结论是：比起急于站队，更重要的是承认自身经验边界，并用实际使用结果校正观点。
+
+🏷️ AI agents, coding assistants, adoption, bias
+
+---
+
+### 2. 付费：OpenAI 黑粉指南
+
+[Premium: The Hater's Guide to OpenAI](https://www.wheresyoured.at/hatersguide-openai/) — **wheresyoured.at** · 1 天前 · ⭐ 24/30
+
+> 文章从 OpenAI 2023 年董事会风波切入，聚焦 Sam Altman 在被短暂罢免前后的治理争议、沟通方式以及外界所指的“欺骗模式”。作者显然采取强烈批判立场，试图梳理 OpenAI 在公司治理、权力结构、公共叙事和商业化路径上的问题，而不只是停留在产品层面的成败评价。核心论点不是单点指责，而是将 Altman 的个人领导风格与 OpenAI 长期存在的组织性矛盾联系起来，解释为何这家公司会持续陷入信任危机。结论上，这是一篇从批评者视角审视 OpenAI 的长文，意在说明其问题并非偶发事件，而是深层治理缺陷的外在表现。
+
+🏷️ OpenAI, Sam Altman, governance, AI industry
+
+---
+
+### 3. 没有了人才，OpenAI 就什么都不是
+
+[OpenAI is nothing without its people](https://geohot.github.io//blog/jekyll/update/2026/04/11/openai-people.html) — **geohot.github.io** · 1 天前 · ⭐ 20/30
+
+> 文章是对 Sam Altman 一篇博文的回应，核心论点从公司品牌、资本或组织叙事转向“人”本身的重要性。标题已经鲜明表达了立场：OpenAI 的真正价值不在抽象的机构名号，而在具体研究员、工程师和关键团队成员的能力与贡献。这样的观点通常意味着，AI 公司的护城河并非只靠融资、算力或商业包装维持，而高度依赖能持续产出模型突破与产品落地的人才密度。它也隐含了对组织稳定性、人才流失和领导层叙事的反思：一旦核心成员变化，外界对“公司能力”的判断也应随之调整。结论是：衡量 OpenAI 这类 AI 机构时，最该看的不是神话化品牌，而是谁在真正推动技术前进。
+
+🏷️ OpenAI, geohot, talent, company culture
+
+---
+
+### 4. 你的朋友正在对你藏起他们最好的点子
+
+[Your friends are hiding their best ideas from you](https://idiallo.com/blog/your-friends-are-hiding-their-ideas?src=feed) — **idiallo.com** · 1 天前 · ⭐ 18/30
+
+> 核心观点是，人们往往不会把自己最好的创意第一时间拿出来，而是因为害怕显得荒唐、幼稚或不够成熟而选择隐藏。作者从大学时期做网站项目的经历切入，说明很多灵感只有在真正动手、被他人看见并获得反馈后，才会从“模糊念头”变成有生命力的作品。隐藏想法看似是在保护自己，实际却让好点子失去被打磨、被验证和被放大的机会。作者最终认为，创造力不是靠把创意攥在手里积累出来的，而是靠尽早分享、接受反馈和反复迭代形成的。
+
+🏷️ creativity, ideas, collaboration, career
+
+---
+
+### 5. Pluralistic：恐怖谷与知识共享
+
+[Pluralistic: Canny Valley and Creative Commons (10 Apr 2026)](https://pluralistic.net/2026/04/10/canny-valley/) — **pluralistic.net** · 1 天前 · ⭐ 17/30
+
+> 核心话题聚焦在“恐怖谷（Canny Valley）”与“知识共享（Creative Commons）”这两个看似分散、实际都与数字文化生产和版权秩序相关的议题。标题中的“Another bite at the apple”暗示作者可能在重提旧问题：生成式内容、拟真媒介或平台化创作正在重新触发人们对原创性、授权机制和文化公共品的争论。文章同时延续 Pluralistic 一贯的批判路径，把创作生态、版权制度、平台权力与公共利益放在同一框架下审视，而不仅仅把 Creative Commons 当作许可证工具。核心观点很可能是，面对 AI 生成内容和平台挤压，开放授权与更健康的创作制度仍然值得被重新激活和扩展。作者最终强调的不是怀旧式守旧，而是要为创作者、受众和公共文化空间重新争取可持续的制度安排。
+
+🏷️ Creative Commons, copyright, AI, culture
+
+---
+
+### 6. 让我们学会在一个人活着时表达友谊，而不是等他死后
+
+[★ Let Us Learn to Show Our Friendship for a Man When He Is Alive and Not After He Is Dead](https://daringfireball.net/2026/04/when_he_is_alive_and_not_after_he_is_dead) — **daringfireball.net** · 1 天前 · ⭐ 16/30
+
+> 文章围绕 Ronan Farrow 与 Andrew Marantz 在《纽约客》发表的 Sam Altman 长篇人物特稿展开评论，重点不在技术细节，而在公众如何评价和对待仍处于权力中心的人物。标题借用了“应在生前而非死后表达敬意”的命题，暗示作者关心的是媒体叙事、人格崇拜与硅谷领袖形象建构之间的张力。结合 Sam Altman 这一 OpenAI 核心人物的语境，文章很可能讨论了名望、权力、舆论包装以及行业影响力如何被同时塑造和消费。它不是单纯的悼词式赞美，而更像是在借人物报道反思我们为何总在极端情绪之间摇摆。作者的核心态度大概率是：对重要人物应尽量在其“当下”做出更清醒、更诚实的判断，而不是事后神化或清算。
+
+🏷️ Sam Altman, profile, media, opinion
+
+---
+
+### 7. Pluralistic：不要作恶
+
+[Pluralistic: Don't Be Evil (11 Apr 2026)](https://pluralistic.net/2026/04/11/obvious-terrible-ideas/) — **pluralistic.net** · 14 小时前 · ⭐ 13/30
+
+> 核心议题是科技行业和权力机构中那些“明明很糟却依然被推行”的主意，副标题“Evil genius is just a lack of shame”直接把所谓“天才式冒进”解释为无羞耻感的包装。文章延续 Cory Doctorow 的常见批判框架，指出很多被吹捧为大胆创新的商业或政策方案，其实只是把外部性转嫁给公众、劳动者和制度系统。附带链接如“EFF v DOGE”等，也暗示文本会把企业平台、政府权力和公共利益冲突放在一起讨论，而不是把“作恶”理解为个别道德失误。关键判断是，许多灾难性决策并非不可预见，而是出于激励扭曲、责任缺位和对后果的故意忽视。作者最终强调，“不要作恶”不应是公关口号，而应成为识别和阻止显而易见坏主意的最低标准。
+
+🏷️ politics, EFF, culture, commentary
+
+---
+
+### 8. [RSS Club] 为什么你使用 RSS 而不是 Atom？
+
+[[RSS Club] Why do you use RSS rather than Atom?](https://shkspr.mobi/blog/2026/04/rss-club-why-do-you-use-rss-rather-than-atom/) — **shkspr.mobi** · 1 天前 · ⭐ 13/30
+
+> 主题聚焦于订阅源格式选择：为什么在同样基于 XML 的分发机制里，作者和读者更常使用 RSS，而不是 Atom。文章把“RSS Club”这个实验进一步扩展到对 feed 生态本身的反思，甚至提出它也许更准确地应该叫“基于 XML 的分布式订阅俱乐部”。除了格式讨论，作者还在尝试本地化、隐私友好的阅读量追踪方案，既能统计来自 HN、Google 等外部来源的点击，也能看到订阅用户对单篇内容的浏览情况。这个角度把“开放订阅协议”和“最小化侵入式分析”结合在一起，讨论的不只是协议名词之争，而是实际使用场景中的可观察性与隐私平衡。作者的核心立场是：RSS/Atom 的选择应放在开放分发、读者体验和低侵扰统计的整体语境里理解。
+
+🏷️ RSS, Atom, feeds, XML
+
+---
+
+## ⚙️ 工程
+
+### 9. SQLite 3.53.0
+
+[SQLite 3.53.0](https://simonwillison.net/2026/Apr/11/sqlite/#atom-everything) — **simonwillison.net** · 8 小时前 · ⭐ 26/30
+
+> SQLite 3.53.0 是一次积累了大量改进的重要版本，因为 3.52.0 已被撤回，许多面向用户和内部实现的更新集中落在这一版。最突出的变化之一是 `ALTER TABLE` 现在可以直接添加和移除 `NOT NULL` 与 `CHECK` 约束，减少了过去需要借助外部工具或重建表结构的繁琐操作。文章还强调这次发布不仅有 SQL 层面的能力增强，也包含不少底层与可用性改进，使 SQLite 在模式演进和日常维护上更实用。作者的核心判断是，这是一版值得开发者认真关注的 SQLite 更新，尤其适合经常做 schema 变更的人。
+
+🏷️ SQLite, database, release, SQL
+
+---
+
+### 10. 包注册表与分页
+
+[Package Registries and Pagination](https://nesbitt.io/2026/04/10/package-registries-and-pagination.html) — **nesbitt.io** · 1 天前 · ⭐ 20/30
+
+> 文章聚焦包注册表（package registries）在元数据分发上的分页问题，核心痛点是单次拉取的数据量可能大得离谱。作者给出的例子是：仅 10,451 个版本的元数据就达到 100MB，这说明如果注册表接口不做分页或增量设计，客户端同步、索引和解析成本都会迅速失控。这个问题不仅影响带宽和响应时间，也会拖慢包管理器、镜像服务和依赖分析工具的实现复杂度与可靠性。分页因此不只是“列表展示”的常规优化，而是包生态基础设施在规模化之后必须正面解决的协议与 API 设计问题。结论是：随着版本数量持续膨胀，包注册表必须把分页和更细粒度的数据获取机制当成核心能力，而不是可选项。
+
+🏷️ package registry, pagination, metadata, API
+
+---
+
+### 11. 如何在活动中的 WaitForMultipleObjects 中添加或移除句柄？第二部分
+
+[How do you add or remove a handle from an active Wait­For­Multiple­Objects?, part 2](https://devblogs.microsoft.com/oldnewthing/20260410-00/?p=112223) — **devblogs.microsoft.com/oldnewthing** · 1 天前 · ⭐ 19/30
+
+> 核心问题是在某个线程已经阻塞于 WaitForMultipleObjects 时，如何安全地动态增删等待句柄。作者强调不能直接在等待进行中修改句柄集合，否则会引入竞争条件、无效句柄或状态错乱等问题。第二部分给出的关键思路是先让等待线程通过专用通知机制醒来，并明确确认它已经看到配置变更；只有在等待线程完成这一步握手后，其他线程才去更新句柄列表。作者的结论是，动态修改等待集本质上需要“等待线程确认变更”这一同步协议，单靠外部线程直接改数组或句柄表是不可靠的。
+
+🏷️ Windows, WaitForMultipleObjects, handles, threading
+
+---
+
+## 📝 其他
+
+### 12. 使用 eSIM 保留英国手机号的最便宜方式
+
+[Cheapest way to keep a UK mobile number using an eSIM](https://shkspr.mobi/blog/2026/04/cheapest-way-to-keep-a-uk-mobile-number-using-an-esim/) — **shkspr.mobi** · 16 小时前 · ⭐ 13/30
+
+> 核心问题是：如何在未来几年里，以最低成本继续保留一个英国手机号，并且还能接收用于 2FA 的短信。作者的约束条件很明确：不想继续折腾实体 SIM，而是优先选择支持 eSIM 的运营商或套餐。文章将重点放在长期持号成本、号码保留规则、停机或失效周期，以及是否支持号码迁移和短信接收这些实际因素上，而不是单纯比较月租价格。相比常规“有流量、有通话”的套餐思路，这类需求更适合按年总成本和保号门槛来选型。作者的核心观点是：如果目标只是低成本保号和兜底接收短信，就应该用“最便宜的长期持号方案”来重新审视英国 eSIM 市场。
+
+🏷️ eSIM, UK mobile, SMS, 2FA
+
+---
+
+### 13. 分数中数字的分布
+
+[Distribution of digits in fractions](https://www.johndcook.com/blog/2026/04/10/fraction-digits/) — **johndcook.com** · 1 天前 · ⭐ 12/30
+
+> 主题是十进制分数展开中的数字分布规律，尤其关注分母为素数且满足 p > 5 的情形。作者从看似基础的分数小数展开出发，展示这些数字序列并不是随意的，而是受到模运算、循环节长度以及分母性质的严格约束。文章强调，即使是像 1/p 这样的简单分数，其十进制表示里每个数字出现的频率和排列，也隐藏着不容易直观看出的数论结构。重点不在复杂高深的定理堆砌，而在于把“普通分数的小数形式”与更深层的数学规律连接起来。结论是：很多被视为基础的数学对象，实际上仍然蕴含丰富且出人意料的结构，值得认真探索。
+
+🏷️ mathematics, fractions, decimal, number theory
+
+---
+
+## 🤖 AI / ML
+
+### 14. ChatGPT 语音模式使用的是更弱的模型
+
+[ChatGPT voice mode is a weaker model](https://simonwillison.net/2026/Apr/10/voice-mode-is-weaker/#atom-everything) — **simonwillison.net** · 1 天前 · ⭐ 23/30
+
+> 核心观点是：很多人直觉上会认为“能对话的 AI 应该是最强的 AI”，但 ChatGPT 的语音模式实际上运行在一套更老、能力更弱的模型上。作者指出，直接询问语音模式的知识截止时间，会得到“2024 年 4 月”这一答案，说明它仍停留在 GPT-4o 时代的能力水平，而不是当前最强的前沿模型。这样的产品形态会造成用户对 AI 能力边界的误判，因为语音交互的流畅体验容易掩盖底层模型已经落后的事实。作者借 Andrej Karpathy 关于“人们对 AI 能力认知差距不断扩大”的讨论，强调交互方式和实际模型能力正在出现越来越大的脱节。结论是：不要把“语音模式”误当成 ChatGPT 最强能力的代表，它更像是一个体验更自然、但智能水平并不领先的入口。
+
+🏷️ ChatGPT, voice mode, model, OpenAI
+
+---
+
+## 🛠 工具 / 开源
+
+### 15. SQLite 查询结果格式化器演示
+
+[SQLite Query Result Formatter Demo](https://simonwillison.net/2026/Apr/11/sqlite-qrf/#atom-everything) — **simonwillison.net** · 8 小时前 · ⭐ 19/30
+
+> 核心内容是一个用于体验 SQLite 新查询结果渲染能力的在线演示工具。这个 playground 基于新的 Query Result Formatter 库，并将其编译为 WebAssembly，使用户可以直接在浏览器里测试 SQL 结果表的不同展示方式。它与 SQLite 3.53.0 的相关更新配套，重点展示结果表在前端渲染层的多种格式化选项，而不是数据库执行本身。作者给出的价值点在于把原本偏底层的 SQLite 输出能力做成可交互 UI，便于快速比较不同渲染效果和集成方案。
+
+🏷️ SQLite, playground, formatter, SQL
+
+---
+
+*生成于 2026-04-11 18:24 (Pacific/Honolulu) | 扫描 83 源 → 获取 2428 篇 → 精选 15 篇*
+*基于 [Hacker News Popularity Contest 2025](https://refactoringenglish.com/tools/hn-popularity/) RSS 源列表，由 [Andrej Karpathy](https://x.com/karpathy) 推荐*
