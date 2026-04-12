@@ -265,91 +265,124 @@
         <h1>📰 AI 博客每日精选 — 2026-04-12</h1>
 <blockquote><p>来自 Karpathy 推荐的 92 个顶级技术博客，AI 精选 Top 15</p></blockquote>
 <h2>🏆 今日必读</h2>
-<p>🥇 <strong>SQLite 3.53.0</strong></p>
-<p><a href="https://simonwillison.net/2026/Apr/11/sqlite/#atom-everything">SQLite 3.53.0</a> — simonwillison.net · 5 小时前 · 📝 其他</p>
-<blockquote><p>SQLite 3.53.0</p></blockquote>
-<p>🥈 <strong>SQLite Query Result Formatter Demo</strong></p>
-<p><a href="https://simonwillison.net/2026/Apr/11/sqlite-qrf/#atom-everything">SQLite Query Result Formatter Demo</a> — simonwillison.net · 5 小时前 · 📝 其他</p>
-<blockquote><p>SQLite Query Result Formatter Demo</p></blockquote>
-<p>🥉 <strong>Kākāpō parrots</strong></p>
-<p><a href="https://simonwillison.net/2026/Apr/10/kakapo/#atom-everything">Kākāpō parrots</a> — simonwillison.net · 1 天前 · 📝 其他</p>
-<blockquote><p>Kākāpō parrots</p></blockquote>
+<p>🥇 <strong>中心立场也有偏见</strong></p>
+<p><a href="https://lucumr.pocoo.org/2026/4/11/the-center-has-a-bias/">The Center Has a Bias</a> — lucumr.pocoo.org · 1 天前 · 💡 观点 / 杂谈</p>
+<blockquote><p>围绕 AI 编码代理的讨论并不只是“拥抱”与“拒绝”两极对立，所谓温和、中立的中间派同样会带着系统性偏见。作者指出，许多针对 AI coding agents 的批评本身并非无效，但常出自缺乏一线使用经验的人，这使得他们容易高估工具的缺陷、低估其在真实工作流中的适配方式。文章进一步强调，评价这类工具不能停留在抽象立场或身份认同，而应基于长期实践、具体任务类型以及人与工具协作的实际成本收益。对新技术最有价值的判断，不是先验地站队，而是承认经验分布不均、能力边界动态变化，并据此校正“看似中立”的判断框架。</p></blockquote>
+<p>💡 <strong>为什么值得读</strong>: 值得读，因为它不是简单为 AI 编码工具辩护，而是精准拆解了技术争论中最隐蔽也最常见的认知偏差：自以为客观的中间立场。</p>
+<p>🏷️ AI agents, developer tools, adoption, bias</p>
+<p>🥈 <strong>如何在活动中的 WaitForMultipleObjects 里添加或移除句柄？第二部分</strong></p>
+<p><a href="https://devblogs.microsoft.com/oldnewthing/20260410-00/?p=112223">How do you add or remove a handle from an active Wait­For­Multiple­Objects?, part 2</a> — devblogs.microsoft.com/oldnewthing · 1 天前 · ⚙️ 工程</p>
+<blockquote><p>核心问题是：当线程已经阻塞在 WaitForMultipleObjects 上时，如何安全地动态增删等待句柄。作者延续前文方案，重点解释“等待线程确认变更”这一同步步骤，避免在等待数组被修改时出现竞态条件、句柄错配或遗漏唤醒。技术关键在于通过额外的协调机制，让发起变更的一方先通知等待线程，再等等待线程完成对新句柄集合的接管后继续执行。结论是，WaitForMultipleObjects 本身不支持热更新等待集合，必须借助显式握手协议来完成安全切换。</p></blockquote>
+<p>💡 <strong>为什么值得读</strong>: 值得读，因为它把 Windows 多对象等待里最容易踩坑的并发细节讲清楚了，适合写底层同步代码的人直接参考。</p>
+<p>🏷️ Windows, WaitForMultipleObjects, handles, concurrency</p>
+<p>🥉 <strong>包注册表与分页</strong></p>
+<p><a href="https://nesbitt.io/2026/04/10/package-registries-and-pagination.html">Package Registries and Pagination</a> — nesbitt.io · 1 天前 · ⚙️ 工程</p>
+<blockquote><p>问题在于包注册表的版本列表接口如果缺少合理分页，会让客户端为少量实际需求下载过量元数据。作者给出的具体例子是某个包仅版本元数据就达到 100MB，对应 10,451 个版本，这种 API 设计会显著放大带宽、延迟和解析成本。文章讨论了包生态中的注册表实现为何容易忽视分页，以及这种“把全部历史一次性返回”的做法如何伤害镜像服务、CLI 工具和普通用户体验。核心观点是，分页不只是性能优化，而是包注册表在可扩展性和长期演进上必须具备的基础能力。</p></blockquote>
+<p>💡 <strong>为什么值得读</strong>: 值得读，因为它用一个 100MB 元数据的真实案例，把看似普通的 API 分页问题上升成了包基础设施设计的可扩展性警告。</p>
+<p>🏷️ package registry, pagination, metadata, scalability</p>
 <hr />
 <h2>📊 数据概览</h2>
-<table><thead><tr><th>扫描源</th><th>抓取文章</th><th>时间范围</th><th>精选</th></tr></thead><tbody><tr><td>83/92</td><td>2425 篇 → 23 篇</td><td>48h</td><td><strong>15 篇</strong></td></tr></tbody></table>
+<table><thead><tr><th>扫描源</th><th>抓取文章</th><th>时间范围</th><th>精选</th></tr></thead><tbody><tr><td>83/92</td><td>2422 篇 → 24 篇</td><td>48h</td><td><strong>15 篇</strong></td></tr></tbody></table>
 <h3>分类分布</h3>
 <pre><code class="language-mermaid">pie showData
     title &quot;文章分类分布&quot;
-    &quot;📝 其他&quot; : 15</code></pre>
+    &quot;📝 其他&quot; : 10
+    &quot;💡 观点 / 杂谈&quot; : 3
+    &quot;⚙️ 工程&quot; : 2</code></pre>
+<h3>高频关键词</h3>
+<pre><code class="language-mermaid">xychart-beta horizontal
+    title &quot;高频关键词&quot;
+    x-axis [&quot;ai agents&quot;, &quot;developer tools&quot;, &quot;adoption&quot;, &quot;bias&quot;, &quot;windows&quot;, &quot;waitformultipleobjects&quot;, &quot;handles&quot;, &quot;concurrency&quot;, &quot;package registry&quot;, &quot;pagination&quot;, &quot;metadata&quot;, &quot;scalability&quot;]
+    y-axis &quot;出现次数&quot; 0 --&gt; 3
+    bar [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]</code></pre>
+<details><summary>📈 纯文本关键词图（终端友好）</summary><pre><code class="language-text">ai agents              │ ████████████████████ 1
+developer tools        │ ████████████████████ 1
+adoption               │ ████████████████████ 1
+bias                   │ ████████████████████ 1
+windows                │ ████████████████████ 1
+waitformultipleobjects │ ████████████████████ 1
+handles                │ ████████████████████ 1
+concurrency            │ ████████████████████ 1
+package registry       │ ████████████████████ 1
+pagination             │ ████████████████████ 1</code></pre></details>
+<h3>🏷️ 话题标签</h3>
+<p><strong>ai agents</strong>(1) · <strong>developer tools</strong>(1) · <strong>adoption</strong>(1) · bias(1) · windows(1) · waitformultipleobjects(1) · handles(1) · concurrency(1) · package registry(1) · pagination(1) · metadata(1) · scalability(1) · rss(1) · atom(1) · feeds(1) · privacy(1) · productivity(1) · burnout(1) · work culture(1) · career(1)</p>
 <hr />
 <h2>📝 其他</h2>
 <h3>1. SQLite 3.53.0</h3>
 <p><a href="https://simonwillison.net/2026/Apr/11/sqlite/#atom-everything">SQLite 3.53.0</a> — <strong>simonwillison.net</strong> · 5 小时前 · ⭐ 15/30</p>
-<blockquote><p>SQLite 3.53.0</p></blockquote>
+<blockquote><p>SQLite 3.53.0 是一次积累了大量用户可见改进的重要版本，因为 3.52.0 已被撤回。最突出的变化之一是 ALTER TABLE 现在可以直接添加或移除 NOT NULL 与 CHECK 约束，减少了过去需要借助外部工具或重建表结构的麻烦。文章还点出这次发布包含大量内部与外部改进，并特别提炼出对日常开发最有价值的更新。结论是，3.53.0 不只是常规小版本升级，而是值得 SQLite 用户认真评估和尽快关注的一次实用增强。</p></blockquote>
 <hr />
-<h3>2. SQLite Query Result Formatter Demo</h3>
+<h3>2. SQLite 查询结果格式化器演示</h3>
 <p><a href="https://simonwillison.net/2026/Apr/11/sqlite-qrf/#atom-everything">SQLite Query Result Formatter Demo</a> — <strong>simonwillison.net</strong> · 5 小时前 · ⭐ 15/30</p>
-<blockquote><p>SQLite Query Result Formatter Demo</p></blockquote>
+<blockquote><p>这个演示工具围绕 SQLite 3.53.0 新引入的 Query Result Formatter，展示 SQL 查询结果表格的不同渲染方式。作者提供了一个基于 WebAssembly 编译的在线 playground，用户可以直接试验结果表的展示选项，而不必本地编译或阅读底层实现。它的价值在于把原本偏底层的格式化库转化为可交互界面，帮助开发者快速理解输出效果与适用场景。结论是，这个 demo 是理解 SQLite 新结果格式化能力的最直接入口。</p></blockquote>
 <hr />
-<h3>3. Kākāpō parrots</h3>
+<h3>3. 鸮鹦鹉</h3>
 <p><a href="https://simonwillison.net/2026/Apr/10/kakapo/#atom-everything">Kākāpō parrots</a> — <strong>simonwillison.net</strong> · 1 天前 · ⭐ 15/30</p>
-<blockquote><p>Kākāpō parrots</p></blockquote>
+<blockquote><p>内容是一段来自作者与 Lenny 时长 1 小时 40 分钟播客录音中的节选，主题聚焦新西兰珍稀鸟类 kākāpō。文章主要以视频片段形式呈现，延续此前播客内容中的轻松、兴趣驱动式分享。它没有复杂技术分析，而是将一个具体而有趣的自然话题从长播客中拆出，便于快速观看传播。结论是，这是一则偏轻量的片段分享，适合喜欢作者播客风格或自然生态趣闻的读者。</p></blockquote>
 <hr />
-<h3>4. ChatGPT voice mode is a weaker model</h3>
+<h3>4. ChatGPT 语音模式是一个较弱的模型</h3>
 <p><a href="https://simonwillison.net/2026/Apr/10/voice-mode-is-weaker/#atom-everything">ChatGPT voice mode is a weaker model</a> — <strong>simonwillison.net</strong> · 1 天前 · ⭐ 15/30</p>
-<blockquote><p>ChatGPT voice mode is a weaker model</p></blockquote>
+<blockquote><p>作者指出一个很多用户没有意识到的事实：ChatGPT 的语音模式并不是当前最强模型，而是能力明显较弱的旧模型。一个直接证据是，语音模式给出的知识截止时间仍是 2024 年 4 月，说明它更接近 GPT-4o 时代的模型能力，而非最新一代。文章借 Andrej Karpathy 的讨论强调，用户对“能说话的 AI 应该更聪明”的直觉正在与实际产品分层脱节，导致对模型能力的误判。结论是，语音交互的易用性不代表模型智能水平更高，使用时应重新校准预期。</p></blockquote>
 <hr />
-<h3>5. Pan American Luggage Labels</h3>
+<h3>5. 泛美航空行李标签</h3>
 <p><a href="https://ellafreire.com/collections/pan-american-luggage-labels">Pan American Luggage Labels</a> — <strong>daringfireball.net</strong> · 8 小时前 · ⭐ 15/30</p>
-<blockquote><p>Pan American Luggage Labels</p></blockquote>
+<blockquote><p>这是一组复刻 Pan Am 复古行李标签的平面设计作品展示，重点在色彩、字体与几何造型所呈现出的经典航空视觉语言。作者简短点评这些作品“极其优美”，尤其欣赏其配色、字形和整体构图。内容本身并非技术文章，而是一次面向设计爱好者的周末灵感分享。结论是，这组作品以高完成度的复古品牌美学，重新唤起了泛美航空时代的视觉魅力。</p></blockquote>
 <hr />
-<h3>6. ★ Let Us Learn to Show Our Friendship for a Man When He Is Alive and Not After He Is Dead</h3>
+<h3>6. 让我们在朋友活着时表达友谊，而不是等他死后</h3>
 <p><a href="https://daringfireball.net/2026/04/when_he_is_alive_and_not_after_he_is_dead">★ Let Us Learn to Show Our Friendship for a Man When He Is Alive and Not After He Is Dead</a> — <strong>daringfireball.net</strong> · 1 天前 · ⭐ 15/30</p>
-<blockquote><p>★ Let Us Learn to Show Our Friendship for a Man When He Is Alive and Not After He Is Dead</p></blockquote>
+<blockquote><p>文章围绕《纽约客》上 Ronan Farrow 与 Andrew Marantz 对 Sam Altman 的长篇人物特写展开评论，核心关切是公众应如何在当事人仍在场时诚实评价其人其事。标题借用古典表达，强调“生前评价”比“身后追悼”更重要，也暗示对 Altman 这类处于权力中心人物的报道不应被神话化。结合 Daring Fireball 一贯的媒体批评语境，这篇短评更像是对人物叙事、声望机制和科技权力书写方式的再审视。核心观点是：面对正在塑造行业与公共议程的人物，及时、清醒、带锋芒的记录比事后盖棺定论更有价值。</p></blockquote>
 <hr />
-<h3>7. Ed Bindels’s Apple Museum in Utrecht, Netherlands</h3>
+<h3>7. 荷兰乌得勒支的 Ed Bindels 苹果博物馆</h3>
 <p><a href="https://applemuseum.nl/">Ed Bindels’s Apple Museum in Utrecht, Netherlands</a> — <strong>daringfireball.net</strong> · 1 天前 · ⭐ 15/30</p>
-<blockquote><p>Ed Bindels’s Apple Museum in Utrecht, Netherlands</p></blockquote>
+<blockquote><p>内容聚焦荷兰乌得勒支新开的 Apple Museum，地点距离阿姆斯特丹约 30–40 分钟车程。作者给出的核心亮点是馆藏的展示效果极强，尤其是由多台彩虹配色 iMac 组成的“彩虹墙”极具视觉冲击力。虽然篇幅很短，但传递的信息很明确：这不是普通的民间收藏，而是对 Apple 工业设计史与品牌文化的一次高密度实体呈现。对 Macintosh、iMac 以及苹果硬件演进感兴趣的读者，这座博物馆本身就是一个目的地。</p></blockquote>
 <hr />
-<h3>8. Your friends are hiding their best ideas from you</h3>
+<h3>8. 你的朋友正把他们最好的点子藏着不让你知道</h3>
 <p><a href="https://idiallo.com/blog/your-friends-are-hiding-their-ideas?src=feed">Your friends are hiding their best ideas from you</a> — <strong>idiallo.com</strong> · 1 天前 · ⭐ 15/30</p>
-<blockquote><p>Your friends are hiding their best ideas from you</p></blockquote>
+<blockquote><p>文章讨论的核心问题是：为什么很多人即使有很好的创意，也不愿意在朋友、同事甚至合作伙伴面前说出来。作者从大学时期 4 人小组完成 JavaScript 课程网站项目的经历切入，回忆自己把数字艺术课上学到的 Photoshop 技能用于餐厅网站视觉设计时，首次感受到“好点子被看见”的力量。文章进一步指出，人们隐藏想法往往不是因为没有创意，而是担心被嘲笑、被否定、被抢功，或觉得点子还不够成熟。作者的结论是，真正阻碍创作与合作的不是灵感稀缺，而是分享机制中的心理不安全感；越早把想法说出来，越有机会把它打磨成作品。</p></blockquote>
 <hr />
-<h3>9. Pluralistic: Don&#39;t Be Evil (11 Apr 2026)</h3>
+<h3>9. 复调：别作恶（2026年4月11日）</h3>
 <p><a href="https://pluralistic.net/2026/04/11/obvious-terrible-ideas/">Pluralistic: Don&#39;t Be Evil (11 Apr 2026)</a> — <strong>pluralistic.net</strong> · 11 小时前 · ⭐ 15/30</p>
-<blockquote><p>Pluralistic: Don&#39;t Be Evil (11 Apr 2026)</p></blockquote>
+<blockquote><p>这是一篇 Pluralistic 的链接汇总，主轴是“Don&#39;t Be Evil”，把企业、机构与个人如何把明显糟糕的主意包装成合理方案作为批评对象。作者用“所谓邪恶天才，其实只是毫无羞耻感”概括这些行为背后的机制，强调很多伤害性决策并不高明，只是依赖权力、冷漠和公众注意力稀缺。除主文外，文中还串联 FBI、Trotsky、Jakob Nielsen、EFF v DOGE 等多个链接，构成对科技、政治和公共文化的横向观察。核心判断是：面对那些“显而易见的坏主意”，公众不应被其话术震慑，而应直接识别其荒谬与危害。</p></blockquote>
 <hr />
-<h3>10. Pluralistic: Canny Valley and Creative Commons (10 Apr 2026)</h3>
+<h3>10. 复调：恐怖谷与知识共享（2026年4月10日）</h3>
 <p><a href="https://pluralistic.net/2026/04/10/canny-valley/">Pluralistic: Canny Valley and Creative Commons (10 Apr 2026)</a> — <strong>pluralistic.net</strong> · 1 天前 · ⭐ 15/30</p>
-<blockquote><p>Pluralistic: Canny Valley and Creative Commons (10 Apr 2026)</p></blockquote>
+<blockquote><p>文章的核心主题是“Canny Valley and Creative Commons”，重点在于围绕 Creative Commons 及相关版权、授权实践再次提出新的讨论与批评。标题中的“Another bite at the apple”暗示作者并非首次处理这个议题，而是在既有争论基础上继续推进，对开放授权如何被理解、挪用或制度化提出新一轮分析。文中还附带 Bidenomics、版权流氓、艺术洗钱、英国政府谴责 copyright trolls 等链接，把创作、知识产权和政策问题放到同一张图景里。作者的核心观点是：开放文化工具并不会自动导向更公平的创作生态，关键仍在制度设计、执行边界与权力关系。</p></blockquote>
 <hr />
-<h3>11. Cheapest way to keep a UK mobile number using an eSIM</h3>
-<p><a href="https://shkspr.mobi/blog/2026/04/cheapest-way-to-keep-a-uk-mobile-number-using-an-esim/">Cheapest way to keep a UK mobile number using an eSIM</a> — <strong>shkspr.mobi</strong> · 13 小时前 · ⭐ 15/30</p>
-<blockquote><p>Cheapest way to keep a UK mobile number using an eSIM</p></blockquote>
+<h2>💡 观点 / 杂谈</h2>
+<h3>11. 中心立场也有偏见</h3>
+<p><a href="https://lucumr.pocoo.org/2026/4/11/the-center-has-a-bias/">The Center Has a Bias</a> — <strong>lucumr.pocoo.org</strong> · 1 天前 · ⭐ 24/30</p>
+<blockquote><p>围绕 AI 编码代理的讨论并不只是“拥抱”与“拒绝”两极对立，所谓温和、中立的中间派同样会带着系统性偏见。作者指出，许多针对 AI coding agents 的批评本身并非无效，但常出自缺乏一线使用经验的人，这使得他们容易高估工具的缺陷、低估其在真实工作流中的适配方式。文章进一步强调，评价这类工具不能停留在抽象立场或身份认同，而应基于长期实践、具体任务类型以及人与工具协作的实际成本收益。对新技术最有价值的判断，不是先验地站队，而是承认经验分布不均、能力边界动态变化，并据此校正“看似中立”的判断框架。</p></blockquote>
+<p>🏷️ AI agents, developer tools, adoption, bias</p>
 <hr />
-<h3>12. [RSS Club] Why do you use RSS rather than Atom?</h3>
-<p>[[RSS Club] Why do you use RSS rather than Atom?](https://shkspr.mobi/blog/2026/04/rss-club-why-do-you-use-rss-rather-than-atom/) — <strong>shkspr.mobi</strong> · 1 天前 · ⭐ 15/30</p>
-<blockquote><p>[RSS Club] Why do you use RSS rather than Atom?</p></blockquote>
+<h3>12. 【RSS Club】为什么你使用 RSS 而不是 Atom？</h3>
+<p>[[RSS Club] Why do you use RSS rather than Atom?](https://shkspr.mobi/blog/2026/04/rss-club-why-do-you-use-rss-rather-than-atom/) — <strong>shkspr.mobi</strong> · 1 天前 · ⭐ 16/30</p>
+<blockquote><p>主题聚焦于订阅技术选型：在 RSS 与 Atom 都可用的情况下，为什么很多人仍然偏向 RSS。文章结合作者的 RSS Club 实验，提到本地化、注重隐私的浏览追踪与阅读统计实践，说明 feed 生态不只是格式之争，还涉及工具兼容性和实际部署体验。作者借由读者互动讨论 RSS 与 Atom 的使用习惯，暗示决定因素往往不是规范优雅程度，而是历史惯性、读者支持度与现有阅读器生态。结论是，RSS 的持续流行更多来自现实世界的广泛兼容，而非它在设计上绝对优于 Atom。</p></blockquote>
+<p>🏷️ RSS, Atom, feeds, privacy</p>
 <hr />
-<h3>13. How do you add or remove a handle from an active Wait­For­Multiple­Objects?, part 2</h3>
-<p><a href="https://devblogs.microsoft.com/oldnewthing/20260410-00/?p=112223">How do you add or remove a handle from an active Wait­For­Multiple­Objects?, part 2</a> — <strong>devblogs.microsoft.com/oldnewthing</strong> · 1 天前 · ⭐ 15/30</p>
-<blockquote><p>How do you add or remove a handle from an active Wait­For­Multiple­Objects?, part 2</p></blockquote>
+<h3>13. 为什么我退出了《The Strive》</h3>
+<p><a href="https://www.joanwestenberg.com/why-i-quit-the-strive/">Why I quit &quot;The Strive&quot;</a> — <strong>joanwestenberg.com</strong> · 1 天前 · ⭐ 16/30</p>
+<blockquote><p>核心主题是作者为何主动离开自己参与的项目《The Strive》，以及这种退出背后的价值判断。文章并不只停留在个人情绪，而是围绕创作自主性、社区关系、商业化方式与长期可持续性展开，说明当项目目标与个人原则发生偏移时，继续留下的成本会越来越高。作者同时强调，她会继续保持内容免费可读，并把付费订阅定位为额外支持而非强制门槛。最终结论是，退出并非失败，而是为了重新选择更一致、更诚实的工作方式。</p></blockquote>
+<p>🏷️ productivity, burnout, work culture, career</p>
 <hr />
-<h3>14. The Center Has a Bias</h3>
-<p><a href="https://lucumr.pocoo.org/2026/4/11/the-center-has-a-bias/">The Center Has a Bias</a> — <strong>lucumr.pocoo.org</strong> · 1 天前 · ⭐ 15/30</p>
-<blockquote><p>The Center Has a Bias</p></blockquote>
+<h2>⚙️ 工程</h2>
+<h3>14. 如何在活动中的 WaitForMultipleObjects 里添加或移除句柄？第二部分</h3>
+<p><a href="https://devblogs.microsoft.com/oldnewthing/20260410-00/?p=112223">How do you add or remove a handle from an active Wait­For­Multiple­Objects?, part 2</a> — <strong>devblogs.microsoft.com/oldnewthing</strong> · 1 天前 · ⭐ 20/30</p>
+<blockquote><p>核心问题是：当线程已经阻塞在 WaitForMultipleObjects 上时，如何安全地动态增删等待句柄。作者延续前文方案，重点解释“等待线程确认变更”这一同步步骤，避免在等待数组被修改时出现竞态条件、句柄错配或遗漏唤醒。技术关键在于通过额外的协调机制，让发起变更的一方先通知等待线程，再等等待线程完成对新句柄集合的接管后继续执行。结论是，WaitForMultipleObjects 本身不支持热更新等待集合，必须借助显式握手协议来完成安全切换。</p></blockquote>
+<p>🏷️ Windows, WaitForMultipleObjects, handles, concurrency</p>
 <hr />
-<h3>15. Distribution of digits in fractions</h3>
-<p><a href="https://www.johndcook.com/blog/2026/04/10/fraction-digits/">Distribution of digits in fractions</a> — <strong>johndcook.com</strong> · 1 天前 · ⭐ 15/30</p>
-<blockquote><p>Distribution of digits in fractions</p></blockquote>
+<h3>15. 包注册表与分页</h3>
+<p><a href="https://nesbitt.io/2026/04/10/package-registries-and-pagination.html">Package Registries and Pagination</a> — <strong>nesbitt.io</strong> · 1 天前 · ⭐ 20/30</p>
+<blockquote><p>问题在于包注册表的版本列表接口如果缺少合理分页，会让客户端为少量实际需求下载过量元数据。作者给出的具体例子是某个包仅版本元数据就达到 100MB，对应 10,451 个版本，这种 API 设计会显著放大带宽、延迟和解析成本。文章讨论了包生态中的注册表实现为何容易忽视分页，以及这种“把全部历史一次性返回”的做法如何伤害镜像服务、CLI 工具和普通用户体验。核心观点是，分页不只是性能优化，而是包注册表在可扩展性和长期演进上必须具备的基础能力。</p></blockquote>
+<p>🏷️ package registry, pagination, metadata, scalability</p>
 <hr />
-<p><em>生成于 2026-04-12 01:24 | 扫描 83 源 → 获取 2425 篇 → 精选 15 篇</em> <em>基于 <a href="https://refactoringenglish.com/tools/hn-popularity/">Hacker News Popularity Contest 2025</a> RSS 源列表，由 <a href="https://x.com/karpathy">Andrej Karpathy</a> 推荐</em> <em>由「懂点儿AI」制作，欢迎关注同名微信公众号获取更多 AI 实用技巧 💡</em></p>
+<p><em>生成于 2026-04-12 01:33 | 扫描 83 源 → 获取 2422 篇 → 精选 15 篇</em> <em>基于 <a href="https://refactoringenglish.com/tools/hn-popularity/">Hacker News Popularity Contest 2025</a> RSS 源列表，由 <a href="https://x.com/karpathy">Andrej Karpathy</a> 推荐</em> <em>由「懂点儿AI」制作，欢迎关注同名微信公众号获取更多 AI 实用技巧 💡</em></p>
       </article>
 
       <aside class="panel">
         <h2>归档</h2>
         <p class="archive-intro">保留最近 1 篇 digest 条目，供阅读器和网页浏览共同使用。</p>
-        <ul class="archive-list"><li><a href="https://Gauthos.github.io/ai-daily-digest/digests/2026-04-12/">📰 AI 博客每日精选 — 2026-04-12</a><p>📰 AI 博客每日精选 — 2026 04 12 来自 Karpathy 推荐的 92 个顶级技术博客，AI 精选 Top 15 🏆 今日必读 🥇 SQLite 3.53.0 SQLite 3.53.0 — simonwillison.net · 5 小时前 · 📝 其他 SQLite 3.53.0 🥈 SQLite Query Result Formatter Demo SQLite Query Result Formatter Demo — simonwillison.net · 5 小时前 · 📝 其他 SQLite Query Res</p></li></ul>
+        <ul class="archive-list"><li><a href="https://Gauthos.github.io/ai-daily-digest/digests/2026-04-12/">📰 AI 博客每日精选 — 2026-04-12</a><p>📰 AI 博客每日精选 — 2026 04 12 来自 Karpathy 推荐的 92 个顶级技术博客，AI 精选 Top 15 🏆 今日必读 🥇 中心立场也有偏见 The Center Has a Bias — lucumr.pocoo.org · 1 天前 · 💡 观点 / 杂谈 围绕 AI 编码代理的讨论并不只是“拥抱”与“拒绝”两极对立，所谓温和、中立的中间派同样会带着系统性偏见。作者指出，许多针对 AI coding agents 的批评本身并非无效，但常出自缺乏一线使用经验的人，这使得他们容易高估工具的缺陷、低估其在真实工作流中的适配</p></li></ul>
         <p class="footer-note">源文件：<a href="https://Gauthos.github.io/ai-daily-digest/digests/2026-04-12/digest.md">digests/2026-04-12/digest.md</a></p>
       </aside>
     </section>
