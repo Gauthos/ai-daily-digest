@@ -545,7 +545,23 @@ function parseJsonResponse<T>(text: string): T {
   if (jsonText.startsWith('```')) {
     jsonText = jsonText.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
   }
-  return JSON.parse(jsonText) as T;
+  try {
+    return JSON.parse(jsonText) as T;
+  } catch {
+    // Try to recover partial JSON from truncated responses
+    const lastBrace = jsonText.lastIndexOf('}');
+    const lastBracket = jsonText.lastIndexOf(']');
+    const truncateAt = Math.max(lastBrace, lastBracket);
+    if (truncateAt > 10) {
+      const partial = jsonText.slice(0, truncateAt + 1);
+      try {
+        return JSON.parse(partial) as T;
+      } catch {
+        // fall through to final error
+      }
+    }
+    throw new SyntaxError(`Invalid JSON (truncated or malformed response): ${jsonText.slice(0, 200)}`);
+  }
 }
 
 // ============================================================================
