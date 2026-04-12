@@ -11,11 +11,13 @@ const OPENAI_DEFAULT_API_BASE = 'https://api.openai.com/v1';
 const OPENAI_DEFAULT_MODEL = 'gpt-4o-mini';
 const FEED_FETCH_TIMEOUT_MS = 15_000;
 const FEED_CONCURRENCY = 10;
-const GEMINI_BATCH_SIZE = 10;
+const SCORING_BATCH_SIZE = 10;
+const SUMMARY_BATCH_SIZE = 3;
 const MAX_CONCURRENT_GEMINI = 2;
 const AI_JSON_MAX_ATTEMPTS = 2;
 const AI_REQUEST_TIMEOUT_MS = 180_000;
 const AI_REQUEST_DELAY_MS = 8_000;
+const OPENAI_REASONING_MAX_COMPLETION_TOKENS = 512;
 const HAWAII_TIME_ZONE = 'Pacific/Honolulu';
 
 const HAWAII_DATE_TIME_FORMATTER = new Intl.DateTimeFormat('en-CA', {
@@ -185,6 +187,7 @@ interface GeminiSummaryResult {
 
 interface AIRequestOptions {
   responseType?: 'json' | 'text';
+  maxCompletionTokens?: number;
 }
 
 interface AIClient {
@@ -441,6 +444,20 @@ function formatAIDetails(details: Record<string, string | undefined>): string {
   return parts.length > 0 ? ` (${parts.join(', ')})` : '';
 }
 
+function getOpenAIChatCompletionOptions(model: string, options: AIRequestOptions): Record<string, unknown> {
+  const result: Record<string, unknown> = {};
+
+  if (model.toLowerCase().startsWith('gpt-5')) {
+    result.max_completion_tokens = options.maxCompletionTokens ?? OPENAI_REASONING_MAX_COMPLETION_TOKENS;
+  }
+
+  if (options.responseType === 'json') {
+    result.response_format = { type: 'json_object' };
+  }
+
+  return result;
+}
+
 async function callGemini(prompt: string, apiKey: string, options: AIRequestOptions = {}): Promise<string> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), AI_REQUEST_TIMEOUT_MS);
@@ -520,6 +537,7 @@ async function callOpenAICompatible(
         messages: [{ role: 'user', content: prompt }],
         temperature: 0.3,
         top_p: 0.8,
+        ...getOpenAIChatCompletionOptions(model, _options),
       }),
     });
 
@@ -663,7 +681,12 @@ function isRetryableAIOutputError(error: unknown): boolean {
   return /no text content|empty response body/i.test(error.message);
 }
 
-async function callJsonWithRetry<T>(aiClient: AIClient, prompt: string, taskLabel: string): Promise<T> {
+async function callJsonWithRetry<T>(
+  aiClient: AIClient,
+  prompt: string,
+  taskLabel: string,
+  options: AIRequestOptions = {}
+): Promise<T> {
   let lastError: unknown;
 
   for (let attempt = 1; attempt <= AI_JSON_MAX_ATTEMPTS; attempt++) {
@@ -672,7 +695,10 @@ async function callJsonWithRetry<T>(aiClient: AIClient, prompt: string, taskLabe
       : `${prompt}\n\n再次提醒：只返回一个合法 JSON 对象，不要输出解释、代码块或省略内容。`;
 
     try {
-      const responseText = await aiClient.call(attemptPrompt, { responseType: 'json' });
+      const responseText = await aiClient.call(attemptPrompt, {
+        responseType: 'json',
+        maxCompletionTokens: options.maxCompletionTokens,
+      });
       return parseJsonResponse<T>(responseText);
     } catch (error) {
       lastError = error;
@@ -766,8 +792,8 @@ async function scoreArticlesWithAI(
   }));
   
   const batches: typeof indexed[] = [];
-  for (let i = 0; i < indexed.length; i += GEMINI_BATCH_SIZE) {
-    batches.push(indexed.slice(i, i + GEMINI_BATCH_SIZE));
+  for (let i = 0; i < indexed.length; i += SCORING_BATCH_SIZE) {
+    batches.push(indexed.slice(i, i + SCORING_BATCH_SIZE));
   }
   
   console.log(`[digest] AI scoring: ${articles.length} articles in ${batches.length} batches`);
@@ -779,7 +805,12 @@ async function scoreArticlesWithAI(
     const promises = batchGroup.map(async (batch) => {
       try {
         const prompt = buildScoringPrompt(batch);
-        const parsed = await callJsonWithRetry<GeminiScoringResult>(aiClient, prompt, 'Scoring batch');
+        const parsed = await callJsonWithRetry<GeminiScoringResult>(
+          aiClient,
+          prompt,
+          'Scoring batch',
+          { maxCompletionTokens: OPENAI_REASONING_MAX_COMPLETION_TOKENS }
+        );
         
         if (parsed.results && Array.isArray(parsed.results)) {
           for (const result of parsed.results) {
@@ -882,8 +913,8 @@ async function summarizeArticles(
   }));
   
   const batches: typeof indexed[] = [];
-  for (let i = 0; i < indexed.length; i += GEMINI_BATCH_SIZE) {
-    batches.push(indexed.slice(i, i + GEMINI_BATCH_SIZE));
+  for (let i = 0; i < indexed.length; i += SUMMARY_BATCH_SIZE) {
+    batches.push(indexed.slice(i, i + SUMMARY_BATCH_SIZE));
   }
   
   console.log(`[digest] Generating summaries for ${articles.length} articles in ${batches.length} batches`);
@@ -893,7 +924,12 @@ async function summarizeArticles(
     const promises = batchGroup.map(async (batch) => {
       try {
         const prompt = buildSummaryPrompt(batch, lang);
-        const parsed = await callJsonWithRetry<GeminiSummaryResult>(aiClient, prompt, 'Summary batch');
+        const parsed = await callJsonWithRetry<GeminiSummaryResult>(
+          aiClient,
+          prompt,
+          'Summary batch',
+          { maxCompletionTokens: OPENAI_REASONING_MAX_COMPLETION_TOKENS }
+        );
         
         if (parsed.results && Array.isArray(parsed.results)) {
           for (const result of parsed.results) {
@@ -952,7 +988,10 @@ ${articleList}
 直接返回纯文本总结，不要 JSON，不要 markdown 格式。`;
 
   try {
-    const text = await aiClient.call(prompt, { responseType: 'text' });
+    const text = await aiClient.call(prompt, {
+      responseType: 'text',
+      maxCompletionTokens: OPENAI_REASONING_MAX_COMPLETION_TOKENS,
+    });
     return text.trim();
   } catch (error) {
     console.warn(`[digest] Highlights generation failed: ${error instanceof Error ? error.message : String(error)}`);
