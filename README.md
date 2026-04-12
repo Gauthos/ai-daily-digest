@@ -10,6 +10,34 @@ skill 制作详情可查看 ➡️ https://mp.weixin.qq.com/s/rkQ28KTZs5QeZqjwSC
 
 ## 使用方式
 
+## GitHub Actions + GitHub Pages + RSS
+
+这个 fork 已经补齐了静态发布链路：
+
+- `scripts/digest.ts` 继续生成每日 Markdown 日报
+- `scripts/publish.ts` 会把 Markdown 转成 `docs/` 站点、历史归档和 `feed.xml`
+- `.github/workflows/daily-digest.yml` 每天定时运行，并把 `docs/` 提交回仓库
+
+完成以下设置后即可直接使用：
+
+1. 在仓库 `Settings -> Secrets and variables -> Actions` 中配置至少一个密钥：
+   - `GEMINI_API_KEY`
+   - 或 `OPENAI_API_KEY`
+   - 如使用 OpenAI 兼容接口，可选再加 `OPENAI_API_BASE`、`OPENAI_MODEL`
+2. 在 `Settings -> Pages` 中选择：
+   - `Build and deployment`: `Deploy from a branch`
+   - `Branch`: `main`
+   - `Folder`: `/docs`
+3. 到 `Actions -> daily-digest` 手动执行一次 `Run workflow`，完成首篇日报和 feed 初始化
+
+默认订阅地址：
+
+```text
+https://gauthos.github.io/ai-daily-digest/feed.xml
+```
+
+工作流当前定时为每天 `01:15 UTC`，也就是北京时间 `09:15`。这样能保证生成文件中的日期与 GitHub Actions 的 UTC 日期一致，避免早晨执行时出现“本地日期和文件名差一天”的问题。
+
 作为 OpenCode Skill 使用，在对话中输入 `/digest` 即可启动交互式引导流程：
 
 ```
@@ -36,6 +64,22 @@ export OPENAI_API_BASE="https://api.deepseek.com/v1" # 可选，默认 https://a
 export OPENAI_MODEL="deepseek-chat"                  # 可选，不填会自动推断
 npx -y bun scripts/digest.ts --hours 48 --top-n 15 --lang zh --output ./digest.md
 ```
+
+### 本地发布 Pages 文件
+
+生成 Markdown 后，可以继续把它转成 GitHub Pages 可直接托管的静态站点：
+
+```bash
+npx -y bun scripts/publish.ts --input ./digest.md --output-dir ./docs --site-url https://gauthos.github.io/ai-daily-digest
+```
+
+产物包括：
+
+- `docs/index.html` 最新日报首页
+- `docs/digests/YYYY-MM-DD/index.html` 每日归档页
+- `docs/digests/YYYY-MM-DD/digest.md` 当日 Markdown 原文
+- `docs/feed.xml` 可订阅 RSS
+- `docs/manifest.json` feed 和归档索引
 
 ## 功能
 

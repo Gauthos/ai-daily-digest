@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>AI Daily Digest</title>
+    <link>https://gauthos.github.io/ai-daily-digest</link>
+    <description>AI-curated daily digest built from top technical blogs and published as a static RSS feed.</description>
+    <language>zh-CN</language>
+    <generator>ai-daily-digest/bootstrap</generator>
+    <lastBuildDate>Sun, 12 Apr 2026 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://gauthos.github.io/ai-daily-digest/feed.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>
