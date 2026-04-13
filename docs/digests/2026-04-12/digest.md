@@ -2,176 +2,205 @@
 
 > 来自 Karpathy 推荐的 92 个顶级技术博客，AI 精选 Top 15
 
+## 📝 今日看点
+
+今天技术圈最鲜明的主线，是 AI 正从“能不能用”转向“该怎么用”：一边是本地化、多模态运行门槛继续下降，另一边是对大模型制造冗余、放大复杂度以及把失败归咎于用户的反思明显升温。围绕 AI 的讨论不再只比拼能力上限，而是开始追问产品设计、交互责任和真实效率。与此同时，开发基础设施依旧在稳步进化，SQLite 这类经典工具通过关键功能更新和配套生态完善，继续证明“小而强”的工程价值。另一条暗线则是对平台话术和厂商体系的警惕：无论是云认证还是大型技术品牌，业界都在重新强调对底层概念的理解应高于对产品名词的背诵。
+
+---
+
 ## 🏆 今日必读
 
-🥇 **中心立场也有偏见**
+🥇 **SQLite 3.53.0**
 
-[The Center Has a Bias](https://lucumr.pocoo.org/2026/4/11/the-center-has-a-bias/) — lucumr.pocoo.org · 1 天前 · 💡 观点 / 杂谈
+[SQLite 3.53.0](https://simonwillison.net/2026/Apr/11/sqlite/#atom-everything) — simonwillison.net · 1 天前 · ⚙️ 工程
 
-> 围绕 AI 编码代理的讨论并不只是“拥抱”与“拒绝”两极对立，所谓温和、中立的中间派同样会带着系统性偏见。作者指出，许多针对 AI coding agents 的批评本身并非无效，但常出自缺乏一线使用经验的人，这使得他们容易高估工具的缺陷、低估其在真实工作流中的适配方式。文章进一步强调，评价这类工具不能停留在抽象立场或身份认同，而应基于长期实践、具体任务类型以及人与工具协作的实际成本收益。对新技术最有价值的判断，不是先验地站队，而是承认经验分布不均、能力边界动态变化，并据此校正“看似中立”的判断框架。
+> SQLite 3.53.0 取代被撤回的 3.52.0，成为一次累计了大量面向用户和内部改进的重要版本发布。最突出的变化之一是 `ALTER TABLE` 现在可以直接添加和移除 `NOT NULL` 与 `CHECK` 约束，减少了以往依赖外部工具或重建表结构的繁琐操作。作者特别关注这些直接影响日常 schema 维护的能力增强，因为它们让 SQLite 在迁移、约束管理和演进数据库结构时更实用。整体上，这个版本不仅是常规升级，更体现出 SQLite 在稳定性之外持续补齐开发者体验上的短板。
 
-💡 **为什么值得读**: 值得读，因为它不是简单为 AI 编码工具辩护，而是精准拆解了技术争论中最隐蔽也最常见的认知偏差：自以为客观的中间立场。
+💡 **为什么值得读**: 如果你在生产环境里使用 SQLite，这个版本对表结构迁移能力的提升非常实际，能直接减少手写迁移脚本和额外工具依赖。
 
-🏷️ AI agents, developer tools, adoption, bias
+🏷️ SQLite, release, database, SQL
 
-🥈 **如何在活动中的 WaitForMultipleObjects 里添加或移除句柄？第二部分**
+🥈 **引用 Bryan Cantrill**
 
-[How do you add or remove a handle from an active Wait­For­Multiple­Objects?, part 2](https://devblogs.microsoft.com/oldnewthing/20260410-00/?p=112223) — devblogs.microsoft.com/oldnewthing · 1 天前 · ⚙️ 工程
+[Quoting Bryan Cantrill](https://simonwillison.net/2026/Apr/13/bryan-cantrill/#atom-everything) — simonwillison.net · 1 小时前 · 🤖 AI / ML
 
-> 核心问题是：当线程已经阻塞在 WaitForMultipleObjects 上时，如何安全地动态增删等待句柄。作者延续前文方案，重点解释“等待线程确认变更”这一同步步骤，避免在等待数组被修改时出现竞态条件、句柄错配或遗漏唤醒。技术关键在于通过额外的协调机制，让发起变更的一方先通知等待线程，再等等待线程完成对新句柄集合的接管后继续执行。结论是，WaitForMultipleObjects 本身不支持热更新等待集合，必须借助显式握手协议来完成安全切换。
+> Bryan Cantrill 指出，大语言模型“天生缺乏懒惰这种美德”，因为对 LLM 来说生成更多内容几乎没有成本。由此带来的风险是，系统会不断叠加更多代码、更多抽象和更多复杂度，形成“垃圾千层饼”，表面上可能提升了产出指标，实则损害系统真正重要的质量属性。这个观点批评的不是自动化本身，而是未经约束地把 LLM 用作复杂度放大器。核心结论是：如果没有强有力的人类判断、约束和优化目标，LLM 更可能把系统做得更大，而不是更好。
 
-💡 **为什么值得读**: 值得读，因为它把 Windows 多对象等待里最容易踩坑的并发细节讲清楚了，适合写底层同步代码的人直接参考。
+💡 **为什么值得读**: 这段观点很值得读，因为它精准点出了 AI 编程热潮里最容易被忽视的代价：复杂度膨胀往往会伪装成效率提升。
 
-🏷️ Windows, WaitForMultipleObjects, handles, concurrency
+🏷️ LLM, software engineering, productivity, Bryan Cantrill
 
-🥉 **包注册表与分页**
+🥉 **用 MLX 运行 Gemma 4 音频**
 
-[Package Registries and Pagination](https://nesbitt.io/2026/04/10/package-registries-and-pagination.html) — nesbitt.io · 1 天前 · ⚙️ 工程
+[Gemma 4 audio with MLX](https://simonwillison.net/2026/Apr/12/mlx-audio/#atom-everything) — simonwillison.net · 4 小时前 · 🤖 AI / ML
 
-> 问题在于包注册表的版本列表接口如果缺少合理分页，会让客户端为少量实际需求下载过量元数据。作者给出的具体例子是某个包仅版本元数据就达到 100MB，对应 10,451 个版本，这种 API 设计会显著放大带宽、延迟和解析成本。文章讨论了包生态中的注册表实现为何容易忽视分页，以及这种“把全部历史一次性返回”的做法如何伤害镜像服务、CLI 工具和普通用户体验。核心观点是，分页不只是性能优化，而是包注册表在可扩展性和长期演进上必须具备的基础能力。
+> 这篇内容给出了一个可直接执行的 `uv run` 命令，用于在 macOS 上借助 MLX 和 `mlx-vlm` 调用 10.28 GB 的 `google/gemma-4-e2b-it` 模型完成音频转写。方案依赖 Python 3.13，并通过 `--with mlx_vlm --with torchvision --with gradio` 动态安装运行时依赖，展示了本地多模态推理的一种轻量工作流。重点不在理论介绍，而在于把 Gemma 4 音频能力落到可复现的命令行实践上，适合 Apple Silicon 环境快速试验。作者传达的核心信息是：现在已经可以相对简单地在 macOS 本地跑起较大的 Gemma 4 音频模型，而不必依赖远程 API。
 
-💡 **为什么值得读**: 值得读，因为它用一个 100MB 元数据的真实案例，把看似普通的 API 分页问题上升成了包基础设施设计的可扩展性警告。
+💡 **为什么值得读**: 值得读的原因是它直接提供了可复制的本地运行配方，能帮你最快判断 Gemma 4 音频在 macOS/MLX 上是否适合自己的实验或产品原型。
 
-🏷️ package registry, pagination, metadata, scalability
-
----
-
-## 📝 其他
-
-### 1. SQLite 3.53.0
-
-[SQLite 3.53.0](https://simonwillison.net/2026/Apr/11/sqlite/#atom-everything) — **simonwillison.net** · 5 小时前 · ⭐ 15/30
-
-> SQLite 3.53.0 是一次积累了大量用户可见改进的重要版本，因为 3.52.0 已被撤回。最突出的变化之一是 ALTER TABLE 现在可以直接添加或移除 NOT NULL 与 CHECK 约束，减少了过去需要借助外部工具或重建表结构的麻烦。文章还点出这次发布包含大量内部与外部改进，并特别提炼出对日常开发最有价值的更新。结论是，3.53.0 不只是常规小版本升级，而是值得 SQLite 用户认真评估和尽快关注的一次实用增强。
-
----
-
-### 2. SQLite 查询结果格式化器演示
-
-[SQLite Query Result Formatter Demo](https://simonwillison.net/2026/Apr/11/sqlite-qrf/#atom-everything) — **simonwillison.net** · 5 小时前 · ⭐ 15/30
-
-> 这个演示工具围绕 SQLite 3.53.0 新引入的 Query Result Formatter，展示 SQL 查询结果表格的不同渲染方式。作者提供了一个基于 WebAssembly 编译的在线 playground，用户可以直接试验结果表的展示选项，而不必本地编译或阅读底层实现。它的价值在于把原本偏底层的格式化库转化为可交互界面，帮助开发者快速理解输出效果与适用场景。结论是，这个 demo 是理解 SQLite 新结果格式化能力的最直接入口。
-
----
-
-### 3. 鸮鹦鹉
-
-[Kākāpō parrots](https://simonwillison.net/2026/Apr/10/kakapo/#atom-everything) — **simonwillison.net** · 1 天前 · ⭐ 15/30
-
-> 内容是一段来自作者与 Lenny 时长 1 小时 40 分钟播客录音中的节选，主题聚焦新西兰珍稀鸟类 kākāpō。文章主要以视频片段形式呈现，延续此前播客内容中的轻松、兴趣驱动式分享。它没有复杂技术分析，而是将一个具体而有趣的自然话题从长播客中拆出，便于快速观看传播。结论是，这是一则偏轻量的片段分享，适合喜欢作者播客风格或自然生态趣闻的读者。
-
----
-
-### 4. ChatGPT 语音模式是一个较弱的模型
-
-[ChatGPT voice mode is a weaker model](https://simonwillison.net/2026/Apr/10/voice-mode-is-weaker/#atom-everything) — **simonwillison.net** · 1 天前 · ⭐ 15/30
-
-> 作者指出一个很多用户没有意识到的事实：ChatGPT 的语音模式并不是当前最强模型，而是能力明显较弱的旧模型。一个直接证据是，语音模式给出的知识截止时间仍是 2024 年 4 月，说明它更接近 GPT-4o 时代的模型能力，而非最新一代。文章借 Andrej Karpathy 的讨论强调，用户对“能说话的 AI 应该更聪明”的直觉正在与实际产品分层脱节，导致对模型能力的误判。结论是，语音交互的易用性不代表模型智能水平更高，使用时应重新校准预期。
-
----
-
-### 5. 泛美航空行李标签
-
-[Pan American Luggage Labels](https://ellafreire.com/collections/pan-american-luggage-labels) — **daringfireball.net** · 8 小时前 · ⭐ 15/30
-
-> 这是一组复刻 Pan Am 复古行李标签的平面设计作品展示，重点在色彩、字体与几何造型所呈现出的经典航空视觉语言。作者简短点评这些作品“极其优美”，尤其欣赏其配色、字形和整体构图。内容本身并非技术文章，而是一次面向设计爱好者的周末灵感分享。结论是，这组作品以高完成度的复古品牌美学，重新唤起了泛美航空时代的视觉魅力。
-
----
-
-### 6. 让我们在朋友活着时表达友谊，而不是等他死后
-
-[★ Let Us Learn to Show Our Friendship for a Man When He Is Alive and Not After He Is Dead](https://daringfireball.net/2026/04/when_he_is_alive_and_not_after_he_is_dead) — **daringfireball.net** · 1 天前 · ⭐ 15/30
-
-> 文章围绕《纽约客》上 Ronan Farrow 与 Andrew Marantz 对 Sam Altman 的长篇人物特写展开评论，核心关切是公众应如何在当事人仍在场时诚实评价其人其事。标题借用古典表达，强调“生前评价”比“身后追悼”更重要，也暗示对 Altman 这类处于权力中心人物的报道不应被神话化。结合 Daring Fireball 一贯的媒体批评语境，这篇短评更像是对人物叙事、声望机制和科技权力书写方式的再审视。核心观点是：面对正在塑造行业与公共议程的人物，及时、清醒、带锋芒的记录比事后盖棺定论更有价值。
-
----
-
-### 7. 荷兰乌得勒支的 Ed Bindels 苹果博物馆
-
-[Ed Bindels’s Apple Museum in Utrecht, Netherlands](https://applemuseum.nl/) — **daringfireball.net** · 1 天前 · ⭐ 15/30
-
-> 内容聚焦荷兰乌得勒支新开的 Apple Museum，地点距离阿姆斯特丹约 30–40 分钟车程。作者给出的核心亮点是馆藏的展示效果极强，尤其是由多台彩虹配色 iMac 组成的“彩虹墙”极具视觉冲击力。虽然篇幅很短，但传递的信息很明确：这不是普通的民间收藏，而是对 Apple 工业设计史与品牌文化的一次高密度实体呈现。对 Macintosh、iMac 以及苹果硬件演进感兴趣的读者，这座博物馆本身就是一个目的地。
-
----
-
-### 8. 你的朋友正把他们最好的点子藏着不让你知道
-
-[Your friends are hiding their best ideas from you](https://idiallo.com/blog/your-friends-are-hiding-their-ideas?src=feed) — **idiallo.com** · 1 天前 · ⭐ 15/30
-
-> 文章讨论的核心问题是：为什么很多人即使有很好的创意，也不愿意在朋友、同事甚至合作伙伴面前说出来。作者从大学时期 4 人小组完成 JavaScript 课程网站项目的经历切入，回忆自己把数字艺术课上学到的 Photoshop 技能用于餐厅网站视觉设计时，首次感受到“好点子被看见”的力量。文章进一步指出，人们隐藏想法往往不是因为没有创意，而是担心被嘲笑、被否定、被抢功，或觉得点子还不够成熟。作者的结论是，真正阻碍创作与合作的不是灵感稀缺，而是分享机制中的心理不安全感；越早把想法说出来，越有机会把它打磨成作品。
-
----
-
-### 9. 复调：别作恶（2026年4月11日）
-
-[Pluralistic: Don't Be Evil (11 Apr 2026)](https://pluralistic.net/2026/04/11/obvious-terrible-ideas/) — **pluralistic.net** · 11 小时前 · ⭐ 15/30
-
-> 这是一篇 Pluralistic 的链接汇总，主轴是“Don't Be Evil”，把企业、机构与个人如何把明显糟糕的主意包装成合理方案作为批评对象。作者用“所谓邪恶天才，其实只是毫无羞耻感”概括这些行为背后的机制，强调很多伤害性决策并不高明，只是依赖权力、冷漠和公众注意力稀缺。除主文外，文中还串联 FBI、Trotsky、Jakob Nielsen、EFF v DOGE 等多个链接，构成对科技、政治和公共文化的横向观察。核心判断是：面对那些“显而易见的坏主意”，公众不应被其话术震慑，而应直接识别其荒谬与危害。
-
----
-
-### 10. 复调：恐怖谷与知识共享（2026年4月10日）
-
-[Pluralistic: Canny Valley and Creative Commons (10 Apr 2026)](https://pluralistic.net/2026/04/10/canny-valley/) — **pluralistic.net** · 1 天前 · ⭐ 15/30
-
-> 文章的核心主题是“Canny Valley and Creative Commons”，重点在于围绕 Creative Commons 及相关版权、授权实践再次提出新的讨论与批评。标题中的“Another bite at the apple”暗示作者并非首次处理这个议题，而是在既有争论基础上继续推进，对开放授权如何被理解、挪用或制度化提出新一轮分析。文中还附带 Bidenomics、版权流氓、艺术洗钱、英国政府谴责 copyright trolls 等链接，把创作、知识产权和政策问题放到同一张图景里。作者的核心观点是：开放文化工具并不会自动导向更公平的创作生态，关键仍在制度设计、执行边界与权力关系。
+🏷️ Gemma, MLX, audio transcription, macOS
 
 ---
 
 ## 💡 观点 / 杂谈
 
-### 11. 中心立场也有偏见
+### 1. 那是技能问题
 
-[The Center Has a Bias](https://lucumr.pocoo.org/2026/4/11/the-center-has-a-bias/) — **lucumr.pocoo.org** · 1 天前 · ⭐ 24/30
+[That’s a Skill Issue](https://blog.jim-nielsen.com/2026/skill-issue/) — **blog.jim-nielsen.com** · 9 小时前 · ⭐ 22/30
 
-> 围绕 AI 编码代理的讨论并不只是“拥抱”与“拒绝”两极对立，所谓温和、中立的中间派同样会带着系统性偏见。作者指出，许多针对 AI coding agents 的批评本身并非无效，但常出自缺乏一线使用经验的人，这使得他们容易高估工具的缺陷、低估其在真实工作流中的适配方式。文章进一步强调，评价这类工具不能停留在抽象立场或身份认同，而应基于长期实践、具体任务类型以及人与工具协作的实际成本收益。对新技术最有价值的判断，不是先验地站队，而是承认经验分布不均、能力边界动态变化，并据此校正“看似中立”的判断框架。
+> 核心主题是：AI 产品在使用失败时，责任应归咎于用户“不会用”，还是归咎于产品设计本身。作者指出，很多 LLM 支持者习惯把结果不佳解释为用户的“skill issue”，而以人为中心的 UX 设计传统则会反过来追问：是不是界面、交互或系统反馈设计得不够好。这个对比揭示了两种完全不同的产品观——一种要求用户适应模型的局限，另一种要求产品去适应人的真实使用方式。作者结合自己与 Jan Miksovsky 的工作背景，强调 AI 交互也应接受传统 UX 标准检验，而不是把可用性问题外包给提示词技巧。结论是，若一个系统频繁依赖用户掌握隐性技巧才能正常使用，那首先是设计问题，而不只是用户能力问题。
 
-🏷️ AI agents, developer tools, adoption, bias
-
----
-
-### 12. 【RSS Club】为什么你使用 RSS 而不是 Atom？
-
-[[RSS Club] Why do you use RSS rather than Atom?](https://shkspr.mobi/blog/2026/04/rss-club-why-do-you-use-rss-rather-than-atom/) — **shkspr.mobi** · 1 天前 · ⭐ 16/30
-
-> 主题聚焦于订阅技术选型：在 RSS 与 Atom 都可用的情况下，为什么很多人仍然偏向 RSS。文章结合作者的 RSS Club 实验，提到本地化、注重隐私的浏览追踪与阅读统计实践，说明 feed 生态不只是格式之争，还涉及工具兼容性和实际部署体验。作者借由读者互动讨论 RSS 与 Atom 的使用习惯，暗示决定因素往往不是规范优雅程度，而是历史惯性、读者支持度与现有阅读器生态。结论是，RSS 的持续流行更多来自现实世界的广泛兼容，而非它在设计上绝对优于 Atom。
-
-🏷️ RSS, Atom, feeds, privacy
+🏷️ LLM, UX, AI, skill issue
 
 ---
 
-### 13. 为什么我退出了《The Strive》
+### 2. 你的 AWS 证书会把你变成 AWS 推销员
 
-[Why I quit "The Strive"](https://www.joanwestenberg.com/why-i-quit-the-strive/) — **joanwestenberg.com** · 1 天前 · ⭐ 16/30
+[Your AWS Certificate Makes You an AWS Salesman](https://idiallo.com/byte-size/we-are-aws-salesmen?src=feed) — **idiallo.com** · 11 小时前 · ⭐ 21/30
 
-> 核心主题是作者为何主动离开自己参与的项目《The Strive》，以及这种退出背后的价值判断。文章并不只停留在个人情绪，而是围绕创作自主性、社区关系、商业化方式与长期可持续性展开，说明当项目目标与个人原则发生偏移时，继续留下的成本会越来越高。作者同时强调，她会继续保持内容免费可读，并把付费订阅定位为额外支持而非强制门槛。最终结论是，退出并非失败，而是为了重新选择更一致、更诚实的工作方式。
+> 核心主题是 AWS 学习和认证体系如何把开发者训练成记忆产品名称与品牌术语的人，而不是真正理解云计算概念的人。作者以自己连“静态网站托管该用什么服务”都难以从 AWS 控制台直觉找到为例，指出 EC2、DynamoDB 等命名与入口设计强化了平台内部话语体系，却弱化了对通用需求的表达。文章的关键观点是，AWS 认证往往奖励对具体服务矩阵的熟悉程度，让学习过程更像背销售目录，而不是掌握基础架构设计原则。这样一来，开发者容易把“会选 AWS 产品”误当成“理解云架构”，并进一步被锁定在厂商特定语境中。作者的结论是，真正有价值的能力应当是理解托管、计算、存储、网络等抽象概念，而不是熟背 AWS 的命名系统。
 
-🏷️ productivity, burnout, work culture, career
+🏷️ AWS, certification, cloud, developer experience
+
+---
+
+### 3. “人人都是亿万富翁”的戏码
+
+[The ‘Everyone’s a Billionaire’ act](https://geohot.github.io//blog/jekyll/update/2026/04/13/everyones-a-billionaire.html) — **geohot.github.io** · 12 小时前 · ⭐ 17/30
+
+> 核心焦点是：在作者以往擅长“诊断问题”之后，这次试图进一步提出一个可执行、且能获得广泛支持的解决方案。标题中的“Everyone’s a Billionaire”明显带有讽刺意味，指向一种关于财富、分配或经济叙事的社会性提案，而不是字面意义上的全民暴富。作者开篇直接回应外界批评，承认过去内容更多停留在问题分析层面，因此这篇文章的重点将转向“怎么做”而非“哪里错”。从引言语气看，方案被包装成一种几乎所有人都能接受的主张，只有“haters and losers”会反对，说明文章很可能会以强烈个人风格推进一套简单、直接、带有政治或经济批判色彩的解法。整体核心观点是：仅仅指出系统问题不够，真正有价值的是给出一个能动员多数人的具体方案。
+
+🏷️ wealth, economics, policy, inequality
+
+---
+
+### 4. Pluralistic：别作恶（2026 年 4 月 11 日）
+
+[Pluralistic: Don't Be Evil (11 Apr 2026)](https://pluralistic.net/2026/04/11/obvious-terrible-ideas/) — **pluralistic.net** · 1 天前 · ⭐ 15/30
+
+> 核心主题围绕“Don’t Be Evil”，把“邪恶天才”重新定义为一种由缺乏羞耻感驱动的权力与技术行为模式。该期内容是 Cory Doctorow 的链接评论合集，串联了多个议题，包括 FBI 与 Trotsky、Jakob Nielsen 与标题写作、软盘彩绘玻璃、对不配对袜子的零容忍，以及 EFF 对 DOGE 的相关议题。与其说它提供单一论证，不如说它通过一组看似分散的案例，勾勒出平台权力、公共机构、界面设计和社会规范之间的共同问题：荒谬想法之所以能落地，往往不是因为它们高明，而是因为提出者毫无顾忌。标题“obvious terrible ideas”也点明了作者的判断——很多坏主意其实并不隐蔽，只是被权力和叙事包装成了正常选择。核心观点是：识别并抵制“显而易见的糟糕想法”，首先要看穿它们背后的无耻逻辑，而不是被其表面的权威感唬住。
+
+🏷️ tech policy, EFF, surveillance, commentary
+
+---
+
+### 5. 乐观不是人格缺陷
+
+[Optimism is not a personality flaw](https://www.joanwestenberg.com/optimism-is-not-a-personality-flaw/) — **joanwestenberg.com** · 1 天前 · ⭐ 14/30
+
+> 文章聚焦于一种当下常见的文化倾向：把乐观视为幼稚、天真，甚至道德上可疑的态度。作者的核心论点是，乐观并不等于否认现实，也不意味着忽视风险；相反，它可以是一种在不确定环境中继续行动、创造和承担责任的认知选择。与犬儒、虚无或“清醒式悲观”相比，这种乐观更接近实践性的韧性：承认问题存在，但拒绝把问题当成停止努力的理由。作者最终传达的观点是，在一个高度焦虑和负面反馈循环强化的时代，保有理性的乐观本身就是一种有价值的力量。
+
+🏷️ optimism, mindset, culture, career
+
+---
+
+## 📝 其他
+
+### 6. 阅读清单 2026/04/11
+
+[Reading List 04/11/2026](https://www.construction-physics.com/p/reading-list-04112026) — **construction-physics.com** · 1 天前 · ⭐ 15/30
+
+> 这是一篇围绕地缘政治、建筑法规、工业自动化和城市基础设施的综合阅读清单，主题跨度从霍尔木兹海峡通航到“海绵城市”建设。清单中特别点出了建筑规范的成本—收益分析，说明作者关注的不只是安全与合规，还包括法规带来的经济效率与社会回报。另一个重点是 Intel 加入 Terafab，反映出半导体制造、机器人施工或自动化建造生态之间正在形成更紧密的产业连接。整体上，这份清单延续了 Construction Physics 一贯的风格：把工程、制造、政策与基础设施放在同一视角下观察，帮助读者快速捕捉值得深读的技术与产业议题。
+
+🏷️ reading list, infrastructure, Intel, construction
+
+---
+
+### 7. 东正教复活节与西方复活节之间的差距
+
+[The gap between Eastern and Western Easter](https://www.johndcook.com/blog/2026/04/12/orthodox-western-easter/) — **johndcook.com** · 16 小时前 · ⭐ 14/30
+
+> 核心问题是东正教复活节与西方教会复活节为什么经常不在同一天，以及两者的日期差距能有多大。文章从“春分后第一个满月之后的第一个星期日”这一复活节计算规则出发，解释了东西方在历法和教会计算体系上的差异：西方通常采用公历相关规则，而东方教会保留与儒略历和传统逾越节约束更相关的算法。作者进一步讨论了东正教复活节是否总是晚于西方复活节，并分析两者可能重合、相差一周甚至更久的情况。结论是，差异并非源于节日本身定义不同，而是源于“春分”“满月”和历法基准的计算方式不同。
+
+🏷️ Easter, calendar, Julian, Gregorian
+
+---
+
+### 8. 维克托·欧尔班在匈牙利选举中落败，承认失败并祝贺反对派获胜
+
+[Viktor Orban Loses Election in Hungary, Concedes Defeat, Congratulates Opposition Winners](https://www.nytimes.com/2026/04/12/world/europe/hungary-election-orban-magyar.html) — **daringfireball.net** · 6 小时前 · ⭐ 13/30
+
+> 匈牙利政局出现重大转折，长期执政的总理维克托·欧尔班在选举失利后于布达佩斯发表了出人意料地提前且克制的认输讲话。欧尔班公开表示“治理国家的责任和机会没有交给我们”，并向反对派表示祝贺，但同时强调“我们不会放弃，永远、永远、永远不会”，释放出继续政治斗争的信号。此次胜选为彼得·马扎尔铺平了执政道路，这位曾经的欧尔班支持者、如今的主要反对派领袖，将在新一届议会召开后接任匈牙利总理。核心变化不仅是一次选举结果逆转，更意味着匈牙利可能从欧尔班时代进入新的权力结构与政策阶段。
+
+🏷️ Hungary, election, Orban, politics
+
+---
+
+### 9. 月相周期的近似计算
+
+[Lunar period approximations](https://www.johndcook.com/blog/2026/04/12/lunations/) — **johndcook.com** · 4 小时前 · ⭐ 13/30
+
+> 文章聚焦月相周期的数学近似，核心背景是复活节日期的确定规则：春分后第一次满月之后的第一个星期日。这个规则试图用罗马的儒略历去对应一个原本依据犹太阴阳历记载的历史事件，因此必须处理春分、满月和历法换算之间的误差问题。作者从 lunation（月朔望月）周期出发，讨论如何用数值近似来刻画月球周期，以及这些近似在历法计算中的实际意义。重点不只是天文常识，而是展示历法规则背后如何依赖周期逼近、整数关系和长期误差控制。结论上，月相与历法的对应并非天然精确，而是建立在一套足够好、可长期使用的近似体系之上。
+
+🏷️ lunar cycle, Easter, calendar, approximation
+
+---
+
+### 10. Zed：一个字体超家族
+
+[Zed — A Font Superfamily](https://www.typotheque.com/blog/zed-a-sans-for-the-needs-of-21century/?utm_source=df) — **daringfireball.net** · 6 小时前 · ⭐ 12/30
+
+> Zed 被定位为面向 21 世纪阅读需求打造的字体系统，设计目标不是单纯追求字样展示效果，而是提升更广泛读者群体的实际可读性。Typotheque 在法国一家眼科医院对视障患者进行了测试，结果显示 Zed Text 在所有患者组中的阅读速度都优于 Helvetica。这个项目强调以读者体验为中心的字体工程思路，把可读性验证建立在真实用户测试而非传统印样审美之上。Zed 因而不仅是一个新的 sans-serif 字体家族，更是一套以阅读表现和无障碍为核心指标的设计方案。作者传达的核心观点是：优秀字体应首先服务阅读效率与包容性，而不仅是视觉风格。
+
+🏷️ fonts, typography, design, readability
+
+---
+
+## 🤖 AI / ML
+
+### 11. 引用 Bryan Cantrill
+
+[Quoting Bryan Cantrill](https://simonwillison.net/2026/Apr/13/bryan-cantrill/#atom-everything) — **simonwillison.net** · 1 小时前 · ⭐ 23/30
+
+> Bryan Cantrill 指出，大语言模型“天生缺乏懒惰这种美德”，因为对 LLM 来说生成更多内容几乎没有成本。由此带来的风险是，系统会不断叠加更多代码、更多抽象和更多复杂度，形成“垃圾千层饼”，表面上可能提升了产出指标，实则损害系统真正重要的质量属性。这个观点批评的不是自动化本身，而是未经约束地把 LLM 用作复杂度放大器。核心结论是：如果没有强有力的人类判断、约束和优化目标，LLM 更可能把系统做得更大，而不是更好。
+
+🏷️ LLM, software engineering, productivity, Bryan Cantrill
+
+---
+
+### 12. 用 MLX 运行 Gemma 4 音频
+
+[Gemma 4 audio with MLX](https://simonwillison.net/2026/Apr/12/mlx-audio/#atom-everything) — **simonwillison.net** · 4 小时前 · ⭐ 23/30
+
+> 这篇内容给出了一个可直接执行的 `uv run` 命令，用于在 macOS 上借助 MLX 和 `mlx-vlm` 调用 10.28 GB 的 `google/gemma-4-e2b-it` 模型完成音频转写。方案依赖 Python 3.13，并通过 `--with mlx_vlm --with torchvision --with gradio` 动态安装运行时依赖，展示了本地多模态推理的一种轻量工作流。重点不在理论介绍，而在于把 Gemma 4 音频能力落到可复现的命令行实践上，适合 Apple Silicon 环境快速试验。作者传达的核心信息是：现在已经可以相对简单地在 macOS 本地跑起较大的 Gemma 4 音频模型，而不必依赖远程 API。
+
+🏷️ Gemma, MLX, audio transcription, macOS
+
+---
+
+## 🛠 工具 / 开源
+
+### 13. SQLite 查询结果格式化器演示
+
+[SQLite Query Result Formatter Demo](https://simonwillison.net/2026/Apr/11/sqlite-qrf/#atom-everything) — **simonwillison.net** · 1 天前 · ⭐ 21/30
+
+> 核心主题是一个可在线试用的 SQLite Query Result Formatter 工具，用来渲染 SQL 查询结果表格的不同展示形式。该工具基于新发布的 Query Result Formatter 库，并编译为 WebAssembly，使其可以直接在浏览器中运行和交互测试。作者将它与 SQLite 3.53.0 的相关更新联系起来，重点展示查询结果在前端展示层的格式化能力，而不是数据库执行本身。这个 playground 的价值在于让开发者快速比较不同表格渲染选项，验证哪种输出更适合文档、调试或嵌入式数据界面。结论是，随着 SQLite 生态继续向浏览器和可视化场景延伸，结果格式化正在成为一个实用而独立的能力层。
+
+🏷️ SQLite, playground, query results, formatter
+
+---
+
+### 14. 用 eSIM 保留英国手机号的最便宜方法
+
+[Cheapest way to keep a UK mobile number using an eSIM](https://shkspr.mobi/blog/2026/04/cheapest-way-to-keep-a-uk-mobile-number-using-an-esim/) — **shkspr.mobi** · 1 天前 · ⭐ 16/30
+
+> 核心问题是：如何在不使用实体 SIM 卡的前提下，以最低成本长期保留一个英国手机号，主要用于以防万一的短信 2FA 登录。作者的实际需求很明确：这个旧号码可能仍绑定着若干服务，但又不想继续为常规套餐付费，也不想折腾物理 SIM，因此把范围限定在支持 eSIM 的英国运营商和保号方案。文章应会比较多家提供商的资费、最低月费/年费、是否支持 eSIM、长期不活跃是否会被回收号码，以及“保号”所需的最小使用成本。最终结论导向的是一种“以最少支出换最长保留时间”的选型建议，而不是追求流量、通话或全功能套餐。作者的核心观点是：如果你的目标只是保住号码用于短信验证，就应该按 eSIM 支持、号码回收规则和最低维持成本来选运营商，而不是看常规套餐宣传。
+
+🏷️ eSIM, mobile, UK, 2FA
 
 ---
 
 ## ⚙️ 工程
 
-### 14. 如何在活动中的 WaitForMultipleObjects 里添加或移除句柄？第二部分
+### 15. SQLite 3.53.0
 
-[How do you add or remove a handle from an active Wait­For­Multiple­Objects?, part 2](https://devblogs.microsoft.com/oldnewthing/20260410-00/?p=112223) — **devblogs.microsoft.com/oldnewthing** · 1 天前 · ⭐ 20/30
+[SQLite 3.53.0](https://simonwillison.net/2026/Apr/11/sqlite/#atom-everything) — **simonwillison.net** · 1 天前 · ⭐ 25/30
 
-> 核心问题是：当线程已经阻塞在 WaitForMultipleObjects 上时，如何安全地动态增删等待句柄。作者延续前文方案，重点解释“等待线程确认变更”这一同步步骤，避免在等待数组被修改时出现竞态条件、句柄错配或遗漏唤醒。技术关键在于通过额外的协调机制，让发起变更的一方先通知等待线程，再等等待线程完成对新句柄集合的接管后继续执行。结论是，WaitForMultipleObjects 本身不支持热更新等待集合，必须借助显式握手协议来完成安全切换。
+> SQLite 3.53.0 取代被撤回的 3.52.0，成为一次累计了大量面向用户和内部改进的重要版本发布。最突出的变化之一是 `ALTER TABLE` 现在可以直接添加和移除 `NOT NULL` 与 `CHECK` 约束，减少了以往依赖外部工具或重建表结构的繁琐操作。作者特别关注这些直接影响日常 schema 维护的能力增强，因为它们让 SQLite 在迁移、约束管理和演进数据库结构时更实用。整体上，这个版本不仅是常规升级，更体现出 SQLite 在稳定性之外持续补齐开发者体验上的短板。
 
-🏷️ Windows, WaitForMultipleObjects, handles, concurrency
-
----
-
-### 15. 包注册表与分页
-
-[Package Registries and Pagination](https://nesbitt.io/2026/04/10/package-registries-and-pagination.html) — **nesbitt.io** · 1 天前 · ⭐ 20/30
-
-> 问题在于包注册表的版本列表接口如果缺少合理分页，会让客户端为少量实际需求下载过量元数据。作者给出的具体例子是某个包仅版本元数据就达到 100MB，对应 10,451 个版本，这种 API 设计会显著放大带宽、延迟和解析成本。文章讨论了包生态中的注册表实现为何容易忽视分页，以及这种“把全部历史一次性返回”的做法如何伤害镜像服务、CLI 工具和普通用户体验。核心观点是，分页不只是性能优化，而是包注册表在可扩展性和长期演进上必须具备的基础能力。
-
-🏷️ package registry, pagination, metadata, scalability
+🏷️ SQLite, release, database, SQL
 
 ---
 
-*生成于 2026-04-12 01:33 | 扫描 83 源 → 获取 2422 篇 → 精选 15 篇*
-*基于 [Hacker News Popularity Contest 2025](https://refactoringenglish.com/tools/hn-popularity/) RSS 源列表，由 [Andrej Karpathy](https://x.com/karpathy) 推荐*
+*生成于 2026-04-12 18:31 (Pacific/Honolulu) | 扫描 83 源 → 获取 2429 篇 → 精选 15 篇*
 *基于 [Hacker News Popularity Contest 2025](https://refactoringenglish.com/tools/hn-popularity/) RSS 源列表，由 [Andrej Karpathy](https://x.com/karpathy) 推荐*
