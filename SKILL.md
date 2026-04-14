@@ -1,11 +1,11 @@
 ---
 name: ai-daily-digest
-description: "Fetches RSS feeds from 90 top Hacker News blogs (curated by Karpathy), uses AI to score and filter articles, and generates a daily digest in Markdown with Chinese-translated titles, category grouping, trend highlights, and visual statistics (Mermaid charts + tag cloud). Use when user mentions 'daily digest', 'RSS digest', 'blog digest', 'AI blogs', 'tech news summary', or asks to run /digest command. Trigger command: /digest."
+description: "Fetches RSS feeds from 92 top Hacker News blogs (curated by Karpathy), uses AI to score and filter articles, and generates a daily digest in Markdown with Chinese-translated titles, category grouping, trend highlights, and visual statistics (Mermaid charts + tag cloud). Use when user mentions 'daily digest', 'RSS digest', 'blog digest', 'AI blogs', 'tech news summary', or asks to run /digest command. Trigger command: /digest."
 ---
 
 # AI Daily Digest
 
-从 Karpathy 推荐的 90 个热门技术博客中抓取最新文章，通过 AI 评分筛选，生成每日精选摘要。
+从 Karpathy 推荐的 92 个热门技术博客中抓取最新文章，通过 AI 评分筛选，生成每日精选摘要。
 
 ## 命令
 
@@ -169,6 +169,7 @@ cat > ~/.hn-daily-digest/config.json << 'EOF'
   "lastUsed": "<ISO timestamp>"
 }
 EOF
+chmod 600 ~/.hn-daily-digest/config.json
 ```
 
 ### Step 3: 结果展示
@@ -217,7 +218,7 @@ EOF
 
 ## 信息源
 
-90 个 RSS 源来自 [Hacker News Popularity Contest 2025](https://refactoringenglish.com/tools/hn-popularity/)，由 [Andrej Karpathy 推荐](https://x.com/karpathy)。
+92 个 RSS 源来自 [Hacker News Popularity Contest 2025](https://refactoringenglish.com/tools/hn-popularity/)，由 [Andrej Karpathy 推荐](https://x.com/karpathy)。
 
 包括：simonwillison.net, paulgraham.com, overreacted.io, gwern.net, krebsonsecurity.com, antirez.com, daringfireball.net 等顶级技术博客。
 

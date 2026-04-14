@@ -17,7 +17,9 @@ const MAX_CONCURRENT_GEMINI = 2;
 const AI_JSON_MAX_ATTEMPTS = 2;
 const AI_REQUEST_TIMEOUT_MS = 180_000;
 const AI_REQUEST_DELAY_MS = 8_000;
-const OPENAI_REASONING_MAX_COMPLETION_TOKENS = 512;
+const OPENAI_REASONING_TOKENS_PER_SCORING_ITEM = 80;
+const OPENAI_REASONING_TOKENS_PER_SUMMARY_ITEM = 250;
+const OPENAI_REASONING_TOKENS_BASE = 128;
 const HAWAII_TIME_ZONE = 'Pacific/Honolulu';
 
 const HAWAII_DATE_TIME_FORMATTER = new Intl.DateTimeFormat('en-CA', {
@@ -298,7 +300,7 @@ function parseRSSItems(xml: string): Array<{ title: string; link: string; pubDat
   const items: Array<{ title: string; link: string; pubDate: string; description: string }> = [];
   
   // Detect format: Atom vs RSS
-  const isAtom = xml.includes('<feed') && xml.includes('xmlns="http://www.w3.org/2005/Atom"') || xml.includes('<feed ');
+  const isAtom = (xml.includes('<feed') && xml.includes('xmlns="http://www.w3.org/2005/Atom"')) || xml.includes('<feed ');
   
   if (isAtom) {
     // Atom format: <entry>
@@ -400,26 +402,29 @@ async function fetchFeed(feed: { name: string; xmlUrl: string; htmlUrl: string }
 async function fetchAllFeeds(feeds: typeof RSS_FEEDS): Promise<Article[]> {
   const allArticles: Article[] = [];
   let successCount = 0;
+  let emptyCount = 0;
   let failCount = 0;
-  
+
   for (let i = 0; i < feeds.length; i += FEED_CONCURRENCY) {
     const batch = feeds.slice(i, i + FEED_CONCURRENCY);
     const results = await Promise.allSettled(batch.map(fetchFeed));
-    
+
     for (const result of results) {
       if (result.status === 'fulfilled' && result.value.length > 0) {
         allArticles.push(...result.value);
         successCount++;
+      } else if (result.status === 'fulfilled') {
+        emptyCount++;
       } else {
         failCount++;
       }
     }
-    
+
     const progress = Math.min(i + FEED_CONCURRENCY, feeds.length);
-    console.log(`[digest] Progress: ${progress}/${feeds.length} feeds processed (${successCount} ok, ${failCount} failed)`);
+    console.log(`[digest] Progress: ${progress}/${feeds.length} feeds processed (${successCount} ok, ${emptyCount} empty, ${failCount} failed)`);
   }
-  
-  console.log(`[digest] Fetched ${allArticles.length} articles from ${successCount} feeds (${failCount} failed)`);
+
+  console.log(`[digest] Fetched ${allArticles.length} articles from ${successCount} feeds (${emptyCount} empty, ${failCount} failed)`);
   return allArticles;
 }
 
@@ -448,7 +453,7 @@ function getOpenAIChatCompletionOptions(model: string, options: AIRequestOptions
   const result: Record<string, unknown> = {};
 
   if (model.toLowerCase().startsWith('gpt-5')) {
-    result.max_completion_tokens = options.maxCompletionTokens ?? OPENAI_REASONING_MAX_COMPLETION_TOKENS;
+    result.max_completion_tokens = options.maxCompletionTokens ?? 512;
   }
 
   if (options.responseType === 'json') {
@@ -809,7 +814,7 @@ async function scoreArticlesWithAI(
           aiClient,
           prompt,
           'Scoring batch',
-          { maxCompletionTokens: OPENAI_REASONING_MAX_COMPLETION_TOKENS }
+          { maxCompletionTokens: OPENAI_REASONING_TOKENS_BASE + batch.length * OPENAI_REASONING_TOKENS_PER_SCORING_ITEM }
         );
         
         if (parsed.results && Array.isArray(parsed.results)) {
@@ -928,9 +933,8 @@ async function summarizeArticles(
           aiClient,
           prompt,
           'Summary batch',
-          { maxCompletionTokens: OPENAI_REASONING_MAX_COMPLETION_TOKENS }
-        );
-        
+          { maxCompletionTokens: OPENAI_REASONING_TOKENS_BASE + batch.length * OPENAI_REASONING_TOKENS_PER_SUMMARY_ITEM }
+        );        
         if (parsed.results && Array.isArray(parsed.results)) {
           for (const result of parsed.results) {
             summaries.set(result.index, {
@@ -990,7 +994,7 @@ ${articleList}
   try {
     const text = await aiClient.call(prompt, {
       responseType: 'text',
-      maxCompletionTokens: OPENAI_REASONING_MAX_COMPLETION_TOKENS,
+      maxCompletionTokens: OPENAI_REASONING_TOKENS_BASE + 384,
     });
     return text.trim();
   } catch (error) {
@@ -1144,7 +1148,12 @@ async function main(): Promise<void> {
     } else if (arg === '--top-n' && args[i + 1]) {
       topN = parseInt(args[++i]!, 10);
     } else if (arg === '--lang' && args[i + 1]) {
-      lang = args[++i] as 'zh' | 'en';
+      const langArg = args[++i]!;
+      if (langArg !== 'zh' && langArg !== 'en') {
+        console.error(`[digest] Error: Invalid --lang value "${langArg}". Must be "zh" or "en".`);
+        process.exit(1);
+      }
+      lang = langArg;
     } else if (arg === '--output' && args[i + 1]) {
       outputPath = args[++i]!;
     }
@@ -1198,16 +1207,29 @@ async function main(): Promise<void> {
   const cutoffTime = new Date(Date.now() - hours * 60 * 60 * 1000);
   const recentArticles = allArticles.filter(a => a.pubDate.getTime() > cutoffTime.getTime());
   
-  console.log(`[digest] Found ${recentArticles.length} articles within last ${hours} hours`);
-  
-  if (recentArticles.length === 0) {
+  // Deduplicate by URL (same article may appear in multiple feeds)
+  const seenUrls = new Set<string>();
+  const uniqueArticles = recentArticles.filter(a => {
+    const normalized = a.link.replace(/\/+$/, '').toLowerCase();
+    if (seenUrls.has(normalized)) return false;
+    seenUrls.add(normalized);
+    return true;
+  });
+  const dupeCount = recentArticles.length - uniqueArticles.length;
+  if (dupeCount > 0) {
+    console.log(`[digest] Removed ${dupeCount} duplicate articles`);
+  }
+
+  console.log(`[digest] Found ${uniqueArticles.length} unique articles within last ${hours} hours`);
+
+  if (uniqueArticles.length === 0) {
     console.error(`[digest] Error: No articles found within the last ${hours} hours.`);
     console.error(`[digest] Try increasing --hours (e.g., --hours 168 for one week)`);
     process.exit(1);
   }
   
-  console.log(`[digest] Step 3/5: AI scoring ${recentArticles.length} articles...`);
-  const scoringResult = await scoreArticlesWithAI(recentArticles, aiClient);
+  console.log(`[digest] Step 3/5: AI scoring ${uniqueArticles.length} articles...`);
+  const scoringResult = await scoreArticlesWithAI(uniqueArticles, aiClient);
   const scores = scoringResult.values;
 
   if (scoringResult.totalBatches > 0 && scoringResult.failedBatches === scoringResult.totalBatches) {
@@ -1216,7 +1238,7 @@ async function main(): Promise<void> {
     process.exit(1);
   }
   
-  const scoredArticles = recentArticles.map((article, index) => {
+  const scoredArticles = uniqueArticles.map((article, index) => {
     const score = scores.get(index) || { relevance: 5, quality: 5, timeliness: 5, category: 'other' as CategoryId, keywords: [] };
     return {
       ...article,
@@ -1273,7 +1295,7 @@ async function main(): Promise<void> {
     totalFeeds: RSS_FEEDS.length,
     successFeeds: successfulSources.size,
     totalArticles: allArticles.length,
-    filteredArticles: recentArticles.length,
+    filteredArticles: uniqueArticles.length,
     hours,
     lang,
   });
@@ -1284,7 +1306,7 @@ async function main(): Promise<void> {
   console.log('');
   console.log(`[digest] ✅ Done!`);
   console.log(`[digest] 📁 Report: ${outputPath}`);
-  console.log(`[digest] 📊 Stats: ${successfulSources.size} sources → ${allArticles.length} articles → ${recentArticles.length} recent → ${finalArticles.length} selected`);
+  console.log(`[digest] 📊 Stats: ${successfulSources.size} sources → ${allArticles.length} articles → ${uniqueArticles.length} recent → ${finalArticles.length} selected`);
   
   if (finalArticles.length > 0) {
     console.log('');

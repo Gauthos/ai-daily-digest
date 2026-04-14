@@ -2,7 +2,7 @@ name: daily-digest
 
 on:
   schedule:
-    - cron: '15 1 * * *'
+    - cron: '0 15 * * *'
   workflow_dispatch:
 
 permissions:
@@ -15,15 +15,33 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      TZ: Pacific/Honolulu
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Check out current published site
+        uses: actions/checkout@v4
+        continue-on-error: true
+        with:
+          ref: docs
+          path: .published-docs
+          fetch-depth: 1
+
       - name: Set up Bun
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
+
+      - name: Restore published site history
+        run: |
+          if [ -f .published-docs/manifest.json ] || [ -d .published-docs/digests ]; then
+            rm -rf docs
+            mkdir -p docs
+            rsync -a --exclude='.git' .published-docs/ docs/
+          fi
 
       - name: Generate digest markdown
         env:
@@ -42,10 +60,10 @@ jobs:
       - name: Build GitHub Pages files
         run: bun scripts/publish.ts --input .build/digest.md --output-dir docs --keep 30
 
-      - name: Commit generated site
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs
-          git diff --cached --quiet || git commit -m "chore: update daily digest"
-          git push
+      - name: Publish generated site to docs branch
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: docs
+          folder: docs
+          clean: true
+          single-commit: true

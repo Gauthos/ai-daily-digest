@@ -2,7 +2,7 @@
 
 skill 制作详情可查看 ➡️ https://mp.weixin.qq.com/s/rkQ28KTZs5QeZqjwSCvR4Q
 
-从 [Andrej Karpathy](https://x.com/karpathy) 推荐的 90 个 Hacker News 顶级技术博客中抓取最新文章，通过 AI 多维评分筛选，生成一份结构化的每日精选日报。默认使用 Gemini，并支持自动降级到 OpenAI 兼容 API。
+从 [Andrej Karpathy](https://x.com/karpathy) 推荐的 92 个 Hacker News 顶级技术博客中抓取最新文章，通过 AI 多维评分筛选，生成一份结构化的每日精选日报。默认使用 Gemini，并支持自动降级到 OpenAI 兼容 API。
 
 ![AI Daily Digest 概览](assets/overview.png)
 
@@ -16,7 +16,7 @@ skill 制作详情可查看 ➡️ https://mp.weixin.qq.com/s/rkQ28KTZs5QeZqjwSC
 
 - `scripts/digest.ts` 继续生成每日 Markdown 日报
 - `scripts/publish.ts` 会把 Markdown 转成 `docs/` 站点、历史归档和 `feed.xml`
-- `.github/workflows/daily-digest.yml` 每天定时运行，并把 `docs/` 提交回仓库
+- `.github/workflows/daily-digest.yml` 每天定时运行，并把生成好的静态站点发布到 `docs` 分支
 
 完成以下设置后即可直接使用：
 
@@ -26,8 +26,8 @@ skill 制作详情可查看 ➡️ https://mp.weixin.qq.com/s/rkQ28KTZs5QeZqjwSC
    - 如使用 OpenAI 兼容接口，可选再加 `OPENAI_API_BASE`、`OPENAI_MODEL`
 2. 在 `Settings -> Pages` 中选择：
    - `Build and deployment`: `Deploy from a branch`
-   - `Branch`: `main`
-   - `Folder`: `/docs`
+   - `Branch`: `docs`
+   - `Folder`: `/ (root)`
 3. 到 `Actions -> daily-digest` 手动执行一次 `Run workflow`，完成首篇日报和 feed 初始化
 
 默认订阅地址：
@@ -36,7 +36,7 @@ skill 制作详情可查看 ➡️ https://mp.weixin.qq.com/s/rkQ28KTZs5QeZqjwSC
 https://gauthos.github.io/ai-daily-digest/feed.xml
 ```
 
-工作流当前定时为每天 `01:15 UTC`，也就是北京时间 `09:15`。这样能保证生成文件中的日期与 GitHub Actions 的 UTC 日期一致，避免早晨执行时出现“本地日期和文件名差一天”的问题。
+工作流当前定时为每天 `15:00 UTC`，也就是夏威夷时间 `05:00`、北京时间 `23:00`。生成文件中的日期和页脚展示也统一按 `Pacific/Honolulu` 处理。
 
 作为 OpenCode Skill 使用，在对话中输入 `/digest` 即可启动交互式引导流程：
 
@@ -73,6 +73,8 @@ npx -y bun scripts/digest.ts --hours 48 --top-n 15 --lang zh --output ./digest.m
 npx -y bun scripts/publish.ts --input ./digest.md --output-dir ./docs --site-url https://gauthos.github.io/ai-daily-digest
 ```
 
+如果使用仓库内置的 GitHub Actions，`./docs` 只是构建产物目录，工作流会把其中内容同步到 `docs` 分支，而不会再提交回 `main`。
+
 产物包括：
 
 - `docs/index.html` 最新日报首页
@@ -89,7 +91,7 @@ npx -y bun scripts/publish.ts --input ./digest.md --output-dir ./docs --site-url
 RSS 抓取 → 时间过滤 → AI 评分+分类 → AI 摘要+翻译 → 趋势总结
 ```
 
-1. **RSS 抓取** — 并发抓取 90 个源（10 路并发，15s 超时），兼容 RSS 2.0 和 Atom 格式
+1. **RSS 抓取** — 并发抓取 92 个源（10 路并发，15s 超时），兼容 RSS 2.0 和 Atom 格式
 2. **时间过滤** — 按指定时间窗口筛选近期文章
 3. **AI 评分** — AI 从相关性、质量、时效性三个维度打分（1-10），同时完成分类和关键词提取（Gemini 优先，失败自动降级到 OpenAI 兼容接口）
 4. **AI 摘要** — 为 Top N 文章生成结构化摘要（4-6 句）、中文标题翻译、推荐理由
@@ -103,7 +105,6 @@ RSS 抓取 → 时间过滤 → AI 评分+分类 → AI 摘要+翻译 → 趋势
 |------|------|
 | 📝 今日看点 | 3-5 句话的宏观趋势总结 |
 | 🏆 今日必读 | Top 3 深度展示：中英双语标题、摘要、推荐理由、关键词 |
-| 📊 数据概览 | 统计表格 + Mermaid 饼图（分类分布）+ Mermaid 柱状图（高频关键词）+ ASCII 纯文本图 + 话题标签云 |
 | 分类文章列表 | 按 6 大分类分组，每篇含中文标题、来源、相对时间、评分、摘要、关键词 |
 
 ### 六大分类体系
@@ -122,7 +123,7 @@ RSS 抓取 → 时间过滤 → AI 评分+分类 → AI 摘要+翻译 → 趋势
 - **零依赖** — 纯 TypeScript 单文件，无第三方库，基于 Bun 运行时的原生 `fetch` 和内置 XML 解析
 - **中英双语** — 所有标题自动翻译为中文，原文标题保留为链接文字，不错过任何语境
 - **结构化摘要** — 不是一句话敷衍了事，而是 4-6 句覆盖核心问题→关键论点→结论的完整概述，30 秒判断一篇文章是否值得读
-- **可视化统计** — Mermaid 图表（GitHub/Obsidian 原生渲染）+ ASCII 柱状图（终端友好）+ 标签云，三种方式覆盖所有阅读场景
+- **可视化统计** — Mermaid 图表（GitHub/Obsidian 原生渲染）支持分类饼图和关键词柱状图
 - **智能分类** — AI 自动将文章归入 6 大类别，按类浏览比平铺列表高效得多
 - **趋势洞察** — 不只是文章列表，还会归纳当天技术圈的宏观趋势，帮你把握大方向
 - **配置记忆** — API Key 和偏好参数自动持久化，日常使用一键运行
@@ -183,7 +184,7 @@ RSS 抓取 → 时间过滤 → AI 评分+分类 → AI 摘要+翻译 → 趋势
 
 ## 信息源
 
-90 个 RSS 源精选自 Hacker News 社区最受欢迎的独立技术博客，包括但不限于：
+92 个 RSS 源精选自 Hacker News 社区最受欢迎的独立技术博客，包括但不限于：
 
 > Simon Willison · Paul Graham · Dan Abramov · Gwern · Krebs on Security · Antirez · John Gruber · Troy Hunt · Mitchell Hashimoto · Steve Blank · Eli Bendersky · Fabien Sanglard ...
 
