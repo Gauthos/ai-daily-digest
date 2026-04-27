@@ -493,11 +493,18 @@ function formatAIDetails(details: Record<string, string | undefined>): string {
   return parts.length > 0 ? ` (${parts.join(', ')})` : '';
 }
 
+function isReasoningModel(model: string): boolean {
+  const m = model.toLowerCase();
+  return m.startsWith('gpt-5') || m.includes('deepseek-v4') || m.includes('deepseek-r');
+}
+
 function getOpenAIChatCompletionOptions(model: string, options: AIRequestOptions): Record<string, unknown> {
   const result: Record<string, unknown> = {};
 
-  if (model.toLowerCase().startsWith('gpt-5')) {
-    result.max_completion_tokens = options.maxCompletionTokens ?? 512;
+  if (isReasoningModel(model)) {
+    result.max_completion_tokens = options.maxCompletionTokens ?? 4096;
+    result.reasoning_effort = 'max';
+    result.thinking = { type: 'enabled' };
   }
 
   if (options.responseType === 'json') {
@@ -584,8 +591,7 @@ async function callOpenAICompatible(
       body: JSON.stringify({
         model,
         messages: [{ role: 'user', content: prompt }],
-        temperature: 0.3,
-        top_p: 0.8,
+        ...(isReasoningModel(model) ? {} : { temperature: 0.3, top_p: 0.8 }),
         ...getOpenAIChatCompletionOptions(model, _options),
       }),
     });
@@ -600,6 +606,7 @@ async function callOpenAICompatible(
         finish_reason?: string;
         message?: {
           content?: string | Array<{ type?: string; text?: string }>;
+          reasoning_content?: string;
           refusal?: string;
         };
       }>;
@@ -631,7 +638,7 @@ async function callOpenAICompatible(
 
 function inferOpenAIModel(apiBase: string): string {
   const base = apiBase.toLowerCase();
-  if (base.includes('deepseek')) return 'deepseek-chat';
+  if (base.includes('deepseek')) return 'deepseek-v4-pro';
   return OPENAI_DEFAULT_MODEL;
 }
 
