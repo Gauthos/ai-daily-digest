@@ -47,6 +47,19 @@ interface ParsedDigest {
   markdown: string;
 }
 
+interface SearchIndexItem {
+  date: string;
+  title: string;
+  titleZh: string;
+  link: string;
+  source: string;
+  category: string;
+  tags: string[];
+  score: number;
+  summary: string;
+  reason: string;
+}
+
 function printUsage(): never {
   console.log(`Publish generated digest to a GitHub Pages-friendly static site.
 
@@ -764,6 +777,66 @@ function renderPageLayout(params: {
     }
     details[open] summary { margin-bottom: var(--space-12); }
 
+    /* ── Search ── */
+    .search-box {
+      margin-top: var(--space-20);
+      position: relative;
+    }
+    .search-box input {
+      width: 100%;
+      padding: var(--space-12) var(--space-16);
+      font-size: 15px;
+      border: 1px solid var(--color-line);
+      border-radius: 12px;
+      background: var(--color-white);
+      color: var(--color-near-black);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-box input:focus {
+      border-color: var(--color-apple-blue);
+    }
+    .search-results {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0;
+      right: 0;
+      max-height: 480px;
+      overflow-y: auto;
+      background: var(--color-white);
+      border-radius: 12px;
+      box-shadow: var(--shadow-elevated);
+      z-index: 100;
+    }
+    .search-results[hidden] { display: none; }
+    .search-item {
+      display: block;
+      padding: var(--space-12) var(--space-16);
+      border-bottom: 1px solid var(--color-line);
+      text-decoration: none;
+      color: var(--color-near-black);
+    }
+    .search-item:last-child { border-bottom: none; }
+    .search-item:hover { background: var(--color-light-gray); }
+    .search-item-title { font-weight: 600; font-size: 15px; }
+    .search-item-meta { font-size: 13px; color: var(--color-text-tertiary); margin-top: 2px; }
+    .search-item-summary { font-size: 13px; color: var(--color-text-secondary); margin-top: 4px; }
+    .search-tag {
+      display: inline-block;
+      padding: 1px 6px;
+      margin-right: 4px;
+      font-size: 11px;
+      background: var(--color-light-gray);
+      border-radius: 4px;
+      color: var(--color-text-secondary);
+    }
+    .search-empty {
+      padding: var(--space-16);
+      text-align: center;
+      color: var(--color-text-tertiary);
+      font-size: 14px;
+    }
+
     /* ── Responsive ── */
     @media (max-width: 834px) {
       .layout {
@@ -862,6 +935,10 @@ function renderIndexPage(siteUrl: string, items: ManifestItem[]): string {
         <a href="${escapeHtml(joinUrl(siteUrl, 'feed.xml'))}">订阅 RSS</a>
         ${latest ? `<a href="${escapeHtml(joinUrl(siteUrl, latest.urlPath))}">最新归档</a>` : ''}
       </div>
+      <div class="search-box">
+        <input type="text" id="search-input" placeholder="搜索文章标题、标签、来源..." autocomplete="off" />
+        <div id="search-results" class="search-results" hidden></div>
+      </div>
     </header>
 
     <section class="layout">
@@ -873,7 +950,68 @@ function renderIndexPage(siteUrl: string, items: ManifestItem[]): string {
         <ul class="archive-list">${archiveList || '<li><p>还没有归档条目。</p></li>'}</ul>
       </aside>
     </section>
-  </main>`;
+  </main>
+  <script>
+  (function() {
+    var index = null;
+    var input = document.getElementById('search-input');
+    var results = document.getElementById('search-results');
+    if (!input || !results) return;
+
+    function load(cb) {
+      if (index) return cb(index);
+      fetch('search-index.json').then(function(r) { return r.json(); }).then(function(data) {
+        index = data;
+        cb(data);
+      }).catch(function() { index = []; cb([]); });
+    }
+
+    function esc(s) {
+      return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function render(items) {
+      if (items.length === 0) {
+        results.innerHTML = '<div class="search-empty">没有找到匹配的文章</div>';
+        results.hidden = false;
+        return;
+      }
+      results.innerHTML = items.slice(0, 20).map(function(a) {
+        var tags = (a.tags || []).map(function(t) { return '<span class="search-tag">' + esc(t) + '</span>'; }).join('');
+        return '<a class="search-item" href="' + esc(a.link) + '" target="_blank" rel="noopener">'
+          + '<div class="search-item-title">' + esc(a.titleZh || a.title) + '</div>'
+          + '<div class="search-item-meta">' + esc(a.source) + ' · ' + esc(a.date) + ' · ' + esc(a.category) + ' ' + tags + '</div>'
+          + '<div class="search-item-summary">' + esc((a.summary || '').slice(0, 120)) + '</div>'
+          + '</a>';
+      }).join('');
+      results.hidden = false;
+    }
+
+    function search(q) {
+      if (!q) { results.hidden = true; return; }
+      load(function(data) {
+        var terms = q.toLowerCase().split(/\\s+/).filter(Boolean);
+        var matched = data.filter(function(a) {
+          var hay = [a.title, a.titleZh, a.source, a.category, a.summary, (a.tags || []).join(' ')].join(' ').toLowerCase();
+          return terms.every(function(t) { return hay.indexOf(t) !== -1; });
+        });
+        render(matched);
+      });
+    }
+
+    var timer = 0;
+    input.addEventListener('input', function() {
+      clearTimeout(timer);
+      timer = setTimeout(function() { search(input.value.trim()); }, 200);
+    });
+    document.addEventListener('click', function(e) {
+      if (!input.contains(e.target) && !results.contains(e.target)) results.hidden = true;
+    });
+    input.addEventListener('focus', function() {
+      if (input.value.trim()) search(input.value.trim());
+    });
+  })();
+  </script>`;
 
   return renderPageLayout({
     pageTitle: SITE_TITLE,
@@ -1017,6 +1155,33 @@ async function main(): Promise<void> {
   await writeTextFile(join(config.outputDir, '.nojekyll'), '');
 
   await pruneOldArchives(config.outputDir, mergedItems, existingManifest.items);
+
+  const keptDates = new Set(mergedItems.map((item) => item.date));
+  const articlesPath = config.inputPath.replace(/\.md$/, '.articles.json');
+  let newArticles: SearchIndexItem[] = [];
+  try {
+    const raw = await readFile(articlesPath, 'utf8');
+    newArticles = JSON.parse(raw) as SearchIndexItem[];
+  } catch {
+    console.warn(`[publish] No articles index found at ${articlesPath}, skipping search index update`);
+  }
+
+  let existingIndex: SearchIndexItem[] = [];
+  try {
+    const raw = await readFile(join(config.outputDir, 'search-index.json'), 'utf8');
+    existingIndex = JSON.parse(raw) as SearchIndexItem[];
+  } catch {
+    // First run or missing file
+  }
+
+  const searchIndex = [
+    ...newArticles,
+    ...existingIndex.filter((item) => item.date !== parsedDigest.date),
+  ]
+    .filter((item) => keptDates.has(item.date))
+    .sort((a, b) => b.date.localeCompare(a.date) || b.score - a.score);
+
+  await writeTextFile(join(config.outputDir, 'search-index.json'), JSON.stringify(searchIndex) + '\n');
 
   console.log(`[publish] Site URL: ${config.siteUrl}`);
   console.log(`[publish] Output directory: ${config.outputDir}`);

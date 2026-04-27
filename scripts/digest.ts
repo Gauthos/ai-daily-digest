@@ -1358,7 +1358,23 @@ async function main(): Promise<void> {
   
   await mkdir(dirname(outputPath), { recursive: true });
   await writeFile(outputPath, report);
-  
+
+  const digestDate = formatHawaiiDate(new Date());
+  const articlesIndex = finalArticles.map(a => ({
+    date: digestDate,
+    title: a.title,
+    titleZh: a.titleZh,
+    link: a.link,
+    source: a.sourceName,
+    category: a.category,
+    tags: a.keywords,
+    score: a.score,
+    summary: a.summary,
+    reason: a.reason,
+  }));
+  const articlesPath = outputPath.replace(/\.md$/, '.articles.json');
+  await writeFile(articlesPath, JSON.stringify(articlesIndex, null, 2) + '\n');
+
   console.log('');
   console.log(`[digest] ✅ Done!`);
   console.log(`[digest] 📁 Report: ${outputPath}`);
