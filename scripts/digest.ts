@@ -202,6 +202,47 @@ interface BatchResultMap<T> {
   totalBatches: number;
 }
 
+interface IndexedBatchItem {
+  index: number;
+}
+
+export function mapBatchResultsToArticleIndices<T extends { index: number }>(
+  batch: IndexedBatchItem[],
+  results: T[] | undefined,
+  taskLabel: string,
+): Array<{ articleIndex: number; result: T }> {
+  if (!Array.isArray(results)) {
+    throw new Error(`${taskLabel} returned no results array.`);
+  }
+
+  if (results.length !== batch.length) {
+    throw new Error(`${taskLabel} returned ${results.length} results for ${batch.length} requested articles.`);
+  }
+
+  const mapped: Array<{ articleIndex: number; result: T }> = [];
+  const seenBatchIndexes = new Set<number>();
+
+  for (const result of results) {
+    if (!Number.isInteger(result.index)) {
+      throw new Error(`${taskLabel} returned a non-integer batch index: ${String(result.index)}`);
+    }
+
+    const batchIndex = result.index;
+    if (batchIndex < 0 || batchIndex >= batch.length) {
+      throw new Error(`${taskLabel} returned out-of-range batch index ${batchIndex} (expected 0-${batch.length - 1}).`);
+    }
+
+    if (seenBatchIndexes.has(batchIndex)) {
+      throw new Error(`${taskLabel} returned duplicate batch index ${batchIndex}.`);
+    }
+
+    seenBatchIndexes.add(batchIndex);
+    mapped.push({ articleIndex: batch[batchIndex]!.index, result });
+  }
+
+  return mapped;
+}
+
 // ============================================================================
 // RSS/Atom Parsing (using Bun's built-in HTMLRewriter or manual XML parsing)
 // ============================================================================
@@ -683,7 +724,7 @@ function isRetryableAIOutputError(error: unknown): boolean {
   if (error instanceof SyntaxError) return true;
   if (!(error instanceof Error)) return false;
 
-  return /no text content|empty response body/i.test(error.message);
+  return /no text content|empty response body|returned no results array|returned \d+ results for \d+ requested articles|non-integer batch index|out-of-range batch index|duplicate batch index/i.test(error.message);
 }
 
 async function callJsonWithRetry<T>(
@@ -763,6 +804,11 @@ function buildScoringPrompt(articles: Array<{ index: number; title: string; desc
 ## 关键词提取
 提取 2-4 个最能代表文章主题的关键词（用英文，简短，如 "Rust", "LLM", "database", "performance"）
 
+## 返回索引要求
+- 每篇文章前面的 `Index` 是本批次内的唯一编号，范围从 0 开始连续递增
+- 返回结果时，必须原样使用该 `Index`
+- 必须为本批次中的每一篇文章都返回且只返回一条结果
+
 ## 待评分文章
 
 ${articlesList}
@@ -809,26 +855,28 @@ async function scoreArticlesWithAI(
     const batchGroup = batches.slice(i, i + MAX_CONCURRENT_GEMINI);
     const promises = batchGroup.map(async (batch) => {
       try {
-        const prompt = buildScoringPrompt(batch);
+        const promptBatch = batch.map((item, batchIndex) => ({
+          ...item,
+          index: batchIndex,
+        }));
+        const prompt = buildScoringPrompt(promptBatch);
         const parsed = await callJsonWithRetry<GeminiScoringResult>(
           aiClient,
           prompt,
           'Scoring batch',
           { maxCompletionTokens: OPENAI_REASONING_TOKENS_BASE + batch.length * OPENAI_REASONING_TOKENS_PER_SCORING_ITEM }
         );
-        
-        if (parsed.results && Array.isArray(parsed.results)) {
-          for (const result of parsed.results) {
-            const clamp = (v: number) => Math.min(10, Math.max(1, Math.round(v)));
-            const cat = (validCategories.has(result.category) ? result.category : 'other') as CategoryId;
-            allScores.set(result.index, {
-              relevance: clamp(result.relevance),
-              quality: clamp(result.quality),
-              timeliness: clamp(result.timeliness),
-              category: cat,
-              keywords: Array.isArray(result.keywords) ? result.keywords.slice(0, 4) : [],
-            });
-          }
+
+        for (const { articleIndex, result } of mapBatchResultsToArticleIndices(batch, parsed.results, 'Scoring batch')) {
+          const clamp = (v: number) => Math.min(10, Math.max(1, Math.round(v)));
+          const cat = (validCategories.has(result.category) ? result.category : 'other') as CategoryId;
+          allScores.set(articleIndex, {
+            relevance: clamp(result.relevance),
+            quality: clamp(result.quality),
+            timeliness: clamp(result.timeliness),
+            category: cat,
+            keywords: Array.isArray(result.keywords) ? result.keywords.slice(0, 4) : [],
+          });
         }
       } catch (error) {
         failedBatches++;
@@ -883,6 +931,8 @@ ${langInstruction}
 - 保留关键数字和指标（如性能提升百分比、用户数、版本号等）
 - 如果文章涉及对比或选型，要点出比较对象和结论
 - 目标：读者花 30 秒读完摘要，就能决定是否值得花 10 分钟读原文
+- 返回结果时，必须使用本批次里显示的 `Index`，范围从 0 开始连续递增
+- 必须为本批次中的每一篇文章都返回且只返回一条结果
 
 ## 待摘要文章
 
@@ -928,21 +978,24 @@ async function summarizeArticles(
     const batchGroup = batches.slice(i, i + MAX_CONCURRENT_GEMINI);
     const promises = batchGroup.map(async (batch) => {
       try {
-        const prompt = buildSummaryPrompt(batch, lang);
+        const promptBatch = batch.map((item, batchIndex) => ({
+          ...item,
+          index: batchIndex,
+        }));
+        const prompt = buildSummaryPrompt(promptBatch, lang);
         const parsed = await callJsonWithRetry<GeminiSummaryResult>(
           aiClient,
           prompt,
           'Summary batch',
           { maxCompletionTokens: OPENAI_REASONING_TOKENS_BASE + batch.length * OPENAI_REASONING_TOKENS_PER_SUMMARY_ITEM }
-        );        
-        if (parsed.results && Array.isArray(parsed.results)) {
-          for (const result of parsed.results) {
-            summaries.set(result.index, {
-              titleZh: result.titleZh || '',
-              summary: result.summary || '',
-              reason: result.reason || '',
-            });
-          }
+        );
+
+        for (const { articleIndex, result } of mapBatchResultsToArticleIndices(batch, parsed.results, 'Summary batch')) {
+          summaries.set(articleIndex, {
+            titleZh: result.titleZh || '',
+            summary: result.summary || '',
+            reason: result.reason || '',
+          });
         }
       } catch (error) {
         failedBatches++;
@@ -1319,7 +1372,9 @@ async function main(): Promise<void> {
   }
 }
 
-await main().catch((err) => {
-  console.error(`[digest] Fatal error: ${err instanceof Error ? err.message : String(err)}`);
-  process.exit(1);
-});
+if (import.meta.main) {
+  await main().catch((err) => {
+    console.error(`[digest] Fatal error: ${err instanceof Error ? err.message : String(err)}`);
+    process.exit(1);
+  });
+}
