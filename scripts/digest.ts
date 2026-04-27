@@ -33,9 +33,9 @@ const HAWAII_DATE_TIME_FORMATTER = new Intl.DateTimeFormat('en-CA', {
   hour12: false,
 });
 
-const RSS_REQUEST_USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36';
+const RSS_REQUEST_USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36';
 
-// 90 RSS feeds from Hacker News Popularity Contest 2025 (curated by Karpathy)
+// 92 RSS feeds from Hacker News Popularity Contest 2025 (curated by Karpathy)
 const RSS_FEEDS: Array<{ name: string; xmlUrl: string; htmlUrl: string }> = [
   { name: "simonwillison.net", xmlUrl: "https://simonwillison.net/atom/everything/", htmlUrl: "https://simonwillison.net" },
   { name: "jeffgeerling.com", xmlUrl: "https://www.jeffgeerling.com/blog.xml", htmlUrl: "https://jeffgeerling.com" },
@@ -885,7 +885,7 @@ async function scoreArticlesWithAI(
         failedBatches++;
         console.warn(`[digest] Scoring batch failed: ${error instanceof Error ? error.message : String(error)}`);
         for (const item of batch) {
-          allScores.set(item.index, { relevance: 5, quality: 5, timeliness: 5, category: 'other', keywords: [] });
+          allScores.set(item.index, { relevance: 1, quality: 1, timeliness: 1, category: 'other', keywords: [] });
         }
       }
     });
@@ -1295,7 +1295,7 @@ async function main(): Promise<void> {
   }
   
   const scoredArticles = uniqueArticles.map((article, index) => {
-    const score = scores.get(index) || { relevance: 5, quality: 5, timeliness: 5, category: 'other' as CategoryId, keywords: [] };
+    const score = scores.get(index) || { relevance: 1, quality: 1, timeliness: 1, category: 'other' as CategoryId, keywords: [] };
     return {
       ...article,
       totalScore: score.relevance + score.quality + score.timeliness,
