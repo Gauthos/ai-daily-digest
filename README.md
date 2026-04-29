@@ -13,7 +13,7 @@
 无需部署，直接用 RSS 阅读器订阅本项目的每日产出：
 
 ```
-https://gauthos.github.io/ai-daily-digest/feed.xml
+https://gauthos.github.io/ai-daily-digest/index.xml
 ```
 
 也可以在浏览器中查看：https://gauthos.github.io/ai-daily-digest
@@ -34,13 +34,14 @@ Fork 本仓库后，完成以下 3 步：
 
 ```bash
 export GEMINI_API_KEY="your-key"
-bun scripts/digest.ts --hours 48 --top-n 15 --lang zh --output ./digest.md
+bun scripts/digest.ts --hours 48 --top-n 15 --lang zh --output .build/digest.md
 ```
 
-生成后可继续发布为静态站点：
+生成后可继续用 Hugo 构建静态站点：
 
 ```bash
-bun scripts/publish.ts --input ./digest.md --output-dir ./docs --site-url https://your-name.github.io/ai-daily-digest
+bun scripts/prepare-hugo.ts --input .build/digest.md --keep 30
+hugo --minify
 ```
 
 ## 架构
@@ -50,35 +51,36 @@ bun scripts/publish.ts --input ./digest.md --output-dir ./docs --site-url https:
 ```
 RSS 抓取（92源） → 时间过滤 + 去重 → AI 评分 + 分类 → AI 摘要 + 翻译 → 趋势总结 → Markdown
                                                                                           ↓
-                                                                              publish.ts → 静态站点 + RSS
+                                                                         prepare-hugo.ts → Hugo 构建 → 静态站点 + RSS
 ```
 
 ### 文件结构
 
 ```
 ├── scripts/
-│   ├── digest.ts              # 核心管线：抓取 → 评分 → 摘要 → 报告生成
-│   └── publish.ts             # 静态站点生成：Markdown → HTML + RSS + 归档
+│   ├── digest.ts              # CLI 入口 + 管线编排
+│   ├── feeds.ts               # RSS 源列表 + 抓取（fast-xml-parser）
+│   ├── ai-client.ts           # Gemini/OpenAI 双通道 AI 客户端
+│   ├── scoring.ts             # AI 评分 + 摘要 + 趋势总结
+│   ├── report.ts              # Markdown 日报生成
+│   ├── types.ts               # 共享类型与常量
+│   └── prepare-hugo.ts        # Hugo 内容准备 + 搜索索引
 ├── .github/workflows/
-│   └── daily-digest.yml       # CI/CD：定时触发 → digest → publish → 部署到 docs 分支
-└── docs/                      # 构建产物（自动生成，部署到 docs 分支）
-    ├── index.html             # 首页（最新日报 + 归档列表）
-    ├── feed.xml               # RSS 订阅源
-    ├── manifest.json          # 站点索引
-    └── digests/YYYY-MM-DD/    # 每日归档（HTML + Markdown）
+│   └── daily-digest.yml       # CI/CD：定时触发 → digest → Hugo 构建 → 部署
+├── hugo.toml                  # Hugo 站点配置
+└── content/posts/             # Hugo 文章（自动生成）
 ```
 
-### digest.ts 内部模块
+### 模块职责
 
 | 模块 | 职责 |
 |------|------|
-| Constants + Types | 92 个 RSS 源定义、类型、配置常量 |
-| RSS Parser | 手写 XML 解析，兼容 RSS 2.0 / Atom |
-| Feed Fetcher | 并发抓取（10 路并发，40s 超时） |
-| AI Client | Gemini 优先，失败自动降级 OpenAI 兼容接口，含 JSON 重试 |
-| Scoring | 三维评分（相关性 / 质量 / 时效性）+ 分类 + 关键词提取 |
-| Summary | 结构化摘要 + 中文标题翻译 + 推荐理由 |
-| Report | Markdown 日报生成（今日看点 / 必读 Top 3 / 分类列表） |
+| `types.ts` | 共享类型、分类定义、时间工具函数 |
+| `feeds.ts` | 92 个 RSS 源定义、fast-xml-parser 解析、并发抓取（10 路，40s 超时） |
+| `ai-client.ts` | Gemini 优先 + OpenAI 兼容降级、JSON 解析与重试 |
+| `scoring.ts` | 三维评分（相关性 / 质量 / 时效性）+ 摘要 + 趋势总结 |
+| `report.ts` | Markdown 日报生成（今日看点 / 必读 Top 3 / 分类列表） |
+| `prepare-hugo.ts` | 将 digest 产出转为 Hugo 文章 + 维护搜索索引 |
 
 ## 日报结构
 
