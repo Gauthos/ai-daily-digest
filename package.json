@@ -1,0 +1,8 @@
+{
+  "name": "ai-daily-digest",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "fast-xml-parser": "4.5.3"
+  }
+}

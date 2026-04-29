@@ -8,3 +8,6 @@ resources/
 .published-content/
 .env
 .env.*
+daily-digest.html
+digest-*.md
+digest-*.articles.json
