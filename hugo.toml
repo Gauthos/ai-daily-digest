@@ -27,6 +27,9 @@ openInNewTab = true
 tocWordCount = 500
 readNextPosts = 5
 
+[params.anubis2.services.googleanalytics]
+gtag = "G-XXXXXXXXXX"
+
 socialIcons = [
     { id = "github", url = "https://github.com/Gauthos/ai-daily-digest" },
 ]

@@ -1,0 +1,59 @@
+{{- $pctx := . -}}
+{{- if .IsHome -}}{{ $pctx = site }}{{- end -}}
+{{- $pages := where (where $pctx.RegularPages ".Params.disable_feed" "!=" true) "Params.private" "!=" true -}}
+{{- $limit := site.Config.Services.RSS.Limit -}}
+{{- if ge $limit 1 -}}
+{{- $pages = $pages | first $limit -}}
+{{- end -}}
+{{- $utm := "?utm_source=rss&utm_medium=feed&utm_campaign=daily-digest" -}}
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+
+  <channel>
+    <title>{{ with .Site.Params.feedTitle }}{{ . }}{{ else }}{{ .Site.Title }}{{ end }}</title>
+    <link>{{ .Site.BaseURL }}</link>
+    <description>{{ .Site.Params.description | default (printf "Recent blog posts on %s" .Site.Title) }}</description>
+    {{ with .Site.Params.copyright }}
+    <copyright>{{ . }}</copyright>{{ end }}
+    <generator>Hugo (https://gohugo.io)</generator>
+    {{ with .Site.LanguageCode }}
+    <language>{{.}}</language>{{end}}
+    {{ with .Site.Params.author.name }}
+    <managingEditor>{{ with $.Site.Params.author.email }}{{ . }}{{ with $.Site.Params.author.name }} ({{ . }}){{ end }}{{ end }}</managingEditor>{{ end }}
+    {{ if not .Date.IsZero }}
+    <lastBuildDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 Z0700" | safeHTML }}</lastBuildDate>{{ end }}
+    {{ with .OutputFormats.Get "RSS" }}
+    {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}{{ end }}
+    {{ range $index, $page := $pages }}
+
+    <item>
+      <title>{{ .Title }}</title>
+      <link>{{ .Permalink }}{{ $utm }}</link>
+      <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 Z0700" | safeHTML }}</pubDate>
+      {{ with .Site.Params.author.name }}
+      <author>{{ with $.Site.Params.author.email }}{{ . }}{{ with $.Site.Params.author.name }} ({{ . }}){{ end }}{{ end }}</author>{{ end }}
+
+      {{ $cover := "" }}
+      {{ with $page.Params.cover }}
+        {{ $res := $page.Resources.GetMatch . }}
+          {{ if $res }}
+            {{ $cover = $res.Permalink }}
+          {{ else }}
+            {{ $cover = . | absURL }}
+          {{ end }}
+      {{ end }}
+
+      {{ if $cover }}
+        <media:content url="{{ $cover }}" medium="image" />
+        <media:title>Cover Image</media:title>
+      {{ end }}
+
+      <description>
+      {{ .Summary | plainify | htmlEscape }}
+      </description>
+      <content:encoded>{{ .Content | html }}</content:encoded>
+      <guid isPermaLink="true">{{ .Permalink }}</guid>
+    </item>
+    {{ end }}
+  </channel>
+</rss>

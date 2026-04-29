@@ -210,14 +210,18 @@ async function main(): Promise<void> {
   const digestDate = formatHawaiiDate(new Date());
   const articlesIndex = finalArticles.map(a => ({
     date: digestDate,
+    pubDate: a.pubDate.toISOString(),
     title: a.title,
     titleZh: a.titleZh,
     link: a.link,
     source: a.sourceName,
+    sourceUrl: a.sourceUrl,
     category: a.category,
     tags: a.keywords,
     score: a.score,
+    scoreBreakdown: a.scoreBreakdown,
     summary: a.summary,
+    description: a.description.slice(0, 500),
     reason: a.reason,
   }));
   const articlesPath = outputPath.replace(/\.md$/, '.articles.json');

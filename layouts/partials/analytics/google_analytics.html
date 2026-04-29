@@ -1,0 +1,72 @@
+<!-- Google tag (gtag.js) -->
+
+{{ $params := partial "params-helper.html" . }}
+{{ $gtag := $params.services.googleanalytics.gtag }}
+
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ $gtag }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ $gtag }}');
+
+  document.addEventListener('click', function(e) {
+    var link = e.target.closest('a[href]');
+    if (!link) return;
+    var href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('javascript:')) return;
+
+    var isExternal = link.hostname !== location.hostname;
+    if (isExternal) {
+      var article = link.closest('article, .digest, .post-content');
+      gtag('event', 'outbound_click', {
+        link_url: href,
+        link_text: (link.textContent || '').slice(0, 100).trim(),
+        link_section: article ? (article.querySelector('h2,h3') || {}).textContent || '' : '',
+      });
+    }
+  });
+
+  var searchInput = document.getElementById('search-input');
+  if (searchInput) {
+    var searchTimer = 0;
+    searchInput.addEventListener('input', function() {
+      clearTimeout(searchTimer);
+      var q = searchInput.value.trim();
+      if (q.length >= 2) {
+        searchTimer = setTimeout(function() {
+          gtag('event', 'search', { search_term: q });
+        }, 1000);
+      }
+    });
+  }
+
+  if ('IntersectionObserver' in window) {
+    var milestones = [25, 50, 75, 100];
+    var fired = {};
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var pct = parseInt(entry.target.dataset.scrollDepth);
+          if (!fired[pct]) {
+            fired[pct] = true;
+            gtag('event', 'scroll_depth', { depth_percent: pct });
+          }
+        }
+      });
+    }, { threshold: 0 });
+
+    var content = document.querySelector('article, .post-content, .digest');
+    if (content) {
+      milestones.forEach(function(pct) {
+        var marker = document.createElement('div');
+        marker.dataset.scrollDepth = pct;
+        marker.style.cssText = 'height:1px;width:1px;position:absolute;pointer-events:none;';
+        marker.style.top = pct + '%';
+        content.style.position = content.style.position || 'relative';
+        content.appendChild(marker);
+        observer.observe(marker);
+      });
+    }
+  }
+</script>

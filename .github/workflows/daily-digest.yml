@@ -76,7 +76,7 @@ jobs:
             --output .build/digest.md
 
       - name: Prepare Hugo content
-        run: bun scripts/prepare-hugo.ts --input .build/digest.md --keep 30
+        run: bun scripts/prepare-hugo.ts --input .build/digest.md
 
       - name: Build Hugo site
         run: hugo --minify --environment production
