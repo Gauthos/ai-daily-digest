@@ -18,7 +18,7 @@ jobs:
       contents: write
     env:
       TZ: Pacific/Honolulu
-      HUGO_VERSION: "0.147.1"
+      HUGO_VERSION: "0.161.1"
 
     steps:
       - name: Check out repository
