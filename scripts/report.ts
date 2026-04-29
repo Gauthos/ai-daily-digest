@@ -26,15 +26,10 @@ export function generateDigestReport(articles: ScoredArticle[], highlights: stri
   const now = new Date();
   const { date: dateStr, time: timeStr } = getHawaiiDateTimeParts(now);
 
-  const allTags = [...new Set(articles.flatMap(a => a.keywords))].slice(0, 10);
-  const categories = [...new Set(articles.map(a => CATEGORY_META[a.category].label))];
-
   let report = `---\n`;
   report += `title: "AI 博客每日精选 — ${dateStr}"\n`;
   report += `date: ${dateStr}T${timeStr}:00-10:00\n`;
   report += `summary: "${highlights ? highlights.slice(0, 150).replace(/"/g, '\\"').replace(/\n/g, ' ') : `来自 ${stats.totalFeeds} 个顶级技术博客，AI 精选 Top ${articles.length}`}"\n`;
-  report += `tags: [${allTags.map(t => `"${t}"`).join(', ')}]\n`;
-  report += `categories: [${categories.map(c => `"${c}"`).join(', ')}]\n`;
   report += `---\n\n`;
 
   report += `> 来自 Karpathy 推荐的 ${stats.totalFeeds} 个顶级技术博客，AI 精选 Top ${articles.length}\n\n`;
