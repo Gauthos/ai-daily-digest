@@ -18,31 +18,42 @@ jobs:
       contents: write
     env:
       TZ: Pacific/Honolulu
+      HUGO_VERSION: "0.147.1"
 
     steps:
       - name: Check out repository
         uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        with:
+          submodules: true
 
-      - name: Check out current published site
+      - name: Check out current published content
         uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
         continue-on-error: true
         with:
-          ref: docs
-          path: .published-docs
+          ref: hugo-content
+          path: .published-content
           fetch-depth: 1
+
+      - name: Restore published content history
+        run: |
+          if [ -d .published-content/posts ]; then
+            cp -r .published-content/posts/* content/posts/ 2>/dev/null || true
+          fi
+          if [ -f .published-content/static/search-index.json ]; then
+            cp .published-content/static/search-index.json static/search-index.json
+          fi
 
       - name: Set up Bun
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
         with:
           bun-version: "1.2.12"
 
-      - name: Restore published site history
+      - name: Set up Hugo
         run: |
-          if [ -f .published-docs/manifest.json ] || [ -d .published-docs/digests ]; then
-            rm -rf docs
-            mkdir -p docs
-            rsync -a --exclude='.git' .published-docs/ docs/
-          fi
+          wget -q "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb" -O hugo.deb
+          sudo dpkg -i hugo.deb
+          rm hugo.deb
+          hugo version
 
       - name: Generate digest markdown
         env:
@@ -58,13 +69,31 @@ jobs:
             --lang zh \
             --output .build/digest.md
 
-      - name: Build GitHub Pages files
-        run: bun scripts/publish.ts --input .build/digest.md --output-dir docs --keep 30
+      - name: Prepare Hugo content
+        run: bun scripts/prepare-hugo.ts --input .build/digest.md --keep 30
 
-      - name: Publish generated site to docs branch
+      - name: Build Hugo site
+        run: hugo --minify --environment production
+
+      - name: Publish site to docs branch
         uses: JamesIves/github-pages-deploy-action@d92aa235d04922e8f08b40ce78cc5442fcfbfa2f # v4
         with:
           branch: docs
-          folder: docs
+          folder: public
+          clean: true
+          single-commit: true
+
+      - name: Persist content to hugo-content branch
+        run: |
+          mkdir -p .persist
+          cp -r content/posts .persist/
+          mkdir -p .persist/static
+          cp static/search-index.json .persist/static/ 2>/dev/null || true
+
+      - name: Push persisted content
+        uses: JamesIves/github-pages-deploy-action@d92aa235d04922e8f08b40ce78cc5442fcfbfa2f # v4
+        with:
+          branch: hugo-content
+          folder: .persist
           clean: true
           single-commit: true

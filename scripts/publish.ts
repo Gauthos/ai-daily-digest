@@ -194,7 +194,7 @@ function stripMarkdown(markdown: string): string {
   return markdown
     .replace(/```[\s\S]*?```/g, ' ')
     .replace(/<[^>]+>/g, ' ')
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1')
+    .replace(/\[((?:[^\[\]]|\[[^\]]*\])*)\]\(([^)]+)\)/g, '$1')
     .replace(/[>#*_`|~-]/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
@@ -212,7 +212,7 @@ function renderInlineMarkdown(text: string): string {
 
   let output = text;
   output = output.replace(/`([^`]+)`/g, (_, code: string) => reserve(`<code>${escapeHtml(code)}</code>`));
-  output = output.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label: string, url: string) => {
+  output = output.replace(/\[((?:[^\[\]]|\[[^\]]*\])*)\]\(([^)]+)\)/g, (_, label: string, url: string) => {
     return reserve(`<a href="${escapeHtml(url)}">${escapeHtml(label)}</a>`);
   });
 
