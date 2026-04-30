@@ -19,5 +19,5 @@
     {{ end }}
 
     <a class="post-hidden-url u-url" href="{{ .RelPermalink }}">{{ .RelPermalink }}</a>
-    <a href="{{ site.BaseURL }}" class="p-name p-author post-hidden-author h-card" rel="me">{{ .Params.author | default site.Params.author }}</a>
+    <a href="{{ site.BaseURL }}" class="p-name p-author post-hidden-author h-card" rel="me">{{ .Params.author | default site.Params.author.name }}</a>
 </div>

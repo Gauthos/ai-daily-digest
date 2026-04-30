@@ -1,15 +1,19 @@
 baseURL = "https://daily.choleraic.xyz/"
-languageCode = "zh-cn"
 defaultContentLanguage = "zh"
 title = "AI Daily Digest"
 theme = "anubis2"
+
+[languages.zh]
+locale = "zh-CN"
 
 [pagination]
 pagerSize = 10
 
 [params]
-author = "AI Daily Digest"
 description = "AI 精选的每日技术博客摘要，来自 92 个顶级技术博客"
+
+[params.author]
+name = "AI Daily Digest"
 dateFormat = "2006-01-02"
 paginationSinglePost = true
 locale = "zh-cn"
