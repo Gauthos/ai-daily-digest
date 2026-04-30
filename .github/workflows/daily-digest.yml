@@ -55,12 +55,11 @@ jobs:
 
       - name: Set up feed proxy
         if: ${{ env.XRAY_VLESS_URI != '' }}
-        env:
-          XRAY_VERSION: "25.4.30"
         run: |
-          wget -q "https://github.com/XTLS/Xray-core/releases/download/v${XRAY_VERSION}/Xray-linux-64.zip" -O /tmp/xray.zip
+          wget -q "https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip" -O /tmp/xray.zip
           unzip -qo /tmp/xray.zip -d /tmp/xray
           chmod +x /tmp/xray/xray
+          /tmp/xray/xray version
           bun scripts/xray-config.ts "$XRAY_VLESS_URI" /tmp/xray-config.json
           /tmp/xray/xray run -config /tmp/xray-config.json &
           sleep 2
