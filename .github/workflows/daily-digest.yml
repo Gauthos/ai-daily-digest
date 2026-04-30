@@ -2,7 +2,7 @@ name: daily-digest
 
 on:
   schedule:
-    - cron: '0 15 * * *'
+    - cron: '0 6 * * *'
   workflow_dispatch:
 
 permissions: {}
@@ -17,7 +17,7 @@ jobs:
     permissions:
       contents: write
     env:
-      TZ: Pacific/Honolulu
+      TZ: America/Los_Angeles
       HUGO_VERSION: "0.161.1"
       XRAY_VLESS_URI: ${{ secrets.XRAY_VLESS_URI }}
 
