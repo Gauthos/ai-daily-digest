@@ -36,6 +36,7 @@ jobs:
 
       - name: Restore published content history
         run: |
+          mkdir -p content/posts static
           if [ -d .published-content/posts ]; then
             cp -r .published-content/posts/* content/posts/ 2>/dev/null || true
           fi
