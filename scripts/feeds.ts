@@ -1,9 +1,12 @@
 import { XMLParser } from 'fast-xml-parser';
+import process from 'node:process';
 import type { Article } from './types.js';
 
 const FEED_FETCH_TIMEOUT_MS = 40_000;
 const FEED_CONCURRENCY = 10;
 const RSS_REQUEST_USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36';
+
+const PROXY_URL = process.env.FEED_PROXY_URL || '';
 
 export const RSS_FEEDS: Array<{ name: string; xmlUrl: string; htmlUrl: string }> = [
   { name: "simonwillison.net", xmlUrl: "https://simonwillison.net/atom/everything/", htmlUrl: "https://simonwillison.net" },
@@ -202,46 +205,77 @@ function parseFeedXml(xml: string): RawItem[] {
   return [];
 }
 
+const FETCH_HEADERS = {
+  'User-Agent': RSS_REQUEST_USER_AGENT,
+  'Accept': 'application/rss+xml, application/atom+xml, application/xml, text/xml, */*',
+  'Accept-Language': 'en-US,en;q=0.9',
+  'Cache-Control': 'no-cache',
+};
+
+async function fetchUrl(url: string, proxyUrl?: string): Promise<Response> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), FEED_FETCH_TIMEOUT_MS);
+
+  try {
+    const opts: RequestInit & { proxy?: string } = {
+      signal: controller.signal,
+      headers: FETCH_HEADERS,
+    };
+    if (proxyUrl) {
+      opts.proxy = proxyUrl;
+    }
+    return await fetch(url, opts);
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function parseArticles(xml: string, feed: { name: string; htmlUrl: string }): Article[] {
+  const items = parseFeedXml(xml);
+  return items.map(item => ({
+    title: item.title,
+    link: item.link,
+    pubDate: parseDate(item.pubDate) || new Date(0),
+    description: item.description,
+    sourceName: feed.name,
+    sourceUrl: feed.htmlUrl,
+  }));
+}
+
+function isRetryableError(error: unknown): boolean {
+  if (!(error instanceof Error)) return true;
+  const msg = error.message;
+  return msg.includes('abort') || msg.includes('HTTP 4') || msg.includes('HTTP 5')
+    || msg.includes('closed unexpectedly') || msg.includes('ECONNREFUSED')
+    || msg.includes('ECONNRESET') || msg.includes('UND_ERR');
+}
+
 async function fetchFeed(feed: { name: string; xmlUrl: string; htmlUrl: string }): Promise<Article[]> {
   try {
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), FEED_FETCH_TIMEOUT_MS);
+    const response = await fetchUrl(feed.xmlUrl);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return parseArticles(await response.text(), feed);
+  } catch (directError) {
+    const directMsg = directError instanceof Error ? directError.message : String(directError);
+    const directLabel = directMsg.includes('abort') ? 'timeout' : directMsg;
 
-    const response = await fetch(feed.xmlUrl, {
-      signal: controller.signal,
-      headers: {
-        'User-Agent': RSS_REQUEST_USER_AGENT,
-        'Accept': 'application/rss+xml, application/atom+xml, application/xml, text/xml, */*',
-        'Accept-Language': 'en-US,en;q=0.9',
-        'Cache-Control': 'no-cache',
-      },
-    });
-
-    clearTimeout(timeout);
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
+    if (!PROXY_URL || !isRetryableError(directError)) {
+      console.warn(`[digest] ✗ ${feed.name}: ${directLabel}`);
+      return [];
     }
 
-    const xml = await response.text();
-    const items = parseFeedXml(xml);
-
-    return items.map(item => ({
-      title: item.title,
-      link: item.link,
-      pubDate: parseDate(item.pubDate) || new Date(0),
-      description: item.description,
-      sourceName: feed.name,
-      sourceUrl: feed.htmlUrl,
-    }));
-  } catch (error) {
-    const msg = error instanceof Error ? error.message : String(error);
-    if (!msg.includes('abort')) {
-      console.warn(`[digest] ✗ ${feed.name}: ${msg}`);
-    } else {
-      console.warn(`[digest] ✗ ${feed.name}: timeout`);
+    try {
+      const response = await fetchUrl(feed.xmlUrl, PROXY_URL);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const articles = parseArticles(await response.text(), feed);
+      console.log(`[digest] ↻ ${feed.name}: ok via proxy (direct failed: ${directLabel})`);
+      return articles;
+    } catch (proxyError) {
+      const proxyMsg = proxyError instanceof Error ? proxyError.message : String(proxyError);
+      const proxyLabel = proxyMsg.includes('abort') ? 'timeout' : proxyMsg;
+      console.warn(`[digest] ✗ ${feed.name}: ${directLabel} (proxy also failed: ${proxyLabel})`);
+      return [];
     }
-    return [];
   }
 }
 

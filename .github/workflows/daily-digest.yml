@@ -52,6 +52,20 @@ jobs:
       - name: Install dependencies
         run: bun install
 
+      - name: Set up feed proxy
+        if: ${{ secrets.XRAY_VLESS_URI != '' }}
+        env:
+          XRAY_VLESS_URI: ${{ secrets.XRAY_VLESS_URI }}
+          XRAY_VERSION: "25.4.30"
+        run: |
+          wget -q "https://github.com/XTLS/Xray-core/releases/download/v${XRAY_VERSION}/Xray-linux-64.zip" -O /tmp/xray.zip
+          unzip -qo /tmp/xray.zip -d /tmp/xray
+          chmod +x /tmp/xray/xray
+          bun scripts/xray-config.ts "$XRAY_VLESS_URI" /tmp/xray-config.json
+          /tmp/xray/xray run -config /tmp/xray-config.json &
+          sleep 2
+          echo "FEED_PROXY_URL=http://127.0.0.1:10809" >> "$GITHUB_ENV"
+
       - name: Set up Hugo
         env:
           HUGO_SHA256: "c89632f5bd7727746df2560313dc5dbeebef0a8823566c6479dbdd3c4f06aad9"
