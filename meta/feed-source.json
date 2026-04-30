@@ -1,0 +1,331 @@
+{
+  "date": "2026-04-30",
+  "hours": 48,
+  "topN": 15,
+  "lang": "zh",
+  "totalCandidates": 36,
+  "selected": [
+    {
+      "rank": 1,
+      "title": "Reiner Pope – The math behind how LLMs are trained and served",
+      "titleZh": "Reiner Pope：LLM 训练与服务的数学原理",
+      "link": "https://www.dwarkesh.com/p/reiner-pope",
+      "source": "dwarkesh.com",
+      "sourceUrl": "https://dwarkesh.com",
+      "category": "ai-ml",
+      "score": 26,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 8,
+        "timeliness": 9
+      },
+      "pubDate": "2026-04-29T17:07:03.000Z",
+      "keywords": [
+        "LLM",
+        "math",
+        "training",
+        "inference"
+      ]
+    },
+    {
+      "rank": 2,
+      "title": "Developing a cross-process reader/writer lock with limited readers, part 1: A semaphore",
+      "titleZh": "开发跨进程的有限读者读写锁（第一部分：信号量）",
+      "link": "https://devblogs.microsoft.com/oldnewthing/?p=112278",
+      "source": "devblogs.microsoft.com/oldnewthing",
+      "sourceUrl": "https://devblogs.microsoft.com/oldnewthing",
+      "category": "engineering",
+      "score": 25,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 9,
+        "timeliness": 7
+      },
+      "pubDate": "2026-04-28T14:00:00.000Z",
+      "keywords": [
+        "concurrency",
+        "reader-writer lock",
+        "semaphore",
+        "Windows"
+      ]
+    },
+    {
+      "rank": 3,
+      "title": "The Zig project's rationale for their firm anti-AI contribution policy",
+      "titleZh": "Zig 项目严格反 AI 贡献政策的理由",
+      "link": "https://simonwillison.net/2026/Apr/30/zig-anti-ai/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "engineering",
+      "score": 24,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 9
+      },
+      "pubDate": "2026-04-30T01:24:23.000Z",
+      "keywords": [
+        "Zig",
+        "policy",
+        "LLM",
+        "open-source"
+      ]
+    },
+    {
+      "rank": 4,
+      "title": "Three thoughts on the Musk-OpenAI lawsuit",
+      "titleZh": "关于马斯克-OpenAI诉讼的三点思考",
+      "link": "https://garymarcus.substack.com/p/three-thoughts-on-the-musk-openai",
+      "source": "garymarcus.substack.com",
+      "sourceUrl": "https://garymarcus.substack.com",
+      "category": "ai-ml",
+      "score": 24,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 9
+      },
+      "pubDate": "2026-04-29T17:18:49.000Z",
+      "keywords": [
+        "OpenAI",
+        "Elon Musk",
+        "lawsuit"
+      ]
+    },
+    {
+      "rank": 5,
+      "title": "If it's in JSON, it's not really a configuration file",
+      "titleZh": "如果是JSON，那就不是真正的配置文件",
+      "link": "https://utcc.utoronto.ca/~cks/space/blog/programming/JSONNotConfigurationFile",
+      "source": "utcc.utoronto.ca/~cks",
+      "sourceUrl": "https://utcc.utoronto.ca/~cks",
+      "category": "opinion",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 8,
+        "timeliness": 7
+      },
+      "pubDate": "2026-04-29T02:14:21.000Z",
+      "keywords": [
+        "JSON",
+        "config",
+        "DHCP"
+      ]
+    },
+    {
+      "rank": 6,
+      "title": "10Gb/s Ethernet: what I had to (re)learn",
+      "titleZh": "10Gb/s以太网：我不得不重新学习的那些事",
+      "link": "https://gilesthomas.com/2026/04/10g-ethernet-what-i-relearned",
+      "source": "gilesthomas.com",
+      "sourceUrl": "https://gilesthomas.com",
+      "category": "engineering",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 8,
+        "timeliness": 8
+      },
+      "pubDate": "2026-04-28T18:45:00.000Z",
+      "keywords": [
+        "10GbE",
+        "networking",
+        "home lab"
+      ]
+    },
+    {
+      "rank": 7,
+      "title": "10Gb/s Ethernet: what I actually did to get it working in my home",
+      "titleZh": "家庭部署10Gb/s以太网：我的实操方案",
+      "link": "https://gilesthomas.com/2026/04/10g-ethernet-what-i-did",
+      "source": "gilesthomas.com",
+      "sourceUrl": "https://gilesthomas.com",
+      "category": "engineering",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 8,
+        "timeliness": 8
+      },
+      "pubDate": "2026-04-29T14:15:00.000Z",
+      "keywords": [
+        "10GbE",
+        "hardware",
+        "setup"
+      ]
+    },
+    {
+      "rank": 8,
+      "title": "Thoughts on WebAssembly as a stack machine",
+      "titleZh": "对WebAssembly作为栈机器的思考",
+      "link": "https://eli.thegreenplace.net/2026/thoughts-on-webassembly-as-a-stack-machine/",
+      "source": "eli.thegreenplace.net",
+      "sourceUrl": "https://eli.thegreenplace.net",
+      "category": "engineering",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 8,
+        "timeliness": 8
+      },
+      "pubDate": "2026-04-30T02:28:00.000Z",
+      "keywords": [
+        "WebAssembly",
+        "stack machine",
+        "locals"
+      ]
+    },
+    {
+      "rank": 9,
+      "title": "LLM 0.32a0  is a major backwards-compatible refactor",
+      "titleZh": "LLM 0.32a0：一次重大的向后兼容重构",
+      "link": "https://simonwillison.net/2026/Apr/29/llm/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "tools",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-04-29T19:01:47.000Z",
+      "keywords": [
+        "refactor",
+        "CLI",
+        "Python",
+        "LLM"
+      ]
+    },
+    {
+      "rank": 10,
+      "title": "‘Elon Musk Appeared More Petty Than Prepared’",
+      "titleZh": "埃隆·马斯克表现得小气而非准备充分",
+      "link": "https://www.theverge.com/ai-artificial-intelligence/920191/elon-musk-sam-altman-trial-day-one?view_token=eyJhbGciOiJIUzI1NiJ9.eyJpZCI6InBrV1FGdGtlcEEiLCJwIjoiL2FpLWFydGlmaWNpYWwtaW50ZWxsaWdlbmNlLzkyMDE5MS9lbG9uLW11c2stc2FtLWFsdG1hbi10cmlhbC1kYXktb25lIiwiZXhwIjoxNzc3OTA1NDgxLCJpYXQiOjE3Nzc0NzM0ODF9.FkMZ8-YRv8q3d7n6p8q_scJaERWtNumD9pK7kONpTE4",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "ai-ml",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 6,
+        "timeliness": 9
+      },
+      "pubDate": "2026-04-29T15:15:29.000Z",
+      "keywords": [
+        "Musk",
+        "Altman",
+        "OpenAI",
+        "lawsuit"
+      ]
+    },
+    {
+      "rank": 11,
+      "title": "‘Sordid and Small’",
+      "titleZh": "卑劣而渺小",
+      "link": "https://www.theatlantic.com/technology/2026/04/openai-trial-elon-musk-sam-altman/686984/?gift=iWa_iB9lkw4UuiWbIbrWGYJmg9p-llxzEAgykQekDFA",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "ai-ml",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 6,
+        "timeliness": 9
+      },
+      "pubDate": "2026-04-29T15:03:21.000Z",
+      "keywords": [
+        "OpenAI",
+        "lawsuit",
+        "nonprofit"
+      ]
+    },
+    {
+      "rank": 12,
+      "title": "OpenAI Trial Starts With Two Very Different Tales of a Company’s Early Years",
+      "titleZh": "OpenAI 庭审开幕：公司早年演变的两版截然不同叙事",
+      "link": "https://www.nytimes.com/2026/04/28/technology/openai-trial-elon-musk-sam-altman.html?unlocked_article_code=1.elA.u75G.-STmUe_pILOO",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "ai-ml",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 6,
+        "timeliness": 9
+      },
+      "pubDate": "2026-04-29T14:35:42.000Z",
+      "keywords": [
+        "OpenAI",
+        "trial",
+        "Musk",
+        "Altman"
+      ]
+    },
+    {
+      "rank": 13,
+      "title": "Have You Seen the New Excel?",
+      "titleZh": "你见过全新的 Excel 吗？",
+      "link": "https://idiallo.com/blog/have-you-seen-the-new-xl-ai-parody?src=feed",
+      "source": "idiallo.com",
+      "sourceUrl": "https://idiallo.com",
+      "category": "opinion",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 8,
+        "timeliness": 6
+      },
+      "pubDate": "2026-04-29T23:40:00.000Z",
+      "keywords": [
+        "Excel",
+        "satire",
+        "spreadsheet"
+      ]
+    },
+    {
+      "rank": 14,
+      "title": "Illegal vs Unwanted States",
+      "titleZh": "非法状态 vs 不期望状态",
+      "link": "https://buttondown.com/hillelwayne/archive/illegal-vs-unwanted-states/",
+      "source": "buttondown.com/hillelwayne",
+      "sourceUrl": "https://buttondown.com/hillelwayne",
+      "category": "engineering",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 7
+      },
+      "pubDate": "2026-04-28T15:14:09.000Z",
+      "keywords": [
+        "state machine",
+        "illegal states",
+        "system design"
+      ]
+    },
+    {
+      "rank": 15,
+      "title": "When The Bill Comes Due",
+      "titleZh": "账单终将到来",
+      "link": "https://feed.tedium.co/link/15204/17327554/openai-anthropic-ai-tools-expensive-alternatives",
+      "source": "tedium.co",
+      "sourceUrl": "https://tedium.co",
+      "category": "ai-ml",
+      "score": 21,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 6,
+        "timeliness": 8
+      },
+      "pubDate": "2026-04-29T03:30:00.000Z",
+      "keywords": [
+        "AI pricing",
+        "subscription trap",
+        "Anthropic",
+        "OpenAI"
+      ]
+    }
+  ]
+}

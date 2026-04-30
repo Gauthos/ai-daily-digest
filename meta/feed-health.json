@@ -1,0 +1,555 @@
+{
+  "date": "2026-04-30",
+  "totalFeeds": 91,
+  "ok": 89,
+  "empty": 2,
+  "failed": 0,
+  "feeds": [
+    {
+      "name": "simonwillison.net",
+      "xmlUrl": "https://simonwillison.net/atom/everything/",
+      "status": "ok",
+      "articleCount": 30
+    },
+    {
+      "name": "jeffgeerling.com",
+      "xmlUrl": "https://www.jeffgeerling.com/blog.xml",
+      "status": "ok",
+      "articleCount": 20
+    },
+    {
+      "name": "seangoedecke.com",
+      "xmlUrl": "https://www.seangoedecke.com/rss.xml",
+      "status": "ok",
+      "articleCount": 30
+    },
+    {
+      "name": "krebsonsecurity.com",
+      "xmlUrl": "https://krebsonsecurity.com/feed/",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "daringfireball.net",
+      "xmlUrl": "https://daringfireball.net/feeds/main",
+      "status": "ok",
+      "articleCount": 48
+    },
+    {
+      "name": "ericmigi.com",
+      "xmlUrl": "https://ericmigi.com/rss.xml",
+      "status": "ok",
+      "articleCount": 64
+    },
+    {
+      "name": "antirez.com",
+      "xmlUrl": "http://antirez.com/rss",
+      "status": "ok",
+      "articleCount": 100
+    },
+    {
+      "name": "idiallo.com",
+      "xmlUrl": "https://idiallo.com/feed.rss",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "maurycyz.com",
+      "xmlUrl": "https://maurycyz.com/index.xml",
+      "status": "ok",
+      "articleCount": 5
+    },
+    {
+      "name": "pluralistic.net",
+      "xmlUrl": "https://pluralistic.net/feed/",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "shkspr.mobi",
+      "xmlUrl": "https://shkspr.mobi/blog/feed/",
+      "status": "ok",
+      "articleCount": 20
+    },
+    {
+      "name": "lcamtuf.substack.com",
+      "xmlUrl": "https://lcamtuf.substack.com/feed",
+      "status": "ok",
+      "articleCount": 20
+    },
+    {
+      "name": "mitchellh.com",
+      "xmlUrl": "https://mitchellh.com/feed.xml",
+      "status": "ok",
+      "articleCount": 50
+    },
+    {
+      "name": "dynomight.net",
+      "xmlUrl": "https://dynomight.net/feed.xml",
+      "status": "ok",
+      "articleCount": 30
+    },
+    {
+      "name": "utcc.utoronto.ca/~cks",
+      "xmlUrl": "https://utcc.utoronto.ca/~cks/space/blog/?atom",
+      "status": "ok",
+      "articleCount": 100
+    },
+    {
+      "name": "xeiaso.net",
+      "xmlUrl": "https://xeiaso.net/blog.rss",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "devblogs.microsoft.com/oldnewthing",
+      "xmlUrl": "https://devblogs.microsoft.com/oldnewthing/feed",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "righto.com",
+      "xmlUrl": "https://www.righto.com/feeds/posts/default",
+      "status": "ok",
+      "articleCount": 25
+    },
+    {
+      "name": "lucumr.pocoo.org",
+      "xmlUrl": "https://lucumr.pocoo.org/feed.atom",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "skyfall.dev",
+      "xmlUrl": "https://skyfall.dev/rss.xml",
+      "status": "ok",
+      "articleCount": 9
+    },
+    {
+      "name": "garymarcus.substack.com",
+      "xmlUrl": "https://garymarcus.substack.com/feed",
+      "status": "ok",
+      "articleCount": 20
+    },
+    {
+      "name": "rachelbythebay.com",
+      "xmlUrl": "https://rachelbythebay.com/w/atom.xml",
+      "status": "empty",
+      "articleCount": 0
+    },
+    {
+      "name": "overreacted.io",
+      "xmlUrl": "https://overreacted.io/rss.xml",
+      "status": "ok",
+      "articleCount": 57
+    },
+    {
+      "name": "timsh.org",
+      "xmlUrl": "https://timsh.org/rss/",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "johndcook.com",
+      "xmlUrl": "https://www.johndcook.com/blog/feed/",
+      "status": "ok",
+      "articleCount": 30
+    },
+    {
+      "name": "gilesthomas.com",
+      "xmlUrl": "https://gilesthomas.com/feed/rss.xml",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "matklad.github.io",
+      "xmlUrl": "https://matklad.github.io/feed.xml",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "derekthompson.org",
+      "xmlUrl": "https://www.theatlantic.com/feed/author/derek-thompson/",
+      "status": "ok",
+      "articleCount": 25
+    },
+    {
+      "name": "evanhahn.com",
+      "xmlUrl": "https://evanhahn.com/feed.xml",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "terriblesoftware.org",
+      "xmlUrl": "https://terriblesoftware.org/feed/",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "rakhim.exotext.com",
+      "xmlUrl": "https://rakhim.exotext.com/rss.xml",
+      "status": "ok",
+      "articleCount": 35
+    },
+    {
+      "name": "joanwestenberg.com",
+      "xmlUrl": "https://joanwestenberg.com/rss",
+      "status": "ok",
+      "articleCount": 15
+    },
+    {
+      "name": "xania.org",
+      "xmlUrl": "https://xania.org/feed",
+      "status": "ok",
+      "articleCount": 20
+    },
+    {
+      "name": "micahflee.com",
+      "xmlUrl": "https://micahflee.com/feed/",
+      "status": "ok",
+      "articleCount": 15
+    },
+    {
+      "name": "nesbitt.io",
+      "xmlUrl": "https://nesbitt.io/feed.xml",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "construction-physics.com",
+      "xmlUrl": "https://www.construction-physics.com/feed",
+      "status": "ok",
+      "articleCount": 20
+    },
+    {
+      "name": "tedium.co",
+      "xmlUrl": "https://feed.tedium.co/",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "susam.net",
+      "xmlUrl": "https://susam.net/feed.xml",
+      "status": "ok",
+      "articleCount": 20
+    },
+    {
+      "name": "entropicthoughts.com",
+      "xmlUrl": "https://entropicthoughts.com/feed.xml",
+      "status": "ok",
+      "articleCount": 25
+    },
+    {
+      "name": "buttondown.com/hillelwayne",
+      "xmlUrl": "https://buttondown.com/hillelwayne/rss",
+      "status": "ok",
+      "articleCount": 30
+    },
+    {
+      "name": "dwarkesh.com",
+      "xmlUrl": "https://www.dwarkeshpatel.com/feed",
+      "status": "ok",
+      "articleCount": 20
+    },
+    {
+      "name": "borretti.me",
+      "xmlUrl": "https://borretti.me/feed.xml",
+      "status": "ok",
+      "articleCount": 20
+    },
+    {
+      "name": "wheresyoured.at",
+      "xmlUrl": "https://www.wheresyoured.at/rss/",
+      "status": "ok",
+      "articleCount": 15
+    },
+    {
+      "name": "jayd.ml",
+      "xmlUrl": "https://jayd.ml/feed.xml",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "minimaxir.com",
+      "xmlUrl": "https://minimaxir.com/index.xml",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "geohot.github.io",
+      "xmlUrl": "https://geohot.github.io/blog/feed.xml",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "paulgraham.com",
+      "xmlUrl": "http://www.aaronsw.com/2002/feeds/pgessays.rss",
+      "status": "ok",
+      "articleCount": 219
+    },
+    {
+      "name": "filfre.net",
+      "xmlUrl": "https://www.filfre.net/feed/",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "blog.jim-nielsen.com",
+      "xmlUrl": "https://blog.jim-nielsen.com/feed.xml",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "dfarq.homeip.net",
+      "xmlUrl": "https://dfarq.homeip.net/feed/",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "jyn.dev",
+      "xmlUrl": "https://jyn.dev/atom.xml",
+      "status": "ok",
+      "articleCount": 59
+    },
+    {
+      "name": "geoffreylitt.com",
+      "xmlUrl": "https://www.geoffreylitt.com/feed.xml",
+      "status": "ok",
+      "articleCount": 11
+    },
+    {
+      "name": "downtowndougbrown.com",
+      "xmlUrl": "https://www.downtowndougbrown.com/feed/",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "brutecat.com",
+      "xmlUrl": "https://brutecat.com/rss.xml",
+      "status": "ok",
+      "articleCount": 4
+    },
+    {
+      "name": "eli.thegreenplace.net",
+      "xmlUrl": "https://eli.thegreenplace.net/feeds/all.atom.xml",
+      "status": "ok",
+      "articleCount": 5
+    },
+    {
+      "name": "abortretry.fail",
+      "xmlUrl": "https://www.abortretry.fail/feed",
+      "status": "ok",
+      "articleCount": 20
+    },
+    {
+      "name": "fabiensanglard.net",
+      "xmlUrl": "https://fabiensanglard.net/rss.xml",
+      "status": "ok",
+      "articleCount": 139
+    },
+    {
+      "name": "oldvcr.blogspot.com",
+      "xmlUrl": "https://oldvcr.blogspot.com/feeds/posts/default",
+      "status": "ok",
+      "articleCount": 25
+    },
+    {
+      "name": "bogdanthegeek.github.io",
+      "xmlUrl": "https://bogdanthegeek.github.io/blog/index.xml",
+      "status": "ok",
+      "articleCount": 8
+    },
+    {
+      "name": "hugotunius.se",
+      "xmlUrl": "https://hugotunius.se/feed.xml",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "gwern.net",
+      "xmlUrl": "https://gwern.substack.com/feed",
+      "status": "ok",
+      "articleCount": 14
+    },
+    {
+      "name": "berthub.eu",
+      "xmlUrl": "https://berthub.eu/articles/index.xml",
+      "status": "ok",
+      "articleCount": 350
+    },
+    {
+      "name": "chadnauseam.com",
+      "xmlUrl": "https://chadnauseam.com/rss.xml",
+      "status": "ok",
+      "articleCount": 41
+    },
+    {
+      "name": "simone.org",
+      "xmlUrl": "https://simone.org/feed/",
+      "status": "ok",
+      "articleCount": 15
+    },
+    {
+      "name": "it-notes.dragas.net",
+      "xmlUrl": "https://it-notes.dragas.net/feed/",
+      "status": "ok",
+      "articleCount": 20
+    },
+    {
+      "name": "beej.us",
+      "xmlUrl": "https://beej.us/blog/rss.xml",
+      "status": "ok",
+      "articleCount": 44
+    },
+    {
+      "name": "hey.paris",
+      "xmlUrl": "https://hey.paris/index.xml",
+      "status": "ok",
+      "articleCount": 71
+    },
+    {
+      "name": "danielwirtz.com",
+      "xmlUrl": "https://danielwirtz.com/rss.xml",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "matduggan.com",
+      "xmlUrl": "https://matduggan.com/rss/",
+      "status": "ok",
+      "articleCount": 15
+    },
+    {
+      "name": "refactoringenglish.com",
+      "xmlUrl": "https://refactoringenglish.com/index.xml",
+      "status": "ok",
+      "articleCount": 18
+    },
+    {
+      "name": "worksonmymachine.ai",
+      "xmlUrl": "https://worksonmymachine.ai/feed",
+      "status": "ok",
+      "articleCount": 20
+    },
+    {
+      "name": "philiplaine.com",
+      "xmlUrl": "https://philiplaine.com/index.xml",
+      "status": "ok",
+      "articleCount": 8
+    },
+    {
+      "name": "steveblank.com",
+      "xmlUrl": "https://steveblank.com/feed/",
+      "status": "ok",
+      "articleCount": 20
+    },
+    {
+      "name": "bernsteinbear.com",
+      "xmlUrl": "https://bernsteinbear.com/feed.xml",
+      "status": "ok",
+      "articleCount": 11
+    },
+    {
+      "name": "danieldelaney.net",
+      "xmlUrl": "https://danieldelaney.net/feed",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "troyhunt.com",
+      "xmlUrl": "https://www.troyhunt.com/rss/",
+      "status": "ok",
+      "articleCount": 15
+    },
+    {
+      "name": "herman.bearblog.dev",
+      "xmlUrl": "https://herman.bearblog.dev/feed/",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "tomrenner.com",
+      "xmlUrl": "https://tomrenner.com/index.xml",
+      "status": "ok",
+      "articleCount": 25
+    },
+    {
+      "name": "martinalderson.com",
+      "xmlUrl": "https://martinalderson.com/feed.xml",
+      "status": "ok",
+      "articleCount": 46
+    },
+    {
+      "name": "danielchasehooper.com",
+      "xmlUrl": "https://danielchasehooper.com/feed.xml",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "chiark.greenend.org.uk/~sgtatham",
+      "xmlUrl": "https://www.chiark.greenend.org.uk/~sgtatham/quasiblog/feed.xml",
+      "status": "ok",
+      "articleCount": 28
+    },
+    {
+      "name": "grantslatton.com",
+      "xmlUrl": "https://grantslatton.com/rss.xml",
+      "status": "ok",
+      "articleCount": 38
+    },
+    {
+      "name": "experimental-history.com",
+      "xmlUrl": "https://www.experimental-history.com/feed",
+      "status": "ok",
+      "articleCount": 20
+    },
+    {
+      "name": "anildash.com",
+      "xmlUrl": "https://anildash.com/feed.xml",
+      "status": "ok",
+      "articleCount": 12
+    },
+    {
+      "name": "aresluna.org",
+      "xmlUrl": "https://aresluna.org/main.rss",
+      "status": "ok",
+      "articleCount": 14
+    },
+    {
+      "name": "michael.stapelberg.ch",
+      "xmlUrl": "https://michael.stapelberg.ch/feed.xml",
+      "status": "ok",
+      "articleCount": 15
+    },
+    {
+      "name": "miguelgrinberg.com",
+      "xmlUrl": "https://blog.miguelgrinberg.com/feed",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "keygen.sh",
+      "xmlUrl": "https://keygen.sh/blog/feed.xml",
+      "status": "ok",
+      "articleCount": 74
+    },
+    {
+      "name": "mjg59.dreamwidth.org",
+      "xmlUrl": "https://mjg59.dreamwidth.org/data/rss",
+      "status": "ok",
+      "articleCount": 25
+    },
+    {
+      "name": "computer.rip",
+      "xmlUrl": "https://computer.rip/rss.xml",
+      "status": "ok",
+      "articleCount": 10
+    },
+    {
+      "name": "tedunangst.com",
+      "xmlUrl": "https://www.tedunangst.com/flak/rss",
+      "status": "empty",
+      "articleCount": 0
+    }
+  ]
+}
