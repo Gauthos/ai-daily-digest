@@ -1,5 +1,5 @@
-import { mkdir, readFile, writeFile, readdir } from 'node:fs/promises';
-import { join } from 'node:path';
+import { mkdir, readFile, writeFile, readdir, rename, stat } from 'node:fs/promises';
+import { join, dirname } from 'node:path';
 import process from 'node:process';
 
 const DEFAULT_INPUT = '.build/digest.md';
@@ -71,6 +71,27 @@ async function loadExistingIndex(indexPath: string): Promise<IndexEntry[]> {
   }
 }
 
+async function migrateOldPosts(contentDir: string): Promise<void> {
+  let files: string[];
+  try {
+    files = await readdir(contentDir);
+  } catch {
+    return;
+  }
+  for (const f of files) {
+    if (!/^\d{4}-\d{2}-\d{2}\.md$/.test(f)) continue;
+    const date = f.replace('.md', '');
+    const dirPath = join(contentDir, date);
+    try {
+      await stat(dirPath);
+    } catch {
+      await mkdir(dirPath, { recursive: true });
+      await rename(join(contentDir, f), join(dirPath, 'index.md'));
+      console.log(`[prepare-hugo] Migrated ${f} → ${date}/index.md`);
+    }
+  }
+}
+
 function mergeIndex(existing: IndexEntry[], incoming: IndexEntry[]): IndexEntry[] {
   const byLink = new Map<string, IndexEntry>();
 
@@ -93,11 +114,33 @@ async function main(): Promise<void> {
 
   const markdown = await readFile(config.inputPath, 'utf8');
   const date = extractDate(markdown);
+  const buildDir = dirname(config.inputPath);
 
-  await mkdir(config.contentDir, { recursive: true });
-  const postPath = join(config.contentDir, `${date}.md`);
+  const postDir = join(config.contentDir, date);
+  await mkdir(postDir, { recursive: true });
+  const postPath = join(postDir, 'index.md');
   await writeFile(postPath, markdown);
   console.log(`[prepare-hugo] Written post: ${postPath}`);
+
+  const feedSourcePath = join(buildDir, 'feed-source.json');
+  try {
+    const feedSource = await readFile(feedSourcePath, 'utf8');
+    await writeFile(join(postDir, 'feed-source.json'), feedSource);
+    console.log(`[prepare-hugo] Copied feed-source.json to ${postDir}`);
+  } catch {
+    console.warn(`[prepare-hugo] No feed-source.json found at ${feedSourcePath}`);
+  }
+
+  const feedHealthPath = join(buildDir, 'feed-health.json');
+  try {
+    const feedHealth = await readFile(feedHealthPath, 'utf8');
+    await writeFile(join(postDir, 'feed-health.json'), feedHealth);
+    console.log(`[prepare-hugo] Copied feed-health.json to ${postDir}`);
+  } catch {
+    console.warn(`[prepare-hugo] No feed-health.json found at ${feedHealthPath}`);
+  }
+
+  await migrateOldPosts(config.contentDir);
 
   const articlesPath = config.inputPath.replace(/\.md$/, '.articles.json');
   let newArticles: IndexEntry[] = [];
@@ -117,7 +160,7 @@ async function main(): Promise<void> {
   console.log(`[prepare-hugo] Updated search index: ${merged.length} total articles (${newArticles.length} new, ${existingIndex.length} existing)`);
 
   const files = await readdir(config.contentDir);
-  const postCount = files.filter(f => /^\d{4}-\d{2}-\d{2}\.md$/.test(f)).length;
+  const postCount = files.filter(f => /^\d{4}-\d{2}-\d{2}$/.test(f)).length;
   console.log(`[prepare-hugo] Done. Total posts: ${postCount}`);
 }
 
