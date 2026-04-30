@@ -7,10 +7,8 @@ theme = "anubis2"
 [pagination]
 pagerSize = 10
 
-[params.author]
-name = "AI Daily Digest"
-
 [params]
+author = "AI Daily Digest"
 description = "AI 精选的每日技术博客摘要，来自 92 个顶级技术博客"
 dateFormat = "2006-01-02"
 paginationSinglePost = true
