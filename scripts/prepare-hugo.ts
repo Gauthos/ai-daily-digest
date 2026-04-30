@@ -131,15 +131,6 @@ async function main(): Promise<void> {
     console.warn(`[prepare-hugo] No feed-source.json found at ${feedSourcePath}`);
   }
 
-  const feedHealthPath = join(buildDir, 'feed-health.json');
-  try {
-    const feedHealth = await readFile(feedHealthPath, 'utf8');
-    await writeFile(join(postDir, 'feed-health.json'), feedHealth);
-    console.log(`[prepare-hugo] Copied feed-health.json to ${postDir}`);
-  } catch {
-    console.warn(`[prepare-hugo] No feed-health.json found at ${feedHealthPath}`);
-  }
-
   await migrateOldPosts(config.contentDir);
 
   const articlesPath = config.inputPath.replace(/\.md$/, '.articles.json');
