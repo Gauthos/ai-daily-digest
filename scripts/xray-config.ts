@@ -89,7 +89,7 @@ function buildConfig(vless: ReturnType<typeof parseVlessUri>) {
               users: [
                 {
                   id: vless.uuid,
-                  encryption: vless.encryption,
+                  encryption: 'none',
                   flow: vless.flow,
                 },
               ],
