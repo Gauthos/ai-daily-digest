@@ -19,6 +19,7 @@ jobs:
     env:
       TZ: Pacific/Honolulu
       HUGO_VERSION: "0.161.1"
+      XRAY_VLESS_URI: ${{ secrets.XRAY_VLESS_URI }}
 
     steps:
       - name: Check out repository
@@ -53,9 +54,8 @@ jobs:
         run: bun install
 
       - name: Set up feed proxy
-        if: ${{ secrets.XRAY_VLESS_URI != '' }}
+        if: ${{ env.XRAY_VLESS_URI != '' }}
         env:
-          XRAY_VLESS_URI: ${{ secrets.XRAY_VLESS_URI }}
           XRAY_VERSION: "25.4.30"
         run: |
           wget -q "https://github.com/XTLS/Xray-core/releases/download/v${XRAY_VERSION}/Xray-linux-64.zip" -O /tmp/xray.zip
