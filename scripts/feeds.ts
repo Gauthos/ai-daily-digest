@@ -99,7 +99,7 @@ export const RSS_FEEDS: Array<{ name: string; xmlUrl: string; htmlUrl: string }>
   { name: "keygen.sh", xmlUrl: "https://keygen.sh/blog/feed.xml", htmlUrl: "https://keygen.sh" },
   { name: "mjg59.dreamwidth.org", xmlUrl: "https://mjg59.dreamwidth.org/data/rss", htmlUrl: "https://mjg59.dreamwidth.org" },
   { name: "computer.rip", xmlUrl: "https://computer.rip/rss.xml", htmlUrl: "https://computer.rip" },
-  { name: "tedunangst.com", xmlUrl: "https://www.tedunangst.com/flak/rss", htmlUrl: "https://tedunangst.com" },
+  { name: "xint.io", xmlUrl: "https://xint.io/blog/rss", htmlUrl: "https://xint.io" },
 ];
 
 const xmlParser = new XMLParser({
