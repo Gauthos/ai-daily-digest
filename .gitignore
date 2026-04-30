@@ -11,3 +11,4 @@ resources/
 daily-digest.html
 digest-*.md
 digest-*.articles.json
+.DS_Store

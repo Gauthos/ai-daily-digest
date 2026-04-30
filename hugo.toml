@@ -11,12 +11,12 @@ pagerSize = 10
 
 [params]
 description = "AI 精选的每日技术博客摘要，来自 92 个顶级技术博客"
+dateFormat = "2006-01-02"
+paginationSinglePost = true
 
 [params.author]
 name = "AI Daily Digest"
-dateFormat = "2006-01-02"
-paginationSinglePost = true
-locale = "zh-cn"
+email = "support@daily.choleraic.xyz"
 
 [params.anubis2]
 enableCopyCodeButton = true
@@ -28,13 +28,13 @@ colorTheme = "auto"
 openInNewTab = true
 tocWordCount = 500
 readNextPosts = 5
+socialIcons = [
+    { id = "email", url = "support@daily.choleraic.xyz" },
+    { id = "github", url = "https://github.com/Gauthos/ai-daily-digest" },
+]
 
 [params.anubis2.services.googleanalytics]
 gtag = "G-07TGR64L5J"
-
-socialIcons = [
-    { id = "github", url = "https://github.com/Gauthos/ai-daily-digest" },
-]
 
 [taxonomies]
 
