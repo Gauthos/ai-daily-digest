@@ -230,11 +230,19 @@ async function fetchUrl(url: string, proxyUrl?: string): Promise<Response> {
   }
 }
 
+function resolveLink(link: string, baseUrl: string): string {
+  if (!link) return baseUrl;
+  if (/^https?:\/\//.test(link)) return link;
+  const base = baseUrl.replace(/\/+$/, '');
+  const path = link.startsWith('/') ? link : `/${link}`;
+  return `${base}${path}`;
+}
+
 function parseArticles(xml: string, feed: { name: string; htmlUrl: string }): Article[] {
   const items = parseFeedXml(xml);
   return items.map(item => ({
     title: item.title,
-    link: item.link,
+    link: resolveLink(item.link, feed.htmlUrl),
     pubDate: parseDate(item.pubDate) || new Date(0),
     description: item.description,
     sourceName: feed.name,
