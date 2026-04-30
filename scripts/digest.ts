@@ -12,7 +12,7 @@ import { generateDigestReport } from './report.js';
 const OPENAI_DEFAULT_API_BASE = 'https://api.openai.com/v1';
 
 function printUsage(): never {
-  console.log(`AI Daily Digest - AI-powered RSS digest from 90 top tech blogs
+  console.log(`AI Daily Digest - AI-powered RSS digest from 97 top tech blogs
 
 Usage:
   bun scripts/digest.ts [options]
@@ -28,7 +28,7 @@ Environment:
   GEMINI_API_KEY   Optional but recommended. Get one at https://aistudio.google.com/apikey
   OPENAI_API_KEY   Optional fallback key for OpenAI-compatible APIs
   OPENAI_API_BASE  Optional fallback base URL (default: https://api.openai.com/v1)
-  OPENAI_MODEL     Optional fallback model (default: deepseek-chat for DeepSeek base, else gpt-4o-mini)
+  OPENAI_MODEL     Optional fallback model (default: deepseek-v4-pro for DeepSeek base, else gpt-4o-mini)
 
 Examples:
   bun scripts/digest.ts --hours 24 --top-n 10 --lang zh
