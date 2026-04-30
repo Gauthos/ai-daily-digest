@@ -29,7 +29,7 @@ openInNewTab = true
 tocWordCount = 500
 readNextPosts = 5
 socialIcons = [
-    { id = "email", url = "support@daily.choleraic.xyz" },
+    { id = "email", url = "mailto:support@daily.choleraic.xyz" },
     { id = "github", url = "https://github.com/Gauthos/ai-daily-digest" },
 ]
 
