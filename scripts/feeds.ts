@@ -279,24 +279,51 @@ async function fetchFeed(feed: { name: string; xmlUrl: string; htmlUrl: string }
   }
 }
 
-export async function fetchAllFeeds(feeds: typeof RSS_FEEDS): Promise<Article[]> {
+export interface FeedHealthEntry {
+  name: string;
+  xmlUrl: string;
+  status: 'ok' | 'empty' | 'failed';
+  articleCount: number;
+  error?: string;
+  proxy?: boolean;
+}
+
+export interface FetchResult {
+  articles: Article[];
+  health: FeedHealthEntry[];
+}
+
+export async function fetchAllFeeds(feeds: typeof RSS_FEEDS): Promise<FetchResult> {
   const allArticles: Article[] = [];
+  const health: FeedHealthEntry[] = [];
   let successCount = 0;
   let emptyCount = 0;
   let failCount = 0;
 
   for (let i = 0; i < feeds.length; i += FEED_CONCURRENCY) {
     const batch = feeds.slice(i, i + FEED_CONCURRENCY);
-    const results = await Promise.allSettled(batch.map(fetchFeed));
+    const results = await Promise.allSettled(
+      batch.map(async (feed) => {
+        const articles = await fetchFeed(feed);
+        return { feed, articles };
+      })
+    );
 
     for (const result of results) {
-      if (result.status === 'fulfilled' && result.value.length > 0) {
-        allArticles.push(...result.value);
-        successCount++;
-      } else if (result.status === 'fulfilled') {
-        emptyCount++;
+      if (result.status === 'fulfilled') {
+        const { feed, articles } = result.value;
+        if (articles.length > 0) {
+          allArticles.push(...articles);
+          successCount++;
+          health.push({ name: feed.name, xmlUrl: feed.xmlUrl, status: 'ok', articleCount: articles.length });
+        } else {
+          emptyCount++;
+          health.push({ name: feed.name, xmlUrl: feed.xmlUrl, status: 'empty', articleCount: 0 });
+        }
       } else {
+        const feed = batch[results.indexOf(result)]!;
         failCount++;
+        health.push({ name: feed.name, xmlUrl: feed.xmlUrl, status: 'failed', articleCount: 0, error: result.reason?.message || 'unknown' });
       }
     }
 
@@ -305,5 +332,5 @@ export async function fetchAllFeeds(feeds: typeof RSS_FEEDS): Promise<Article[]>
   }
 
   console.log(`[digest] Fetched ${allArticles.length} articles from ${successCount} feeds (${emptyCount} empty, ${failCount} failed)`);
-  return allArticles;
+  return { articles: allArticles, health };
 }

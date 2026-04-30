@@ -105,10 +105,11 @@ jobs:
 
       - name: Persist content to hugo-content branch
         run: |
-          mkdir -p .persist
+          mkdir -p .persist/static .persist/meta
           cp -r content/posts .persist/
-          mkdir -p .persist/static
           cp static/search-index.json .persist/static/ 2>/dev/null || true
+          cp .build/feed-health.json .persist/meta/ 2>/dev/null || true
+          cp .build/feed-source.json .persist/meta/ 2>/dev/null || true
 
       - name: Push persisted content
         uses: JamesIves/github-pages-deploy-action@d92aa235d04922e8f08b40ce78cc5442fcfbfa2f # v4

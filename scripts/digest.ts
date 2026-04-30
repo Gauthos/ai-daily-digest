@@ -101,7 +101,8 @@ async function main(): Promise<void> {
   console.log('');
 
   console.log(`[digest] Step 1/5: Fetching ${RSS_FEEDS.length} RSS feeds...`);
-  const allArticles = await fetchAllFeeds(RSS_FEEDS);
+  const fetchResult = await fetchAllFeeds(RSS_FEEDS);
+  const allArticles = fetchResult.articles;
 
   if (allArticles.length === 0) {
     console.error('[digest] Error: No articles fetched from any feed. Check network connection.');
@@ -226,6 +227,44 @@ async function main(): Promise<void> {
   }));
   const articlesPath = outputPath.replace(/\.md$/, '.articles.json');
   await writeFile(articlesPath, JSON.stringify(articlesIndex, null, 2) + '\n');
+
+  const buildDir = dirname(outputPath);
+
+  const healthPath = `${buildDir}/feed-health.json`;
+  const healthReport = {
+    date: digestDate,
+    totalFeeds: RSS_FEEDS.length,
+    ok: fetchResult.health.filter(h => h.status === 'ok').length,
+    empty: fetchResult.health.filter(h => h.status === 'empty').length,
+    failed: fetchResult.health.filter(h => h.status === 'failed').length,
+    feeds: fetchResult.health,
+  };
+  await writeFile(healthPath, JSON.stringify(healthReport, null, 2) + '\n');
+  console.log(`[digest] 📋 Feed health: ${healthPath}`);
+
+  const sourcePath = `${buildDir}/feed-source.json`;
+  const sourceReport = {
+    date: digestDate,
+    hours,
+    topN,
+    lang,
+    totalCandidates: uniqueArticles.length,
+    selected: finalArticles.map((a, i) => ({
+      rank: i + 1,
+      title: a.title,
+      titleZh: a.titleZh,
+      link: a.link,
+      source: a.sourceName,
+      sourceUrl: a.sourceUrl,
+      category: a.category,
+      score: a.score,
+      scoreBreakdown: a.scoreBreakdown,
+      pubDate: a.pubDate.toISOString(),
+      keywords: a.keywords,
+    })),
+  };
+  await writeFile(sourcePath, JSON.stringify(sourceReport, null, 2) + '\n');
+  console.log(`[digest] 📋 Feed source: ${sourcePath}`);
 
   console.log('');
   console.log(`[digest] ✅ Done!`);
