@@ -1,80 +1,84 @@
 import { writeFile } from 'node:fs/promises';
 import process from 'node:process';
 
-const HTTP_PORT = 10809;
-const SOCKS_PORT = 10808;
+const LISTEN_PORT = 10809;
 
-function parseVlessUri(uri: string) {
-  const url = new URL(uri);
-  const uuid = url.username;
-  const host = url.hostname;
-  const port = parseInt(url.port, 10);
-  const params = url.searchParams;
+interface VlessParams {
+  address: string;
+  port: number;
+  userId: string;
+  encryption: string;
+  flow: string;
+  security: string;
+  sni: string;
+  alpn: string[];
+  fingerprint: string;
+  network: string;
+  path: string;
+  host: string;
+  mode: string;
+}
+
+function parseVlessUri(uri: string): VlessParams {
+  const match = uri.match(/^vless:\/\/([^@]+)@([^:]+):(\d+)\??(.*)$/);
+  if (!match) throw new Error('Invalid VLESS URI format');
+
+  const userId = decodeURIComponent(match[1]!);
+  const address = match[2]!;
+  const port = parseInt(match[3]!, 10);
+  const params = new URLSearchParams(match[4] || '');
 
   return {
-    uuid,
-    address: host,
+    address,
     port,
-    flow: params.get('flow') || '',
-    security: params.get('security') || 'none',
-    sni: params.get('sni') || host,
-    fp: params.get('fp') || 'chrome',
-    alpn: (params.get('alpn') || '').split(',').filter(Boolean),
-    allowInsecure: params.get('insecure') === '1' || params.get('allowInsecure') === '1',
-    type: params.get('type') || 'tcp',
-    host: params.get('host') || host,
-    path: params.get('path') || '/',
-    mode: params.get('mode') || '',
+    userId,
     encryption: params.get('encryption') || 'none',
+    flow: params.get('flow') || '',
+    security: params.get('security') || 'tls',
+    sni: params.get('sni') || address,
+    alpn: (params.get('alpn') || 'h3,h2').split(','),
+    fingerprint: params.get('fp') || 'chrome',
+    network: params.get('type') || 'tcp',
+    path: params.get('path') || '/',
+    host: params.get('host') || address,
+    mode: params.get('mode') || 'auto',
   };
 }
 
-function buildConfig(vless: ReturnType<typeof parseVlessUri>) {
+function buildConfig(p: VlessParams): object {
   const streamSettings: Record<string, unknown> = {
-    network: vless.type,
-    security: vless.security,
+    network: p.network,
+    security: p.security,
+    tlsSettings: {
+      allowInsecure: true,
+      serverName: p.sni,
+      alpn: p.alpn,
+      fingerprint: p.fingerprint,
+    },
   };
 
-  if (vless.security === 'tls') {
-    streamSettings.tlsSettings = {
-      serverName: vless.sni,
-      fingerprint: vless.fp,
-      allowInsecure: vless.allowInsecure,
-      ...(vless.alpn.length > 0 ? { alpn: vless.alpn } : {}),
-    };
+  if (p.network === 'xhttp') {
+    streamSettings.xhttpSettings = { path: p.path, host: p.host, mode: p.mode };
+  } else if (p.network === 'ws') {
+    streamSettings.wsSettings = { path: p.path, headers: { Host: p.host } };
+  } else if (p.network === 'grpc') {
+    streamSettings.grpcSettings = { serviceName: p.path };
   }
 
-  if (vless.type === 'xhttp') {
-    streamSettings.xhttpSettings = {
-      host: vless.host,
-      path: vless.path,
-      ...(vless.mode ? { mode: vless.mode } : {}),
-    };
-  } else if (vless.type === 'ws') {
-    streamSettings.wsSettings = {
-      path: vless.path,
-      headers: { Host: vless.host },
-    };
-  } else if (vless.type === 'tcp') {
-    streamSettings.tcpSettings = {};
-  }
+  const user: Record<string, unknown> = {
+    id: p.userId,
+    encryption: p.encryption,
+  };
+  if (p.flow) user.flow = p.flow;
 
   return {
     log: { loglevel: 'warning' },
     inbounds: [
       {
         tag: 'http-in',
-        port: HTTP_PORT,
+        port: LISTEN_PORT,
         listen: '127.0.0.1',
         protocol: 'http',
-        settings: {},
-      },
-      {
-        tag: 'socks-in',
-        port: SOCKS_PORT,
-        listen: '127.0.0.1',
-        protocol: 'socks',
-        settings: { udp: true },
       },
     ],
     outbounds: [
@@ -82,53 +86,26 @@ function buildConfig(vless: ReturnType<typeof parseVlessUri>) {
         tag: 'proxy',
         protocol: 'vless',
         settings: {
-          vnext: [
-            {
-              address: vless.address,
-              port: vless.port,
-              users: [
-                {
-                  id: vless.uuid,
-                  encryption: 'none',
-                  flow: vless.flow,
-                },
-              ],
-            },
-          ],
+          vnext: [{ address: p.address, port: p.port, users: [user] }],
         },
         streamSettings,
       },
-      {
-        tag: 'direct',
-        protocol: 'freedom',
-        settings: {},
-      },
+      { tag: 'direct', protocol: 'freedom' },
     ],
     routing: {
-      rules: [
-        {
-          type: 'field',
-          inboundTag: ['http-in', 'socks-in'],
-          outboundTag: 'proxy',
-        },
-      ],
+      domainStrategy: 'AsIs',
+      rules: [],
     },
   };
 }
 
-const vlessUri = process.argv[2] || process.env.XRAY_VLESS_URI;
-if (!vlessUri) {
-  console.error('Usage: bun scripts/xray-config.ts <vless-uri>');
-  console.error('  or set XRAY_VLESS_URI environment variable');
+const [vlessUri, outputPath] = process.argv.slice(2);
+if (!vlessUri || !outputPath) {
+  console.error('Usage: bun scripts/xray-config.ts <vless-uri> <output-path>');
   process.exit(1);
 }
 
-const vless = parseVlessUri(vlessUri);
-const config = buildConfig(vless);
-const outputPath = process.argv[3] || '/tmp/xray-config.json';
-
+const params = parseVlessUri(vlessUri);
+const config = buildConfig(params);
 await writeFile(outputPath, JSON.stringify(config, null, 2));
-console.log(`[xray-config] Written to ${outputPath}`);
-console.log(`[xray-config] HTTP proxy: http://127.0.0.1:${HTTP_PORT}`);
-console.log(`[xray-config] SOCKS proxy: socks5://127.0.0.1:${SOCKS_PORT}`);
-console.log(`[xray-config] Server: ${vless.address}:${vless.port} (${vless.type}/${vless.security})`);
+console.log(`[xray-config] Written config to ${outputPath} (${params.address}:${params.port}, network=${params.network})`);
