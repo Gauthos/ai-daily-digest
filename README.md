@@ -146,3 +146,7 @@ export OPENAI_MODEL="deepseek-chat"
 - [Bun](https://bun.sh) 运行时
 - 至少一个 AI API Key（Gemini 或 OpenAI 兼容）
 - 网络连接
+
+## 致谢
+
+本项目基于 [vigorX777/ai-daily-digest](https://github.com/vigorX777/ai-daily-digest) 开发，感谢原作者的出色工作。
