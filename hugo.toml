@@ -1,4 +1,4 @@
-baseURL = "https://gauthos.github.io/ai-daily-digest/"
+baseURL = "https://daily.choleraic.xyz/"
 languageCode = "zh-cn"
 defaultContentLanguage = "zh"
 title = "AI Daily Digest"
@@ -28,7 +28,7 @@ tocWordCount = 500
 readNextPosts = 5
 
 [params.anubis2.services.googleanalytics]
-gtag = "G-XXXXXXXXXX"
+gtag = "G-07TGR64L5J"
 
 socialIcons = [
     { id = "github", url = "https://github.com/Gauthos/ai-daily-digest" },

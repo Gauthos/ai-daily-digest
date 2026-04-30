@@ -13,10 +13,10 @@
 无需部署，直接用 RSS 阅读器订阅本项目的每日产出：
 
 ```
-https://gauthos.github.io/ai-daily-digest/index.xml
+https://daily.choleraic.xyz/index.xml
 ```
 
-也可以在浏览器中查看：https://gauthos.github.io/ai-daily-digest
+也可以在浏览器中查看：https://daily.choleraic.xyz
 
 ### 自行部署（GitHub Actions + Pages）
 
