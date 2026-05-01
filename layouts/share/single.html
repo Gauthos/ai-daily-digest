@@ -5,7 +5,7 @@
     {{ $shareId := .Params.shareId }}
     {{ $targetUrl := .Params.targetUrl }}
     {{ $ga := site.Params.anubis2.services.googleanalytics }}
-    {{ $ogImage := resources.Get "favicon.jpg" }}
+    {{ $ogImage := site.Params.ogImage }}
 
     <title>{{ $title }} — {{ site.Title }}</title>
     <meta name="description" content="{{ $summary }}">
@@ -18,16 +18,14 @@
     <meta property="og:type" content="article">
     <meta property="og:site_name" content="{{ site.Title }}">
     {{ with $ogImage }}
-    <meta property="og:image" content="{{ .Permalink }}">
-    <meta property="og:image:width" content="{{ .Width }}">
-    <meta property="og:image:height" content="{{ .Height }}">
+    <meta property="og:image" content="{{ . }}">
     {{ end }}
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ $title }}">
     <meta name="twitter:description" content="{{ $summary }}">
     {{ with $ogImage }}
-    <meta name="twitter:image" content="{{ .Permalink }}">
+    <meta name="twitter:image" content="{{ . }}">
     {{ end }}
 
     <link rel="canonical" href="{{ index (split $targetUrl "#") 0 | absURL }}">

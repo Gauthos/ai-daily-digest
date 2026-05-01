@@ -13,6 +13,8 @@ pagerSize = 10
 description = "AI 精选的每日技术博客摘要，来自 92 个顶级技术博客"
 dateFormat = "2006-01-02"
 paginationSinglePost = true
+mainSections = ["posts"]
+ogImage = "https://test.fukit.cn/autoupload/en/Kuyc9NefcqCulKU7GTtlLP3MTivelVB1O1RJQrR1uEyyl5f0KlZfm6UsKj-HyTuv/20260501/gL6v/980X980/5a9458aafb53e86cba45aaaf99c88129.jpg"
 
 [params.author]
 name = "AI Daily Digest"
