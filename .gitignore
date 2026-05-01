@@ -12,4 +12,5 @@ daily-digest.html
 digest-*.md
 digest-*.articles.json
 .DS_Store
+.hugo_build.lock
 vless.txt

@@ -1,0 +1,47 @@
+.share-item-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin-left: 6px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--content-secondary, #888);
+  cursor: pointer;
+  opacity: 0;
+  vertical-align: middle;
+  transition: opacity 0.15s, background 0.15s, color 0.15s;
+}
+
+h3:hover .share-item-btn,
+h3:focus-within .share-item-btn,
+.share-item-btn:focus-visible {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .share-item-btn {
+    opacity: 1;
+  }
+}
+
+.share-item-btn:hover {
+  background: var(--code-bg, #f0f0f0);
+  color: var(--content-primary, #333);
+}
+
+.share-item-btn:active {
+  transform: scale(0.92);
+}
+
+.share-item-btn.share-inline {
+  opacity: 0.55;
+}
+
+.share-item-btn.share-inline:hover,
+.share-item-btn.share-inline:focus-visible {
+  opacity: 1;
+}

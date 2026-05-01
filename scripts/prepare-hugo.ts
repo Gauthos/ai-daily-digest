@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile, readdir, rename, stat } from 'node:fs/promises';
 import { join, dirname } from 'node:path';
 import process from 'node:process';
+import { createHash } from 'node:crypto';
 
 const DEFAULT_INPUT = '.build/digest.md';
 const DEFAULT_CONTENT_DIR = 'content/posts';
@@ -40,6 +41,50 @@ function parseArgs(argv: string[]): PrepareConfig {
 function extractDate(markdown: string): string {
   const match = markdown.match(/^date:\s*(\d{4}-\d{2}-\d{2})/m);
   return match?.[1] || new Date().toISOString().slice(0, 10);
+}
+
+function yamlQuote(s: string): string {
+  return s.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, ' ').replace(/\r/g, '');
+}
+
+async function generateSharePages(
+  articles: IndexEntry[],
+  date: string,
+): Promise<number> {
+  let count = 0;
+  for (const a of articles) {
+    const link = (a.link as string) || '';
+    if (!link) continue;
+    const shareId = createHash('sha256').update(link).digest('hex').slice(0, 8);
+    const titleZh = (a.titleZh as string) || (a.title as string) || 'Untitled';
+    const titleEn = (a.title as string) || '';
+    const summary = ((a.summary as string) || (a.description as string) || '');
+    const source = (a.source as string) || '';
+    const targetUrl = `/posts/${date}/#item-${shareId}`;
+    const originalUrl = link;
+
+    const shareDir = join('content', 'share', date, shareId);
+    await mkdir(shareDir, { recursive: true });
+
+    const fm = `---
+title: "${yamlQuote(titleZh)}"
+date: "${date}T00:00:00+08:00"
+type: share
+private: true
+build:
+  list: never
+summary: "${yamlQuote(summary.slice(0, 300))}"
+source: "${yamlQuote(source)}"
+shareId: "${shareId}"
+targetUrl: "${targetUrl}"
+originalUrl: "${yamlQuote(originalUrl)}"
+titleEn: "${yamlQuote(titleEn)}"
+---
+`;
+    await writeFile(join(shareDir, 'index.md'), fm);
+    count++;
+  }
+  return count;
 }
 
 function normalizeLink(link: string): string {
@@ -149,6 +194,27 @@ async function main(): Promise<void> {
 
   await writeFile(indexPath, JSON.stringify(merged) + '\n');
   console.log(`[prepare-hugo] Updated search index: ${merged.length} total articles (${newArticles.length} new, ${existingIndex.length} existing)`);
+
+  // Always ensure content/share/_index.md exists so Hugo suppresses the section listing & RSS
+  const shareIndexDir = 'content/share';
+  await mkdir(shareIndexDir, { recursive: true });
+  const shareIndexPath = join(shareIndexDir, '_index.md');
+  try {
+    await readFile(shareIndexPath, 'utf8');
+  } catch {
+    await writeFile(shareIndexPath, `---
+title: ""
+build:
+  list: never
+  render: never
+---
+`);
+  }
+
+  if (newArticles.length > 0) {
+    const shareCount = await generateSharePages(newArticles, date);
+    console.log(`[prepare-hugo] Generated ${shareCount} share pages under content/share/${date}/`);
+  }
 
   const files = await readdir(config.contentDir);
   const postCount = files.filter(f => /^\d{4}-\d{2}-\d{2}$/.test(f)).length;

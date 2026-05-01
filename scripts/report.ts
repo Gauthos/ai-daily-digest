@@ -2,6 +2,40 @@ import {
   CATEGORY_META, getHawaiiDateTimeParts, formatHawaiiDate,
 } from './types.js';
 import type { ScoredArticle } from './types.js';
+import { createHash } from 'node:crypto';
+
+function generateShareId(link: string): string {
+  return createHash('sha256').update(link).digest('hex').slice(0, 8);
+}
+
+function escapeHtmlAttr(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+const SHARE_ICON_SVG =
+  '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+  + '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>'
+  + '<line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>'
+  + '</svg>';
+
+function shareInlineButton(opts: {
+  dateStr: string;
+  shareId: string;
+  pageTitle: string;
+  itemTitle: string;
+}): string {
+  return ' <button class="share-item-btn share-inline" type="button" aria-label="分享此条"'
+    + ` data-share-url="/share/${opts.dateStr}/${opts.shareId}/"`
+    + ` data-share-id="${opts.shareId}"`
+    + ` data-title="${escapeHtmlAttr(opts.pageTitle)}"`
+    + ` data-item-title="${escapeHtmlAttr(opts.itemTitle)}"`
+    + ` title="分享此条">${SHARE_ICON_SVG}</button>`;
+}
 
 function humanizeTime(pubDate: Date): string {
   const diffMs = Date.now() - pubDate.getTime();
@@ -46,8 +80,15 @@ export function generateDigestReport(articles: ScoredArticle[], highlights: stri
       const a = articles[i];
       const medal = ['🥇', '🥈', '🥉'][i];
       const catMeta = CATEGORY_META[a.category];
+      const itemTitle = a.titleZh || a.title;
+      const shareBtn = shareInlineButton({
+        dateStr,
+        shareId: generateShareId(a.link),
+        pageTitle: `AI 博客每日精选 — ${dateStr}`,
+        itemTitle,
+      });
 
-      report += `${medal} **${a.titleZh || a.title}**\n\n`;
+      report += `${medal} **${itemTitle}**${shareBtn}\n\n`;
       report += `[${a.title}](${a.link}) — ${a.sourceName} · ${humanizeTime(a.pubDate)} · ${catMeta.emoji} ${catMeta.label}\n\n`;
       report += `> ${a.summary}\n\n`;
       if (a.reason) {
@@ -79,7 +120,7 @@ export function generateDigestReport(articles: ScoredArticle[], highlights: stri
       globalIndex++;
       const scoreTotal = a.scoreBreakdown.relevance + a.scoreBreakdown.quality + a.scoreBreakdown.timeliness;
 
-      report += `### ${globalIndex}. ${a.titleZh || a.title}\n\n`;
+      report += `### ${globalIndex}. ${a.titleZh || a.title} {#item-${generateShareId(a.link)}}\n\n`;
       report += `[${a.title}](${a.link}) — **${a.sourceName}** · ${humanizeTime(a.pubDate)} · ⭐ ${scoreTotal}/30\n\n`;
       report += `> ${a.summary}\n\n`;
       if (a.keywords.length > 0) {

@@ -1,0 +1,90 @@
+{{ define "head" }}
+    {{ $title := .Title }}
+    {{ $summary := .Params.summary }}
+    {{ $source := .Params.source }}
+    {{ $shareId := .Params.shareId }}
+    {{ $targetUrl := .Params.targetUrl }}
+    {{ $ga := site.Params.anubis2.services.googleanalytics }}
+    {{ $ogImage := resources.Get "favicon.jpg" }}
+
+    <title>{{ $title }} — {{ site.Title }}</title>
+    <meta name="description" content="{{ $summary }}">
+    <meta name="robots" content="noindex,follow">
+    <meta name="generator" content="Hugo {{ hugo.Version }}">
+
+    <meta property="og:title" content="{{ $title }}">
+    <meta property="og:description" content="{{ $summary }}">
+    <meta property="og:url" content="{{ .Permalink }}">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="{{ site.Title }}">
+    {{ with $ogImage }}
+    <meta property="og:image" content="{{ .Permalink }}">
+    <meta property="og:image:width" content="{{ .Width }}">
+    <meta property="og:image:height" content="{{ .Height }}">
+    {{ end }}
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $title }}">
+    <meta name="twitter:description" content="{{ $summary }}">
+    {{ with $ogImage }}
+    <meta name="twitter:image" content="{{ .Permalink }}">
+    {{ end }}
+
+    <link rel="canonical" href="{{ index (split $targetUrl "#") 0 | absURL }}">
+
+    {{ if hugo.IsProduction }}
+    {{ with $ga }}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ .gtag }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '{{ .gtag }}');
+      gtag('event', 'share_landing_view', {
+        'share_id': '{{ $shareId }}',
+        'source': '{{ $source }}'
+      });
+    </script>
+    {{ end }}
+    {{ end }}
+
+    <script>
+      (function() {
+        var isBot = /bot|crawl|spider|scrape|facebookexternalhit|facebot|twitterbot|telegrambot|slack|whatsapp|discord/i.test(navigator.userAgent);
+        if (isBot) return;
+
+        var targetUrl = '{{ $targetUrl | safeJS }}';
+        if (window.location.hash) {
+          targetUrl = targetUrl.split('#')[0] + window.location.hash;
+        }
+        function doRedirect() {
+          window.location.replace(targetUrl);
+        }
+        if (typeof gtag === 'function') {
+          gtag('event', 'share_redirect', {
+            'share_id': '{{ $shareId | safeJS }}',
+            'event_callback': doRedirect
+          });
+          setTimeout(doRedirect, 1500);
+        } else {
+          doRedirect();
+        }
+      })();
+    </script>
+{{ end }}
+
+{{ define "main" }}
+    {{ $title := .Title }}
+    {{ $targetUrl := .Params.targetUrl }}
+    {{ $source := .Params.source }}
+    {{ $originalUrl := .Params.originalUrl }}
+    <div style="max-width:640px;margin:40px auto;padding:20px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+        <p style="color:#888;font-size:14px;">AI Daily Digest &middot; {{ $source }}</p>
+        <h1 style="font-size:1.4em;line-height:1.5;margin:12px 0;">{{ $title }}</h1>
+        <p style="color:#666;">正在跳转到摘要原文&hellip;</p>
+        <p><a href="{{ $targetUrl }}" style="color:#2563eb;">查看这条摘要</a></p>
+        {{ with $originalUrl }}
+        <p style="margin-top:16px;"><a href="{{ . }}" style="color:#888;font-size:14px;" rel="nofollow">阅读原文</a></p>
+        {{ end }}
+    </div>
+{{ end }}

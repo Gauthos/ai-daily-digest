@@ -51,7 +51,9 @@
       <description>
       {{ .Summary | plainify | htmlEscape }}
       </description>
-      <content:encoded>{{ .Content | html }}</content:encoded>
+      {{ $content := .Content }}
+      {{ $content = replaceRE `(?s)\s*<button class="share-item-btn[^"]*"[^>]*>.*?</button>` "" $content }}
+      <content:encoded>{{ $content | html }}</content:encoded>
       <guid isPermaLink="true">{{ .Permalink }}</guid>
     </item>
     {{ end }}

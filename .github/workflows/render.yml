@@ -1,14 +1,12 @@
-name: daily-digest
+name: render
 
 on:
-  schedule:
-    - cron: '0 6 * * *'
   workflow_dispatch:
 
 permissions: {}
 
 concurrency:
-  group: daily-digest
+  group: render
   cancel-in-progress: false
 
 jobs:
@@ -19,7 +17,6 @@ jobs:
     env:
       TZ: America/Los_Angeles
       HUGO_VERSION: "0.161.1"
-      XRAY_VLESS_URI: ${{ secrets.XRAY_VLESS_URI }}
 
     steps:
       - name: Check out repository
@@ -29,7 +26,6 @@ jobs:
 
       - name: Check out current published content
         uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
-        continue-on-error: true
         with:
           ref: hugo-content
           path: .published-content
@@ -56,18 +52,6 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Set up feed proxy
-        if: ${{ env.XRAY_VLESS_URI != '' }}
-        run: |
-          wget -q "https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip" -O /tmp/xray.zip
-          unzip -qo /tmp/xray.zip -d /tmp/xray
-          chmod +x /tmp/xray/xray
-          /tmp/xray/xray version
-          bun scripts/xray-config.ts "$XRAY_VLESS_URI" /tmp/xray-config.json
-          /tmp/xray/xray run -config /tmp/xray-config.json &
-          sleep 2
-          echo "FEED_PROXY_URL=http://127.0.0.1:10809" >> "$GITHUB_ENV"
-
       - name: Set up Hugo
         env:
           HUGO_SHA256: "c89632f5bd7727746df2560313dc5dbeebef0a8823566c6479dbdd3c4f06aad9"
@@ -78,22 +62,8 @@ jobs:
           rm hugo.deb
           hugo version
 
-      - name: Generate digest markdown
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          OPENAI_API_BASE: ${{ secrets.OPENAI_API_BASE }}
-          OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
-        run: |
-          mkdir -p .build
-          bun scripts/digest.ts \
-            --hours 48 \
-            --top-n 15 \
-            --lang zh \
-            --output .build/digest.md
-
-      - name: Prepare Hugo content
-        run: bun scripts/prepare-hugo.ts --input .build/digest.md
+      - name: Retrofit share anchors and landing pages on existing posts
+        run: bun scripts/retrofit-share.ts
 
       - name: Build Hugo site
         run: hugo --minify --environment production
@@ -112,8 +82,9 @@ jobs:
           cp -r content/posts .persist/
           cp -r content/share .persist/ 2>/dev/null || true
           cp static/search-index.json .persist/static/ 2>/dev/null || true
-          cp .build/feed-health.json .persist/meta/ 2>/dev/null || true
-          cp .build/feed-source.json .persist/meta/ 2>/dev/null || true
+          if [ -d .published-content/meta ]; then
+            cp -r .published-content/meta/. .persist/meta/ 2>/dev/null || true
+          fi
 
       - name: Push persisted content
         uses: JamesIves/github-pages-deploy-action@d92aa235d04922e8f08b40ce78cc5442fcfbfa2f # v4
