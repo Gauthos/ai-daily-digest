@@ -37,8 +37,6 @@
   height: 20px;
   display: block;
   pointer-events: none;
-  filter: grayscale(0.8);
-  transition: filter 0.2s ease;
 }
 
 .article-feedback .feedback-btn:hover,
@@ -46,11 +44,6 @@
   opacity: 1;
   background: var(--pre-bg-color, rgba(0, 0, 0, 0.05));
   outline: none;
-}
-
-.article-feedback .feedback-btn:hover img,
-.article-feedback .feedback-btn:focus-visible img {
-  filter: grayscale(0);
 }
 
 .article-feedback .feedback-btn:active {
@@ -65,10 +58,6 @@
 .article-feedback .feedback-down.feedback-active {
   opacity: 1;
   background: rgba(244, 67, 54, 0.15);
-}
-
-.article-feedback .feedback-btn.feedback-active img {
-  filter: grayscale(0);
 }
 
 @media (max-width: 480px) {

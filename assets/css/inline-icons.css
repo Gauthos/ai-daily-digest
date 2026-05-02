@@ -1,0 +1,42 @@
+/* === 内联图标尺寸（嵌在 H2/H3/段落中） === */
+.x-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: -0.2em;
+  margin: 0 2px;
+  opacity: 0.85;
+  transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+.x-icon:hover {
+  opacity: 1;
+}
+
+h2 .x-icon,
+h3 .x-icon {
+  width: 1.1em;
+  height: 1.1em;
+  vertical-align: -0.18em;
+}
+
+/* === 通用：所有 icons8 hatch 黑白图（PNG/SVG）+ .x-mono 自动暗黑反转 ===
+ * URL 模式选择器：未来加任何 img.icons8.com/hatch/... 的图自动反转
+ * .x-mono：给 inline SVG 或非 icons8 黑白图标显式标记
+ */
+@media (prefers-color-scheme: dark) {
+  img[src*="img.icons8.com/hatch/"],
+  .x-mono {
+    filter: invert(1);
+  }
+}
+
+html[data-theme='dark'] img[src*="img.icons8.com/hatch/"],
+html[data-theme='dark'] .x-mono {
+  filter: invert(1);
+}
+
+html[data-theme='light'] img[src*="img.icons8.com/hatch/"],
+html[data-theme='light'] .x-mono {
+  filter: none;
+}

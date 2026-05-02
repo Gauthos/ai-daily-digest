@@ -102,6 +102,11 @@
   <link rel="stylesheet" href="{{ .RelPermalink }}">
 {{ end }}
 
+{{ $iconsCSS := resources.Get "css/inline-icons.css" }}
+{{ with $iconsCSS }}
+  <link rel="stylesheet" href="{{ .RelPermalink }}">
+{{ end }}
+
 {{ if hugo.IsProduction }}
   {{ if isset $params.services "umami" }}
       {{ partial "analytics/umami_analytics.html" . }}
@@ -119,5 +124,10 @@
 
 {{ $feedbackJS := resources.Get "js/feedback.js" }}
 {{ with $feedbackJS }}
+  <script src="{{ .RelPermalink }}" defer></script>
+{{ end }}
+
+{{ $iconsJS := resources.Get "js/inline-icons.js" }}
+{{ with $iconsJS }}
   <script src="{{ .RelPermalink }}" defer></script>
 {{ end }}

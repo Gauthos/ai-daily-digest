@@ -13,13 +13,20 @@ export const HAWAII_DATE_TIME_FORMATTER = new Intl.DateTimeFormat('en-CA', {
 
 export type CategoryId = 'ai-ml' | 'security' | 'engineering' | 'tools' | 'opinion' | 'other';
 
-export const CATEGORY_META: Record<CategoryId, { emoji: string; label: string }> = {
-  'ai-ml':       { emoji: '🤖', label: 'AI / ML' },
-  'security':    { emoji: '🔒', label: '安全' },
-  'engineering': { emoji: '⚙️', label: '工程' },
-  'tools':       { emoji: '🛠', label: '工具 / 开源' },
-  'opinion':     { emoji: '💡', label: '观点 / 杂谈' },
-  'other':       { emoji: '📝', label: '其他' },
+export interface CategoryMeta {
+  emoji: string;
+  iconUrl: string;
+  iconAlt: string;
+  label: string;
+}
+
+export const CATEGORY_META: Record<CategoryId, CategoryMeta> = {
+  'ai-ml':       { emoji: '🤖', iconUrl: 'https://img.icons8.com/hatch/64/hub.png',         iconAlt: 'hub',         label: 'AI / ML' },
+  'security':    { emoji: '🔒', iconUrl: 'https://img.icons8.com/hatch/64/fingerprint.png', iconAlt: 'fingerprint', label: '安全' },
+  'engineering': { emoji: '⚙️', iconUrl: 'https://img.icons8.com/hatch/64/bios.png',        iconAlt: 'bios',        label: '工程' },
+  'tools':       { emoji: '🛠', iconUrl: 'https://img.icons8.com/hatch/64/support.png',     iconAlt: 'support',     label: '工具 / 开源' },
+  'opinion':     { emoji: '💡', iconUrl: 'https://img.icons8.com/hatch/64/idea.png',        iconAlt: 'idea',        label: '观点 / 杂谈' },
+  'other':       { emoji: '📝', iconUrl: 'https://img.icons8.com/hatch/64/filter.png',      iconAlt: 'filter',      label: '其他' },
 };
 
 export interface Article {
