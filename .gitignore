@@ -19,3 +19,6 @@ vless.txt
 content/posts/
 content/share/
 static/search-index.json
+
+# local Claude Code config (rules/skills/settings)
+.claude/
