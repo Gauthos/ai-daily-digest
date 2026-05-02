@@ -2,15 +2,7 @@ import {
   CATEGORY_META, getHawaiiDateTimeParts, formatHawaiiDate,
 } from './types.js';
 import type { ScoredArticle } from './types.js';
-import { createHash } from 'node:crypto';
-
-function generateShareId(link: string): string {
-  return createHash('sha256').update(link).digest('hex').slice(0, 8);
-}
-
-function topItemAnchor(shareId: string): string {
-  return ` <a id="item-${shareId}" class="x-anchor" aria-hidden="true"></a>`;
-}
+import { generateShareId, topItemAnchor } from './share-utils.js';
 
 function humanizeTime(pubDate: Date): string {
   const diffMs = Date.now() - pubDate.getTime();

@@ -14,3 +14,8 @@ digest-*.articles.json
 .DS_Store
 .hugo_build.lock
 vless.txt
+
+# derived data pulled from hugo-content branch for local preview / CI
+content/posts/
+content/share/
+static/search-index.json

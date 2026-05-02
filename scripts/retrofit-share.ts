@@ -1,19 +1,10 @@
-import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
+import { readFile, readdir, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import process from 'node:process';
-import { createHash } from 'node:crypto';
-
-function generateShareId(link: string): string {
-  return createHash('sha256').update(link).digest('hex').slice(0, 8);
-}
-
-function topItemAnchor(shareId: string): string {
-  return ` <a id="item-${shareId}" class="x-anchor" aria-hidden="true"></a>`;
-}
-
-function yamlQuote(s: string): string {
-  return s.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, ' ').replace(/\r/g, '');
-}
+import {
+  generateShareId, topItemAnchor,
+  writeShareLandingPage, ensureShareIndex,
+} from './share-utils.js';
 
 interface ShareInfo {
   shareId: string;
@@ -153,52 +144,21 @@ async function retrofitPost(date: string, postDir: string): Promise<ShareInfo[]>
   return Array.from(sharesByLink.values());
 }
 
-async function generateShareLandingPages(date: string, shares: ShareInfo[]): Promise<number> {
+async function writeAllLandingPages(date: string, shares: ShareInfo[]): Promise<number> {
   let written = 0;
   for (const s of shares) {
-    const dir = join('content', 'share', date, s.shareId);
-    await mkdir(dir, { recursive: true });
-    const fm = `---
-title: "${yamlQuote(s.titleZh)}"
-date: "${date}T00:00:00+08:00"
-type: share
-private: true
-build:
-  list: never
-summary: "${yamlQuote(s.summary.slice(0, 300))}"
-source: "${yamlQuote(s.source)}"
-shareId: "${s.shareId}"
-targetUrl: "/posts/${date}/#item-${s.shareId}"
-originalUrl: "${yamlQuote(s.link)}"
-titleEn: "${yamlQuote(s.titleEn)}"
----
-`;
-    const indexPath = join(dir, 'index.md');
-    let existing = '';
-    try { existing = await readFile(indexPath, 'utf8'); } catch { /* new */ }
-    if (existing !== fm) {
-      await writeFile(indexPath, fm);
-      written++;
-    }
+    const changed = await writeShareLandingPage({
+      shareId: s.shareId,
+      date,
+      titleZh: s.titleZh,
+      titleEn: s.titleEn,
+      source: s.source,
+      summary: s.summary,
+      originalUrl: s.link,
+    });
+    if (changed) written++;
   }
   return written;
-}
-
-async function ensureShareIndex(): Promise<void> {
-  const shareIndexDir = 'content/share';
-  await mkdir(shareIndexDir, { recursive: true });
-  const shareIndexPath = join(shareIndexDir, '_index.md');
-  try {
-    await readFile(shareIndexPath, 'utf8');
-  } catch {
-    await writeFile(shareIndexPath, `---
-title: ""
-build:
-  list: never
-  render: never
----
-`);
-  }
 }
 
 async function main(): Promise<void> {
@@ -220,7 +180,7 @@ async function main(): Promise<void> {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(d)) continue;
     const shares = await retrofitPost(d, join(contentDir, d));
     if (shares.length === 0) continue;
-    const written = await generateShareLandingPages(d, shares);
+    const written = await writeAllLandingPages(d, shares);
     totalShares += shares.length;
     totalWritten += written;
     processed++;

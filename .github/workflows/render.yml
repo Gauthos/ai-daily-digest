@@ -2,6 +2,18 @@ name: render
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'layouts/**'
+      - 'assets/**'
+      - 'themes/**'
+      - 'scripts/retrofit-share.ts'
+      - 'scripts/share-utils.ts'
+      - 'scripts/prepare-hugo.ts'
+      - 'scripts/types.ts'
+      - 'hugo.toml'
+      - '.github/workflows/render.yml'
 
 permissions: {}
 
