@@ -97,6 +97,11 @@
   <link rel="stylesheet" href="{{ .RelPermalink }}">
 {{ end }}
 
+{{ $feedbackCSS := resources.Get "css/feedback.css" }}
+{{ with $feedbackCSS }}
+  <link rel="stylesheet" href="{{ .RelPermalink }}">
+{{ end }}
+
 {{ if hugo.IsProduction }}
   {{ if isset $params.services "umami" }}
       {{ partial "analytics/umami_analytics.html" . }}
@@ -109,5 +114,10 @@
 
 {{ $shareJS := resources.Get "js/share-btn.js" }}
 {{ with $shareJS }}
+  <script src="{{ .RelPermalink }}" defer></script>
+{{ end }}
+
+{{ $feedbackJS := resources.Get "js/feedback.js" }}
+{{ with $feedbackJS }}
   <script src="{{ .RelPermalink }}" defer></script>
 {{ end }}

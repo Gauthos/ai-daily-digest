@@ -1,0 +1,79 @@
+.article-feedback {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 18px;
+  padding: 6px 12px;
+  border: 1px solid var(--card-border-color, #eee);
+  border-radius: 8px;
+  background: var(--card-color, #fafafa);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.article-feedback .feedback-hint {
+  color: var(--post-info-color, #888);
+  margin-right: auto;
+}
+
+.article-feedback .feedback-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.15s ease, background 0.15s ease, transform 0.15s ease;
+}
+
+.article-feedback .feedback-btn img {
+  width: 20px;
+  height: 20px;
+  display: block;
+  pointer-events: none;
+  filter: grayscale(0.8);
+  transition: filter 0.2s ease;
+}
+
+.article-feedback .feedback-btn:hover,
+.article-feedback .feedback-btn:focus-visible {
+  opacity: 1;
+  background: var(--pre-bg-color, rgba(0, 0, 0, 0.05));
+  outline: none;
+}
+
+.article-feedback .feedback-btn:hover img,
+.article-feedback .feedback-btn:focus-visible img {
+  filter: grayscale(0);
+}
+
+.article-feedback .feedback-btn:active {
+  transform: scale(0.92);
+}
+
+.article-feedback .feedback-up.feedback-active {
+  opacity: 1;
+  background: rgba(76, 175, 80, 0.18);
+}
+
+.article-feedback .feedback-down.feedback-active {
+  opacity: 1;
+  background: rgba(244, 67, 54, 0.15);
+}
+
+.article-feedback .feedback-btn.feedback-active img {
+  filter: grayscale(0);
+}
+
+@media (max-width: 480px) {
+  .article-feedback {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+}

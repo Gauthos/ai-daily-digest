@@ -3,37 +3,12 @@ import { join } from 'node:path';
 import process from 'node:process';
 import { createHash } from 'node:crypto';
 
-const SHARE_ICON_SVG =
-  '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
-  + '<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>'
-  + '<line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>'
-  + '</svg>';
-
 function generateShareId(link: string): string {
   return createHash('sha256').update(link).digest('hex').slice(0, 8);
 }
 
-function escapeHtmlAttr(s: string): string {
-  return s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
-function shareInlineButton(opts: {
-  dateStr: string;
-  shareId: string;
-  pageTitle: string;
-  itemTitle: string;
-}): string {
-  return ' <button class="share-item-btn share-inline" type="button" aria-label="分享此条"'
-    + ` data-share-url="/share/${opts.dateStr}/${opts.shareId}/"`
-    + ` data-share-id="${opts.shareId}"`
-    + ` data-title="${escapeHtmlAttr(opts.pageTitle)}"`
-    + ` data-item-title="${escapeHtmlAttr(opts.itemTitle)}"`
-    + ` title="分享此条">${SHARE_ICON_SVG}</button>`;
+function topItemAnchor(shareId: string): string {
+  return ` <a id="item-${shareId}" class="x-anchor" aria-hidden="true"></a>`;
 }
 
 function yamlQuote(s: string): string {
@@ -82,15 +57,6 @@ function lookaheadDetail(
   return detail ? { ...detail, summary } : null;
 }
 
-function extractFrontMatter(md: string): { dateStr: string; pageTitle: string } {
-  const dateM = md.match(/^date:\s*"?(\d{4}-\d{2}-\d{2})/m);
-  const titleM = md.match(/^title:\s*"(.+)"\s*$/m);
-  return {
-    dateStr: dateM?.[1] ?? '',
-    pageTitle: titleM?.[1] ?? '',
-  };
-}
-
 async function retrofitPost(date: string, postDir: string): Promise<ShareInfo[]> {
   const path = join(postDir, 'index.md');
   let md: string;
@@ -100,10 +66,7 @@ async function retrofitPost(date: string, postDir: string): Promise<ShareInfo[]>
     return [];
   }
 
-  const { pageTitle: rawPageTitle } = extractFrontMatter(md);
-  const pageTitle = rawPageTitle || `AI 博客每日精选 — ${date}`;
-
-  // Strip existing anchors and inline buttons (idempotent)
+  // Strip existing anchors, inline buttons, inline anchors (idempotent)
   let body = md;
   body = body.replace(
     /^(### \d+\..+?)[ \t]*\{#item-[0-9a-f]+\}[ \t]*$/gm,
@@ -111,6 +74,10 @@ async function retrofitPost(date: string, postDir: string): Promise<ShareInfo[]>
   );
   body = body.replace(
     /^([\u{1F947}\u{1F948}\u{1F949}][ \t]+\*\*[^*]+\*\*)[ \t]+<button class="share-item-btn[^"]*"[^>]*>.*?<\/button>[ \t]*$/gmu,
+    '$1',
+  );
+  body = body.replace(
+    /^([\u{1F947}\u{1F948}\u{1F949}][ \t]+\*\*[^*]+\*\*)[ \t]+<a id="item-[0-9a-f]+"[^>]*><\/a>[ \t]*$/gmu,
     '$1',
   );
 
@@ -167,8 +134,7 @@ async function retrofitPost(date: string, postDir: string): Promise<ShareInfo[]>
               summary: detail.summary,
             });
           }
-          const btn = shareInlineButton({ dateStr: date, shareId, pageTitle, itemTitle: titleZh });
-          out.push(`${medal} **${titleZh}**${btn}`);
+          out.push(`${medal} **${titleZh}**${topItemAnchor(shareId)}`);
           pushBlankIfMissing(i);
           continue;
         }
