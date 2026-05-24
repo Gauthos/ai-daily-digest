@@ -2,7 +2,15 @@
   "name": "ai-daily-digest",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "dependencies": {
-    "fast-xml-parser": "4.5.3"
+    "@mozilla/readability": "^0.6.0",
+    "fast-xml-parser": "^5.8.0",
+    "jsdom": "^29.1.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.2.4"
   }
 }

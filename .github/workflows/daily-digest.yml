@@ -37,7 +37,7 @@ jobs:
 
       - name: Restore published content history
         run: |
-          mkdir -p content/posts content/share static
+          mkdir -p content/posts content/share static .build
           if [ -d .published-content/posts ]; then
             cp -r .published-content/posts/* content/posts/ 2>/dev/null || true
           fi
@@ -47,6 +47,14 @@ jobs:
           if [ -f .published-content/static/search-index.json ]; then
             cp .published-content/static/search-index.json static/search-index.json
           fi
+          if [ -f .published-content/meta/pending-clusters.json ]; then
+            cp .published-content/meta/pending-clusters.json .build/pending-clusters.json
+          fi
+
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .node-version
 
       - name: Set up Bun
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
@@ -114,6 +122,7 @@ jobs:
           cp static/search-index.json .persist/static/ 2>/dev/null || true
           cp .build/feed-health.json .persist/meta/ 2>/dev/null || true
           cp .build/feed-source.json .persist/meta/ 2>/dev/null || true
+          cp .build/pending-clusters.json .persist/meta/ 2>/dev/null || true
 
       - name: Push persisted content
         uses: JamesIves/github-pages-deploy-action@d92aa235d04922e8f08b40ce78cc5442fcfbfa2f # v4

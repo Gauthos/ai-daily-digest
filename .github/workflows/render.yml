@@ -8,6 +8,8 @@ on:
       - 'layouts/**'
       - 'assets/**'
       - 'themes/**'
+      - 'package.json'
+      - 'package-lock.json'
       - 'scripts/retrofit-share.ts'
       - 'scripts/share-utils.ts'
       - 'scripts/prepare-hugo.ts'
@@ -55,6 +57,11 @@ jobs:
           if [ -f .published-content/static/search-index.json ]; then
             cp .published-content/static/search-index.json static/search-index.json
           fi
+
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .node-version
 
       - name: Set up Bun
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
