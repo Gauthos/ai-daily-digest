@@ -10,7 +10,7 @@ locale = "zh-CN"
 pagerSize = 10
 
 [params]
-description = "AI 精选的每日技术博客摘要，来自 92 个顶级技术博客"
+description = "AI 精选的每日技术博客摘要，来自 90+ 个顶级技术博客"
 dateFormat = "2006-01-02"
 paginationSinglePost = true
 mainSections = ["posts"]
@@ -25,8 +25,8 @@ enableCopyCodeButton = true
 enableSummary = true
 enableReadMoreButton = true
 enableRssIcon = true
-enableColorThemeSwitcher = true
-colorTheme = "auto"
+enableColorThemeSwitcher = false
+colorTheme = "dark"
 openInNewTab = true
 tocWordCount = 500
 readNextPosts = 5
@@ -34,6 +34,31 @@ socialIcons = [
     { id = "email", url = "mailto:support@daily.choleraic.xyz" },
     { id = "github", url = "https://github.com/Gauthos/ai-daily-digest" },
 ]
+
+[params.footer]
+copyrightText = "AI Daily Digest 2026. All Rights Reserved"
+backToTopText = "Back to top"
+barCount = 23
+
+[[params.footer.leftLinks]]
+label = "首页"
+href = "/"
+
+[[params.footer.leftLinks]]
+label = "归档"
+href = "/posts/"
+
+[[params.footer.rightLinks]]
+label = "Email"
+href = "mailto:support@daily.choleraic.xyz"
+
+[[params.footer.rightLinks]]
+label = "GitHub"
+href = "https://github.com/Gauthos/ai-daily-digest"
+
+[[params.footer.rightLinks]]
+label = "RSS"
+href = "/index.xml"
 
 [params.anubis2.services.googleanalytics]
 gtag = "G-07TGR64L5J"
@@ -67,3 +92,22 @@ tabWidth = 4
 [outputs]
 home = ["HTML", "RSS"]
 section = ["HTML", "RSS"]
+
+[build]
+  [build.buildStats]
+    enable = true
+  [[build.cachebusters]]
+    source = 'assets/notwatching/hugo_stats\.json'
+    target = 'css'
+  [[build.cachebusters]]
+    source = '(postcss|tailwind)\.config\.js'
+    target = 'css'
+
+[module]
+  [[module.mounts]]
+    source = 'assets'
+    target = 'assets'
+  [[module.mounts]]
+    disableWatch = true
+    source = 'hugo_stats.json'
+    target = 'assets/notwatching/hugo_stats.json'

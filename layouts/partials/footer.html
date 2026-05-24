@@ -1,0 +1,107 @@
+{{ $params := partial "params-helper.html" . }}
+{{ $footer := site.Params.footer | default dict }}
+{{ $leftLinks := (index $footer "leftlinks") | default slice }}
+{{ $rightLinks := (index $footer "rightlinks") | default slice }}
+{{ $copyrightText := (index $footer "copyrighttext") | default (printf "%s %d. All Rights Reserved" site.Title now.Year) }}
+{{ $backToTopText := (index $footer "backtotoptext") | default "Back to top" }}
+{{ $configuredBarCount := int ((index $footer "barcount") | default 23) }}
+{{ $barCount := $configuredBarCount }}
+{{ if lt $barCount 1 }}{{ $barCount = 23 }}{{ end }}
+{{ if gt $barCount 48 }}{{ $barCount = 48 }}{{ end }}
+
+<footer class="tw-footer" aria-label="Site footer">
+    <div class="tw-footer-shell">
+        {{ if gt (len site.Home.AllTranslations) 1 }}
+            <div class="tw-footer-muted tw:pb-8 tw:text-sm">
+                {{ partial "language-switcher.html" . }}
+            </div>
+        {{ end }}
+
+        <div class="tw:grid tw:gap-10 tw:pb-14 tw:md:grid-cols-[minmax(0,1fr)_auto] tw:md:items-start">
+            <div class="tw:space-y-6">
+                <a class="tw-footer-brand" href="{{ "/" | relLangURL }}">{{ site.Title }}</a>
+
+                {{ if $leftLinks }}
+                <nav aria-label="Footer primary navigation">
+                    <ul class="tw:flex tw:flex-wrap tw:gap-x-5 tw:gap-y-3 tw:p-0 tw:text-sm">
+                        {{ range $leftLinks }}
+                            {{ $href := .href | default "#" }}
+                            {{ $isRemote := or (hasPrefix $href "http://") (hasPrefix $href "https://") }}
+                            {{ $isAbsolute := or $isRemote (hasPrefix $href "mailto:") (hasPrefix $href "tel:") }}
+                            {{ $rel := .rel | default "" }}
+                            {{ if and (not $rel) $isRemote }}{{ $rel = "noopener noreferrer" }}{{ end }}
+                            <li class="tw:m-0 tw:list-none">
+                                <a class="tw-footer-link tw:transition-colors" href="{{ if $isAbsolute }}{{ $href | safeURL }}{{ else }}{{ $href | relLangURL }}{{ end }}"{{ with .title }} title="{{ . }}"{{ end }}{{ with .target }} target="{{ . }}"{{ end }}{{ with $rel }} rel="{{ . }}"{{ end }}>{{ .label | default $href }}</a>
+                            </li>
+                        {{ end }}
+                    </ul>
+                </nav>
+                {{ end }}
+            </div>
+
+            <div class="tw:space-y-6 tw:text-left tw:md:text-right">
+                {{ if $rightLinks }}
+                <nav aria-label="Footer secondary navigation">
+                    <ul class="tw:flex tw:flex-wrap tw:gap-x-5 tw:gap-y-3 tw:p-0 tw:text-sm tw:md:justify-end">
+                        {{ range $rightLinks }}
+                            {{ $href := .href | default "#" }}
+                            {{ $isRemote := or (hasPrefix $href "http://") (hasPrefix $href "https://") }}
+                            {{ $isAbsolute := or $isRemote (hasPrefix $href "mailto:") (hasPrefix $href "tel:") }}
+                            {{ $rel := .rel | default "" }}
+                            {{ if and (not $rel) $isRemote }}{{ $rel = "noopener noreferrer" }}{{ end }}
+                            <li class="tw:m-0 tw:list-none">
+                                <a class="tw-footer-link tw:transition-colors" href="{{ if $isAbsolute }}{{ $href | safeURL }}{{ else }}{{ $href | relLangURL }}{{ end }}"{{ with .title }} title="{{ . }}"{{ end }}{{ with .target }} target="{{ . }}"{{ end }}{{ with $rel }} rel="{{ . }}"{{ end }}>{{ .label | default $href }}</a>
+                            </li>
+                        {{ end }}
+                    </ul>
+                </nav>
+                {{ end }}
+
+                <button type="button" class="tw-back-to-top tw-footer-link tw:inline-flex tw:cursor-pointer tw:items-center tw:text-sm tw:transition-colors">{{ $backToTopText }}</button>
+            </div>
+        </div>
+
+        <div class="tw-footer-legal tw:flex tw:flex-col tw:gap-3 tw:border-t tw:border-white/10 tw:py-6 tw:text-xs tw:sm:flex-row tw:sm:items-center tw:sm:justify-between">
+            <p class="tw-footer-meta tw:m-0 tw:flex tw:items-center tw:gap-x-2">
+                <svg class="tw:size-3 tw:shrink-0" viewBox="0 0 80 80" aria-hidden="true">
+                    <path fill-rule="evenodd" clip-rule="evenodd" fill="currentColor" d="M67.4307 11.5693C52.005 -3.85643 26.995 -3.85643 11.5693 11.5693C-3.85643 26.995 -3.85643 52.005 11.5693 67.4307C26.995 82.8564 52.005 82.8564 67.4307 67.4307C82.8564 52.005 82.8564 26.995 67.4307 11.5693ZM17.9332 17.9332C29.8442 6.02225 49.1558 6.02225 61.0668 17.9332C72.9777 29.8442 72.9777 49.1558 61.0668 61.0668C59.7316 62.4019 58.3035 63.5874 56.8032 64.6232L56.8241 64.6023C46.8657 54.6439 46.8657 38.4982 56.8241 28.5398L58.2383 27.1256L51.8744 20.7617L50.4602 22.1759C40.5018 32.1343 24.3561 32.1343 14.3977 22.1759L14.3768 22.1968C15.4126 20.6965 16.5981 19.2684 17.9332 17.9332ZM34.0282 38.6078C25.6372 38.9948 17.1318 36.3344 10.3131 30.6265C7.56889 39.6809 9.12599 49.76 14.9844 57.6517L34.0282 38.6078ZM21.3483 64.0156C29.24 69.874 39.3191 71.4311 48.3735 68.6869C42.6656 61.8682 40.0052 53.3628 40.3922 44.9718L21.3483 64.0156Z" />
+                </svg>
+                <span>{{ $copyrightText }}</span>
+                {{ with $params.services.umami.shareurl }}
+                <a aria-label="Check statistics data" class="tw-footer-link tw:inline-flex tw:transition-colors" href="{{ . }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 5h-2a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-12a2 2 0 0 0 -2 -2h-2" /><path d="M9 3m0 2a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v0a2 2 0 0 1 -2 2h-2a2 2 0 0 1 -2 -2z" /><path d="M9 17v-5" /><path d="M12 17v-1" /><path d="M15 17v-3" /></svg>
+                </a>
+                {{ end }}
+            </p>
+
+            {{ $lang := lower site.Language.Lang }}
+            {{ $isZh := hasPrefix $lang "zh" }}
+            {{ if or (and $params.police $isZh) (and $params.icp $isZh) }}
+            <div class="tw-footer-subtle tw:flex tw:flex-wrap tw:items-center tw:gap-x-2 tw:gap-y-1">
+                {{ if and $params.police $isZh }}
+                    {{ $info := "info" }}
+                    {{ $matches := findRE "[0-9]+" $params.police }}
+                    {{ if $matches }}
+                        {{ $firstNumber := index $matches 0 }}
+                        {{ $info = print $firstNumber }}
+                        <img src="https://beian.mps.gov.cn/img/logo01.dd7ff50e.png" alt="备案图标" class="tw:size-4 tw:object-contain">
+                        <a target="_blank" href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode={{ $info }}" class="tw-footer-link tw:transition-colors">{{ $params.police }}</a>
+                    {{ end }}
+                {{ end }}
+
+                {{ if and $params.icp $isZh }}
+                    <a target="_blank" href="https://beian.miit.gov.cn/" class="tw-footer-link tw:transition-colors">{{ $params.icp }}</a>
+                {{ end }}
+            </div>
+            {{ end }}
+        </div>
+    </div>
+
+    <div class="tw-footer-wave tw:h-[132px] tw:overflow-hidden tw:sm:h-[160px] tw:lg:h-[190px]" aria-hidden="true" data-tw-wave>
+        <div class="tw-footer-wave-track">
+            {{ range seq 1 $barCount }}
+            <div class="tw-wave-segment" data-tw-wave-segment style="height: {{ . }}px;"></div>
+            {{ end }}
+        </div>
+    </div>
+</footer>

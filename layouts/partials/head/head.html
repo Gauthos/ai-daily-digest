@@ -81,7 +81,10 @@
 {{ partial "resource.html" (dict "context" . "type" "css" "filename" "css/dark.css") }}
 {{ partial "resource.html" (dict "context" . "type" "css" "filename" "css/shortcodes.css") }}
 
-{{ partial "features/custom-css.html" . }}
+{{ with (templates.Defer (dict "key" "global")) }}
+  {{ partial "css.html" . }}
+{{ end }}
+
 {{ partial "features/custom-js.html" . }}
 
 {{ if $params.enableCopyCodeButton }}
@@ -130,4 +133,10 @@
 {{ $iconsJS := resources.Get "js/inline-icons.js" }}
 {{ with $iconsJS }}
   <script src="{{ .RelPermalink }}" defer></script>
+{{ end }}
+
+{{ $animatedFooterJS := resources.Get "js/animated-footer.js" }}
+{{ with $animatedFooterJS }}
+  {{ $animatedFooterJS = . | resources.Minify | resources.Fingerprint "sha256" }}
+  <script src="{{ $animatedFooterJS.RelPermalink }}" integrity="{{ $animatedFooterJS.Data.Integrity }}" defer></script>
 {{ end }}
