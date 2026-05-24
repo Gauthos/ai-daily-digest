@@ -1,0 +1,107 @@
+name: weekly-evaluation
+
+on:
+  schedule:
+    - cron: '30 0 * * 1'
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Evaluation date in UTC, yyyy-mm-dd. Empty means today.'
+        required: false
+        type: string
+      days:
+        description: 'Lookback window in days.'
+        required: false
+        default: '7'
+        type: string
+
+permissions: {}
+
+concurrency:
+  group: weekly-evaluation
+  cancel-in-progress: false
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+
+      - name: Check out current published content
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5
+        with:
+          ref: hugo-content
+          path: .published-content
+          fetch-depth: 1
+
+      - name: Restore search index
+        run: |
+          mkdir -p static .build
+          if [ -f .published-content/static/search-index.json ]; then
+            cp .published-content/static/search-index.json static/search-index.json
+          else
+            echo "search-index.json not found on hugo-content branch" >&2
+            exit 1
+          fi
+
+      - name: Set up Node
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version-file: .node-version
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2
+        with:
+          bun-version: "1.2.12"
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Evaluate weekly information depth
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_API_BASE: ${{ secrets.OPENAI_API_BASE }}
+          OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
+          EVAL_DATE: ${{ inputs.date }}
+          EVAL_DAYS: ${{ inputs.days }}
+        run: |
+          if [ -z "$EVAL_DATE" ]; then
+            EVAL_DATE="$(date -u +%F)"
+          fi
+          if [ -z "$EVAL_DAYS" ]; then
+            EVAL_DAYS="7"
+          fi
+          bun scripts/weekly-evaluation.ts \
+            --input static/search-index.json \
+            --output ".build/weekly-evaluation-${EVAL_DATE}.json" \
+            --date "$EVAL_DATE" \
+            --days "$EVAL_DAYS"
+          echo "EVAL_DATE=$EVAL_DATE" >> "$GITHUB_ENV"
+
+      - name: Persist weekly evaluation
+        run: |
+          mkdir -p .persist
+          for dir in posts share static meta; do
+            if [ -d ".published-content/$dir" ]; then
+              cp -r ".published-content/$dir" .persist/
+            fi
+          done
+          if [ -f .published-content/.nojekyll ]; then
+            cp .published-content/.nojekyll .persist/
+          fi
+          mkdir -p .persist/static .persist/meta/weekly-evaluation
+          cp static/search-index.json .persist/static/
+          cp ".build/weekly-evaluation-${EVAL_DATE}.json" ".persist/meta/weekly-evaluation/${EVAL_DATE}.json"
+
+      - name: Push persisted evaluation
+        uses: JamesIves/github-pages-deploy-action@d92aa235d04922e8f08b40ce78cc5442fcfbfa2f # v4
+        with:
+          branch: hugo-content
+          folder: .persist
+          clean: true
+          single-commit: true
