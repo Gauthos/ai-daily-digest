@@ -1,14 +1,34 @@
 import { callJsonWithRetry } from './ai-client.js';
 import type {
-  Article, ScoredArticle, AIClient, BatchResultMap, IndexedBatchItem, CategoryId,
+  Article, ScoredArticle, AIClient, BatchResultMap, IndexedBatchItem, CategoryId, ContentType,
 } from './types.js';
 
+const CLASSIFICATION_BATCH_SIZE = 12;
 const SCORING_BATCH_SIZE = 10;
 const SUMMARY_BATCH_SIZE = 3;
+const NEWS_SUMMARY_BATCH_SIZE = 8;
 const MAX_CONCURRENT_GEMINI = 2;
+const OPENAI_REASONING_TOKENS_PER_CLASSIFICATION_ITEM = 90;
 const OPENAI_REASONING_TOKENS_PER_SCORING_ITEM = 80;
 const OPENAI_REASONING_TOKENS_PER_SUMMARY_ITEM = 250;
+const OPENAI_REASONING_TOKENS_PER_NEWS_ITEM = 120;
 const OPENAI_REASONING_TOKENS_BASE = 128;
+
+const VALID_CATEGORIES = new Set<string>(['ai-ml', 'security', 'engineering', 'tools', 'opinion', 'other']);
+
+interface GeminiClassificationResult {
+  results: Array<{
+    index: number;
+    content_type?: string;
+    contentType?: string;
+    event_cluster?: string | null;
+    eventCluster?: string | null;
+    is_duplicate_of_event?: boolean;
+    isDuplicateOfEvent?: boolean;
+    category?: string;
+    keywords?: string[];
+  }>;
+}
 
 interface GeminiScoringResult {
   results: Array<{
@@ -26,7 +46,16 @@ interface GeminiSummaryResult {
     index: number;
     titleZh: string;
     summary: string;
-    reason: string;
+    editorial?: string;
+    reason?: string;
+  }>;
+}
+
+interface GeminiNewsSummaryResult {
+  results: Array<{
+    index: number;
+    titleZh: string;
+    summary: string;
   }>;
 }
 
@@ -65,6 +94,137 @@ export function mapBatchResultsToArticleIndices<T extends { index: number }>(
   }
 
   return mapped;
+}
+
+function normalizeCategory(category: string | undefined): CategoryId {
+  return (category && VALID_CATEGORIES.has(category) ? category : 'other') as CategoryId;
+}
+
+function normalizeContentType(contentType: string | undefined): ContentType {
+  return contentType === 'news' ? 'news' : 'analysis';
+}
+
+function normalizeKeywords(keywords: unknown, limit = 5): string[] {
+  if (!Array.isArray(keywords)) return [];
+  return keywords
+    .filter((keyword): keyword is string => typeof keyword === 'string' && keyword.trim().length > 0)
+    .map(keyword => keyword.trim())
+    .slice(0, limit);
+}
+
+function buildClassificationPrompt(articles: Array<{ index: number; title: string; description: string; sourceName: string }>): string {
+  const articlesList = articles.map(a =>
+    `Index ${a.index}: [${a.sourceName}] ${a.title}\n${a.description.slice(0, 500)}`
+  ).join('\n\n---\n\n');
+
+  return `你是"蒲公英技术日报"的分流编辑。请按 content_type 对文章做二分，并提取周刊聚类需要的 tag。
+
+## 核心规则
+
+- content_type 是唯一分流开关，只能是 "news" 或 "analysis"
+- news: 时效依赖性强，晚一周读价值显著下降。例如官司进展、公司人事、产品发布、漏洞披露、融资收购、事故通报、政策变化
+- analysis: 一周后读价值仍然存在。例如技术分析、教程、研究、观点、经验复盘、架构/语言/工具的深入文章
+- event_cluster: 只有 news 需要。用 2-8 个中文词概括同一事件，例如 "OpenAI 审判"、"GPT-5 发布"、"Linux 提权漏洞"。analysis 返回 null
+- is_duplicate_of_event: 本批次内同一 event_cluster 的非代表文章标 true；代表文章或 analysis 标 false
+- category 必须从 ai-ml/security/engineering/tools/opinion/other 选一个
+- keywords 提取 3-5 个短 tag，用英文技术名词优先；它们会进入 search-index.json 供周刊热点收敛使用
+
+## 待分类文章
+
+${articlesList}
+
+请严格返回 JSON，必须为每个 Index 返回且只返回一条结果：
+{
+  "results": [
+    {
+      "index": 0,
+      "content_type": "analysis",
+      "event_cluster": null,
+      "is_duplicate_of_event": false,
+      "category": "engineering",
+      "keywords": ["Rust", "compiler", "performance"]
+    }
+  ]
+}`;
+}
+
+export async function classifyArticlesWithAI(
+  articles: Article[],
+  aiClient: AIClient
+): Promise<BatchResultMap<{ contentType: ContentType; eventCluster: string | null; isDuplicateOfEvent: boolean; category: CategoryId; keywords: string[] }>> {
+  const classifications = new Map<number, { contentType: ContentType; eventCluster: string | null; isDuplicateOfEvent: boolean; category: CategoryId; keywords: string[] }>();
+  let failedBatches = 0;
+
+  const indexed = articles.map((article, index) => ({
+    index,
+    title: article.title,
+    description: article.description,
+    sourceName: article.sourceName,
+  }));
+
+  const batches: typeof indexed[] = [];
+  for (let i = 0; i < indexed.length; i += CLASSIFICATION_BATCH_SIZE) {
+    batches.push(indexed.slice(i, i + CLASSIFICATION_BATCH_SIZE));
+  }
+
+  console.log(`[digest] AI classification: ${articles.length} articles in ${batches.length} batches`);
+
+  for (let i = 0; i < batches.length; i += MAX_CONCURRENT_GEMINI) {
+    const batchGroup = batches.slice(i, i + MAX_CONCURRENT_GEMINI);
+    const promises = batchGroup.map(async (batch) => {
+      try {
+        const promptBatch = batch.map((item, batchIndex) => ({
+          ...item,
+          index: batchIndex,
+        }));
+        const prompt = buildClassificationPrompt(promptBatch);
+        const parsed = await callJsonWithRetry<GeminiClassificationResult>(
+          aiClient,
+          prompt,
+          'Classification batch',
+          { maxCompletionTokens: OPENAI_REASONING_TOKENS_BASE + batch.length * OPENAI_REASONING_TOKENS_PER_CLASSIFICATION_ITEM }
+        );
+
+        for (const { articleIndex, result } of mapBatchResultsToArticleIndices(batch, parsed.results, 'Classification batch')) {
+          const rawContentType = result.content_type ?? result.contentType;
+          const contentType = normalizeContentType(rawContentType);
+          const rawCluster = result.event_cluster ?? result.eventCluster ?? null;
+          const eventCluster = contentType === 'news' && typeof rawCluster === 'string' && rawCluster.trim()
+            ? rawCluster.trim()
+            : null;
+
+          classifications.set(articleIndex, {
+            contentType,
+            eventCluster,
+            isDuplicateOfEvent: Boolean(result.is_duplicate_of_event ?? result.isDuplicateOfEvent ?? false),
+            category: normalizeCategory(result.category),
+            keywords: normalizeKeywords(result.keywords),
+          });
+        }
+      } catch (error) {
+        failedBatches++;
+        console.warn(`[digest] Classification batch failed: ${error instanceof Error ? error.message : String(error)}`);
+        for (const item of batch) {
+          classifications.set(item.index, {
+            contentType: 'analysis',
+            eventCluster: null,
+            isDuplicateOfEvent: false,
+            category: 'other',
+            keywords: [],
+          });
+        }
+      }
+    });
+
+    await Promise.all(promises);
+    console.log(`[digest] Classification progress: ${Math.min(i + MAX_CONCURRENT_GEMINI, batches.length)}/${batches.length} batches`);
+  }
+
+  return {
+    values: classifications,
+    failedBatches,
+    totalBatches: batches.length,
+  };
 }
 
 function buildScoringPrompt(articles: Array<{ index: number; title: string; description: string; sourceName: string }>): string {
@@ -152,8 +312,6 @@ export async function scoreArticlesWithAI(
 
   console.log(`[digest] AI scoring: ${articles.length} articles in ${batches.length} batches`);
 
-  const validCategories = new Set<string>(['ai-ml', 'security', 'engineering', 'tools', 'opinion', 'other']);
-
   for (let i = 0; i < batches.length; i += MAX_CONCURRENT_GEMINI) {
     const batchGroup = batches.slice(i, i + MAX_CONCURRENT_GEMINI);
     const promises = batchGroup.map(async (batch) => {
@@ -172,13 +330,12 @@ export async function scoreArticlesWithAI(
 
         for (const { articleIndex, result } of mapBatchResultsToArticleIndices(batch, parsed.results, 'Scoring batch')) {
           const clamp = (v: number) => Math.min(10, Math.max(1, Math.round(v)));
-          const cat = (validCategories.has(result.category) ? result.category : 'other') as CategoryId;
           allScores.set(articleIndex, {
             relevance: clamp(result.relevance),
             quality: clamp(result.quality),
             timeliness: clamp(result.timeliness),
-            category: cat,
-            keywords: Array.isArray(result.keywords) ? result.keywords.slice(0, 4) : [],
+            category: normalizeCategory(result.category),
+            keywords: normalizeKeywords(result.keywords, 5),
           });
         }
       } catch (error) {
@@ -206,12 +363,12 @@ function buildSummaryPrompt(
   lang: 'zh' | 'en'
 ): string {
   const articlesList = articles.map(a =>
-    `Index ${a.index}: [${a.sourceName}] ${a.title}\nURL: ${a.link}\n${a.description.slice(0, 800)}`
+    `Index ${a.index}: [${a.sourceName}] ${a.title}\nURL: ${a.link}\n${a.description}`
   ).join('\n\n---\n\n');
 
   const langInstruction = lang === 'zh'
-    ? '请用中文撰写摘要和推荐理由。如果原文是英文，请翻译为中文。标题翻译也用中文。'
-    : 'Write summaries, reasons, and title translations in English.';
+    ? '请用中文撰写摘要和编辑视角。如果原文是英文，请翻译为中文。标题翻译也用中文。'
+    : 'Write summaries, editorial notes, and title translations in English.';
 
   return `你是一个技术内容摘要专家。请为以下文章完成三件事：
 
@@ -220,7 +377,7 @@ function buildSummaryPrompt(
    - 文章讨论的核心问题或主题（1 句）
    - 关键论点、技术方案或发现（2-3 句）
    - 结论或作者的核心观点（1 句）
-3. **推荐理由** (reason): 1 句话说明"为什么值得读"，区别于摘要（摘要说"是什么"，推荐理由说"为什么"）。
+3. **编辑视角** (editorial): 1 句话说明"这篇文章在今天的上下文里意味着什么，或与其他文章形成怎样的呼应"。
 
 ${langInstruction}
 
@@ -230,6 +387,8 @@ ${langInstruction}
 - 保留关键数字和指标（如性能提升百分比、用户数、版本号等）
 - 如果文章涉及对比或选型，要点出比较对象和结论
 - 目标：读者花 30 秒读完摘要，就能决定是否值得花 10 分钟读原文
+- 编辑视角不能写"这篇文章值得读是因为..."，不能说"揭露了..."、"警示了..."等万能句式
+- 编辑视角必须包含具体判断或洞察，可以联系同日其他技术趋势
 - 返回结果时，必须使用本批次里显示的 Index，范围从 0 开始连续递增
 - 必须为本批次中的每一篇文章都返回且只返回一条结果
 
@@ -244,7 +403,7 @@ ${articlesList}
       "index": 0,
       "titleZh": "中文翻译的标题",
       "summary": "摘要内容...",
-      "reason": "推荐理由..."
+      "editorial": "编辑视角..."
     }
   ]
 }`;
@@ -254,8 +413,8 @@ export async function summarizeArticles(
   articles: Array<Article & { index: number }>,
   aiClient: AIClient,
   lang: 'zh' | 'en'
-): Promise<BatchResultMap<{ titleZh: string; summary: string; reason: string }>> {
-  const summaries = new Map<number, { titleZh: string; summary: string; reason: string }>();
+): Promise<BatchResultMap<{ titleZh: string; summary: string; editorial: string }>> {
+  const summaries = new Map<number, { titleZh: string; summary: string; editorial: string }>();
   let failedBatches = 0;
 
   const indexed = articles.map(a => ({
@@ -293,20 +452,123 @@ export async function summarizeArticles(
           summaries.set(articleIndex, {
             titleZh: result.titleZh || '',
             summary: result.summary || '',
-            reason: result.reason || '',
+            editorial: result.editorial || result.reason || '',
           });
         }
       } catch (error) {
         failedBatches++;
         console.warn(`[digest] Summary batch failed: ${error instanceof Error ? error.message : String(error)}`);
         for (const item of batch) {
-          summaries.set(item.index, { titleZh: item.title, summary: item.title, reason: '' });
+          summaries.set(item.index, { titleZh: item.title, summary: item.title, editorial: '' });
         }
       }
     });
 
     await Promise.all(promises);
     console.log(`[digest] Summary progress: ${Math.min(i + MAX_CONCURRENT_GEMINI, batches.length)}/${batches.length} batches`);
+  }
+
+  return {
+    values: summaries,
+    failedBatches,
+    totalBatches: batches.length,
+  };
+}
+
+function buildNewsSummaryPrompt(
+  articles: Array<{ index: number; title: string; description: string; sourceName: string; link: string; eventCluster: string | null }>,
+  lang: 'zh' | 'en'
+): string {
+  const articlesList = articles.map(a =>
+    `Index ${a.index}: [${a.sourceName}] ${a.title}\nEvent: ${a.eventCluster || '未命名事件'}\nURL: ${a.link}\n${a.description.slice(0, 500)}`
+  ).join('\n\n---\n\n');
+
+  const langInstruction = lang === 'zh'
+    ? '请用中文返回 titleZh 和 summary。'
+    : 'Write titleZh and summary in English.';
+
+  return `你是"蒲公英技术日报"的快讯编辑。以下都是 news 类文章：晚一周读价值会明显下降，只需要一句话快讯。
+
+要求：
+- titleZh 是自然标题，不要夸张
+- summary 只写一句话，80 字以内，交代发生了什么和为什么当天需要知道
+- 不写推荐理由，不写长摘要，不加主观煽动
+- 必须为每个 Index 返回且只返回一条结果
+${langInstruction}
+
+## 待处理文章
+
+${articlesList}
+
+请严格返回 JSON：
+{
+  "results": [
+    {
+      "index": 0,
+      "titleZh": "中文标题",
+      "summary": "一句话快讯。"
+    }
+  ]
+}`;
+}
+
+export async function summarizeNewsArticles(
+  articles: Array<Article & { index: number; eventCluster: string | null }>,
+  aiClient: AIClient,
+  lang: 'zh' | 'en'
+): Promise<BatchResultMap<{ titleZh: string; summary: string }>> {
+  const summaries = new Map<number, { titleZh: string; summary: string }>();
+  let failedBatches = 0;
+
+  const indexed = articles.map(a => ({
+    index: a.index,
+    title: a.title,
+    description: a.description,
+    sourceName: a.sourceName,
+    link: a.link,
+    eventCluster: a.eventCluster,
+  }));
+
+  const batches: typeof indexed[] = [];
+  for (let i = 0; i < indexed.length; i += NEWS_SUMMARY_BATCH_SIZE) {
+    batches.push(indexed.slice(i, i + NEWS_SUMMARY_BATCH_SIZE));
+  }
+
+  console.log(`[digest] Generating flash summaries for ${articles.length} news items in ${batches.length} batches`);
+
+  for (let i = 0; i < batches.length; i += MAX_CONCURRENT_GEMINI) {
+    const batchGroup = batches.slice(i, i + MAX_CONCURRENT_GEMINI);
+    const promises = batchGroup.map(async (batch) => {
+      try {
+        const promptBatch = batch.map((item, batchIndex) => ({
+          ...item,
+          index: batchIndex,
+        }));
+        const prompt = buildNewsSummaryPrompt(promptBatch, lang);
+        const parsed = await callJsonWithRetry<GeminiNewsSummaryResult>(
+          aiClient,
+          prompt,
+          'News summary batch',
+          { maxCompletionTokens: OPENAI_REASONING_TOKENS_BASE + batch.length * OPENAI_REASONING_TOKENS_PER_NEWS_ITEM }
+        );
+
+        for (const { articleIndex, result } of mapBatchResultsToArticleIndices(batch, parsed.results, 'News summary batch')) {
+          summaries.set(articleIndex, {
+            titleZh: result.titleZh || '',
+            summary: result.summary || '',
+          });
+        }
+      } catch (error) {
+        failedBatches++;
+        console.warn(`[digest] News summary batch failed: ${error instanceof Error ? error.message : String(error)}`);
+        for (const item of batch) {
+          summaries.set(item.index, { titleZh: item.title, summary: item.description.slice(0, 120) || item.title });
+        }
+      }
+    });
+
+    await Promise.all(promises);
+    console.log(`[digest] News summary progress: ${Math.min(i + MAX_CONCURRENT_GEMINI, batches.length)}/${batches.length} batches`);
   }
 
   return {

@@ -4,8 +4,7 @@
  * 设计原则：
  * - markdown / RSS 中保持 emoji（跨平台兼容）
  * - 浏览器加载时由本脚本扫 DOM 替换为 <img class="x-icon">
- * - 同 emoji 多语义按 上下文 + label 区分（如 💡 在「观点 / 杂谈」H2 用 idea，
- *   在「为什么值得读」段落用 light-on）
+ * - 同 emoji 多语义按 上下文 + label 区分（如 💡 在「观点 / 杂谈」H2 用 idea）
  * - 黑白图在暗黑模式下由 inline-icons.css 通过 URL selector 自动反转
  *
  * 维护：增/改/删图标只需改 ICONS 字典 + 对应规则表
@@ -36,7 +35,7 @@
     'gold':        { url: BASE + '1-key.png', alt: '1-key' },        // 🥇 ⚠️
     'silver':      { url: BASE + '2-key.png', alt: '2-key' },      // 🥈 ⚠️
     'bronze':      { url: BASE + '3-key.png', alt: '3-key' },      // 🥉 ⚠️
-    'reason':      { url: BASE + 'attach.png',        alt: 'attach' },         // 💡 为什么值得读 ⚠️
+    'editorial':   { url: BASE + 'attach.png',        alt: 'attach' },         // 💡 编辑视角（旧稿兼容）⚠️
 
     // 文章正文内联（按 DOM 位置识别）
     'tag':         { url: BASE + 'price-tag.png',       alt: 'tag' },         // 🏷️ ⚠️
@@ -116,15 +115,16 @@
     return false;
   }
 
-  // ---- reason 段开头 💡 <strong>为什么值得读</strong> ----
-  // 与「观点 / 杂谈」分类的 💡 区分：reason 段的 💡 紧跟 <strong>为什么值得读</strong>
-  function processReason(p) {
+  // ---- editorial 段开头 💡 <strong>编辑视角</strong> ----
+  // 与「观点 / 杂谈」分类的 💡 区分：旧稿段落的 💡 紧跟 <strong>编辑视角</strong> 或 <strong>为什么值得读</strong>
+  function processEditorial(p) {
     var text = (p.textContent || '').trim();
     if (text.indexOf('💡') !== 0) return false;
     var strong = p.querySelector('strong');
     if (!strong) return false;
-    if ((strong.textContent || '').indexOf('为什么值得读') < 0) return false;
-    return replaceFirst(p, '💡', ICONS['reason']);
+    var label = strong.textContent || '';
+    if (label.indexOf('编辑视角') < 0 && label.indexOf('为什么值得读') < 0) return false;
+    return replaceFirst(p, '💡', ICONS['editorial']);
   }
 
   // ---- tags 段开头 🏷️ keywords ----
@@ -183,9 +183,9 @@
     scope.querySelectorAll('h2').forEach(processH2);
 
     scope.querySelectorAll('p').forEach(function (p) {
-      // 互斥优先级：medal / reason / tags 三种 段开头模式择一
+      // 互斥优先级：medal / editorial / tags 三种段开头模式择一
       if (processMedal(p)) return;
-      if (processReason(p)) return;
+      if (processEditorial(p)) return;
       if (processTags(p)) return;
       // metadata 段：可能同时有分类 emoji 和 ⭐
       processMetadataCategory(p);

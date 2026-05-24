@@ -2,7 +2,7 @@ import { mkdir, readFile, writeFile, readdir, rename, stat } from 'node:fs/promi
 import { join, dirname } from 'node:path';
 import process from 'node:process';
 import {
-  generateShareId, writeShareLandingPage, ensureShareIndex,
+  generateShareId, writeShareLandingPage, ensureShareIndexAt,
 } from './share-utils.js';
 
 const DEFAULT_INPUT = '.build/digest.md';
@@ -48,6 +48,7 @@ function extractDate(markdown: string): string {
 async function generateSharePages(
   articles: IndexEntry[],
   date: string,
+  contentRoot: string,
 ): Promise<number> {
   let count = 0;
   for (const a of articles) {
@@ -61,6 +62,7 @@ async function generateSharePages(
       source: (a.source as string) || '',
       summary: (a.summary as string) || (a.description as string) || '',
       originalUrl: link,
+      contentRoot,
     });
     if (changed) count++;
   }
@@ -140,6 +142,7 @@ async function main(): Promise<void> {
   const markdown = await readFile(config.inputPath, 'utf8');
   const date = extractDate(markdown);
   const buildDir = dirname(config.inputPath);
+  const contentRoot = dirname(config.contentDir);
 
   const postDir = join(config.contentDir, date);
   await mkdir(postDir, { recursive: true });
@@ -167,19 +170,28 @@ async function main(): Promise<void> {
     console.warn(`[prepare-hugo] No articles.json found at ${articlesPath}`);
   }
 
+  const searchIndexArticlesPath = config.inputPath.replace(/\.md$/, '.search-index.json');
+  let newSearchIndexArticles = newArticles;
+  try {
+    const raw = await readFile(searchIndexArticlesPath, 'utf8');
+    newSearchIndexArticles = JSON.parse(raw) as IndexEntry[];
+  } catch {
+    console.warn(`[prepare-hugo] No search-index articles found at ${searchIndexArticlesPath}; using selected articles only`);
+  }
+
   await mkdir(config.staticDir, { recursive: true });
   const indexPath = join(config.staticDir, 'search-index.json');
   const existingIndex = await loadExistingIndex(indexPath);
-  const merged = mergeIndex(existingIndex, newArticles);
+  const merged = mergeIndex(existingIndex, newSearchIndexArticles);
 
   await writeFile(indexPath, JSON.stringify(merged) + '\n');
-  console.log(`[prepare-hugo] Updated search index: ${merged.length} total articles (${newArticles.length} new, ${existingIndex.length} existing)`);
+  console.log(`[prepare-hugo] Updated search index: ${merged.length} total articles (${newSearchIndexArticles.length} new, ${existingIndex.length} existing)`);
 
-  await ensureShareIndex();
+  await ensureShareIndexAt(contentRoot);
 
   if (newArticles.length > 0) {
-    const shareCount = await generateSharePages(newArticles, date);
-    console.log(`[prepare-hugo] Generated ${shareCount} share pages under content/share/${date}/`);
+    const shareCount = await generateSharePages(newArticles, date, contentRoot);
+    console.log(`[prepare-hugo] Generated ${shareCount} share pages under ${join(contentRoot, 'share', date)}/`);
   }
 
   const files = await readdir(config.contentDir);

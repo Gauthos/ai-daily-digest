@@ -22,6 +22,7 @@ export interface ShareLandingMeta {
   source: string;
   summary: string;
   originalUrl: string;
+  contentRoot?: string;
 }
 
 /**
@@ -29,7 +30,7 @@ export interface ShareLandingMeta {
  * Returns true if the file was created or content changed; false if unchanged.
  */
 export async function writeShareLandingPage(meta: ShareLandingMeta): Promise<boolean> {
-  const dir = join('content', 'share', meta.date, meta.shareId);
+  const dir = join(meta.contentRoot || 'content', 'share', meta.date, meta.shareId);
   await mkdir(dir, { recursive: true });
   const fm = `---
 title: "${yamlQuote(meta.titleZh)}"
@@ -54,11 +55,15 @@ titleEn: "${yamlQuote(meta.titleEn)}"
   return true;
 }
 
-/**
- * Ensure content/share/_index.md exists so Hugo suppresses section listing & RSS.
- */
 export async function ensureShareIndex(): Promise<void> {
-  const dir = 'content/share';
+  await ensureShareIndexAt('content');
+}
+
+/**
+ * Ensure share/_index.md exists so Hugo suppresses section listing & RSS.
+ */
+export async function ensureShareIndexAt(contentRoot: string): Promise<void> {
+  const dir = join(contentRoot, 'share');
   await mkdir(dir, { recursive: true });
   const indexPath = join(dir, '_index.md');
   try {

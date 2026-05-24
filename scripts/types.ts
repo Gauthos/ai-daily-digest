@@ -12,6 +12,8 @@ export const HAWAII_DATE_TIME_FORMATTER = new Intl.DateTimeFormat('en-CA', {
 });
 
 export type CategoryId = 'ai-ml' | 'security' | 'engineering' | 'tools' | 'opinion' | 'other';
+export type ContentType = 'news' | 'analysis';
+export type WeeklyDepthLabel = 'Flash' | 'Signal' | 'Analysis' | 'Thesis' | 'Canon';
 
 export interface CategoryMeta {
   emoji: string;
@@ -38,7 +40,23 @@ export interface Article {
   sourceUrl: string;
 }
 
+export interface ClassifiedArticle extends Article {
+  contentType: ContentType;
+  eventCluster: string | null;
+  isDuplicateOfEvent: boolean;
+  category: CategoryId;
+  keywords: string[];
+}
+
 export interface ScoredArticle extends Article {
+  contentType: ContentType;
+  eventCluster: string | null;
+  relatedArticles?: Array<{
+    title: string;
+    link: string;
+    sourceName: string;
+    pubDate: Date;
+  }>;
   score: number;
   scoreBreakdown: {
     relevance: number;
@@ -49,7 +67,17 @@ export interface ScoredArticle extends Article {
   keywords: string[];
   titleZh: string;
   summary: string;
-  reason: string;
+  editorial: string;
+}
+
+export type DigestItem = ScoredArticle;
+
+export interface WeeklyEvaluationScores {
+  halfLifeScore: number;
+  horizonScore: number;
+  signalDensity: number;
+  durability: number;
+  macroImpact: number;
 }
 
 export interface AIRequestOptions {

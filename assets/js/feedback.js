@@ -11,7 +11,7 @@
   };
 
   var FEEDBACK_INNER =
-    '<span class="feedback-hint">这条对你有用吗？</span>' +
+    '<span class="feedback-hint">这个视角对你有用吗？</span>' +
     '<button class="feedback-btn feedback-up" type="button" data-vote="up" aria-label="有用">' +
     '<img src="https://img.icons8.com/hatch/64/facebook-like.png" alt="like" width="20" height="20" loading="lazy"></button>' +
     '<button class="feedback-btn feedback-down" type="button" data-vote="down" aria-label="没用">' +
@@ -79,10 +79,20 @@
   }
 
   function alreadyInjected(range) {
+    var id = '';
+    if (range.startEl.id && /^item-/.test(range.startEl.id)) {
+      id = range.startEl.id;
+    } else {
+      var anchor = range.startEl.querySelector && range.startEl.querySelector('[id^="item-"]');
+      id = anchor ? anchor.id : '';
+    }
+    if (id && document.querySelector('.article-feedback[data-article-id="' + id + '"]')) return true;
+
     var sib = range.startEl.nextElementSibling;
     var stopAt = range.endEl.nextElementSibling;
     while (sib && sib !== stopAt) {
       if (sib.classList && sib.classList.contains('article-feedback')) return true;
+      if (sib.querySelector && sib.querySelector('.article-feedback')) return true;
       sib = sib.nextElementSibling;
     }
     return false;
