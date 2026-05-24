@@ -13,7 +13,16 @@ digest-*.md
 digest-*.articles.json
 .DS_Store
 .hugo_build.lock
+hugo_stats.json
 vless.txt
+
+# local agent workspace, planning notes, and implementation scratchpads
+.agents/
+.claude/
+CONTEXT.md
+docs/adr/
+TASKBOOK.md
+ServiceWorker.md
 
 # derived data pulled from hugo-content branch for local preview / CI
 content/posts/
