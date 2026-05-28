@@ -1,0 +1,447 @@
+{
+  "date": "2026-05-28",
+  "hours": 48,
+  "topN": 15,
+  "lang": "zh",
+  "totalCandidates": 35,
+  "excludedPreviouslyPublished": 0,
+  "contentSplit": {
+    "news": 2,
+    "analysis": 33
+  },
+  "selected": [
+    {
+      "rank": 1,
+      "title": "I think Anthropic and OpenAI have found product-market fit",
+      "titleZh": "Anthropic和OpenAI已找到产品市场契合点",
+      "link": "https://simonwillison.net/2026/May/27/product-market-fit/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "ai-ml",
+      "score": 26,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 8,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-27T16:38:35.000Z",
+      "keywords": [
+        "Anthropic",
+        "OpenAI",
+        "product-market fit",
+        "enterprise"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 2,
+      "title": "The pressure",
+      "titleZh": "压力",
+      "link": "https://simonwillison.net/2026/May/26/the-pressure/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "security",
+      "score": 25,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 8,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-26T23:48:45.000Z",
+      "keywords": [
+        "curl",
+        "security",
+        "AI-assisted",
+        "vulnerability"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 3,
+      "title": "Microsoft Copilot Cowork Exfiltrates Files",
+      "titleZh": "微软Copilot Cowork泄露文件",
+      "link": "https://simonwillison.net/2026/May/26/copilot-cowork-exfiltrates-files/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "security",
+      "score": 25,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 8,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-26T15:36:48.000Z",
+      "keywords": [
+        "Microsoft Copilot",
+        "data exfiltration",
+        "agentic systems",
+        "security"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 4,
+      "title": "Pluralistic: AI and a world without migrants (27 May 2026)",
+      "titleZh": "Pluralistic: AI and a world without migrants (27 May 2026)",
+      "link": "https://pluralistic.net/?p=12847",
+      "source": "pluralistic.net",
+      "sourceUrl": "https://pluralistic.net",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "opinion",
+      "score": 24,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 8,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-27T07:57:41.000Z",
+      "keywords": [
+        "AI",
+        "migrants",
+        "society",
+        "labor"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 5,
+      "title": "Using My Fucking Brain",
+      "titleZh": "Using My Fucking Brain",
+      "link": "https://terriblesoftware.org/?p=661",
+      "source": "terriblesoftware.org",
+      "sourceUrl": "https://terriblesoftware.org",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "opinion",
+      "score": 24,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-27T12:38:57.000Z",
+      "keywords": [
+        "AI",
+        "thinking",
+        "automation",
+        "mind",
+        "critical thinking"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 6,
+      "title": "sqlite AGENTS.md",
+      "titleZh": "sqlite AGENTS.md",
+      "link": "https://simonwillison.net/2026/May/27/sqlite-agents/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "engineering",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-27T23:44:37.000Z",
+      "keywords": [
+        "SQLite",
+        "AGENTS.md",
+        "AI agents",
+        "contributing"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 7,
+      "title": "Revenge of The Business Idiot",
+      "titleZh": "Revenge of The Business Idiot",
+      "link": "https://wheresyoured.at/6a15a121732336000177f820",
+      "source": "wheresyoured.at",
+      "sourceUrl": "https://wheresyoured.at",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "opinion",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 8,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-26T16:47:30.000Z",
+      "keywords": [
+        "NVIDIA",
+        "Anthropic",
+        "analysis",
+        "technology business",
+        "AI"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 8,
+      "title": "AI won’t replace human pentesters and security teams. It will be a force multiplier",
+      "titleZh": "AI won’t replace human pentesters and security teams. It will be a force multiplier",
+      "link": "https://xint.io/blog/ai-cybersecurity-role-changes",
+      "source": "xint.io",
+      "sourceUrl": "https://xint.io",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "security",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-26T15:51:13.000Z",
+      "keywords": [
+        "AI",
+        "pentesting",
+        "cybersecurity",
+        "automation",
+        "security teams"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 9,
+      "title": "Quoting Paul Graham",
+      "titleZh": "Quoting Paul Graham",
+      "link": "https://simonwillison.net/2026/May/26/paul-graham/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "opinion",
+      "score": 21,
+      "scoreBreakdown": {
+        "relevance": 6,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-26T15:02:30.000Z",
+      "keywords": [
+        "Paul Graham",
+        "AI writing",
+        "founders",
+        "authenticity"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 10,
+      "title": "How Many Tokens Did You Burn Today",
+      "titleZh": "How Many Tokens Did You Burn Today",
+      "link": "https://idiallo.com/blog/how-many-tokens-did-you-burn-today?src=feed",
+      "source": "idiallo.com",
+      "sourceUrl": "https://idiallo.com",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "opinion",
+      "score": 21,
+      "scoreBreakdown": {
+        "relevance": 6,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-27T00:31:22.000Z",
+      "keywords": [
+        "tokens",
+        "AI",
+        "productivity",
+        "metrics"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 11,
+      "title": "I patched iozone for better disk benchmarks on modern macOS",
+      "titleZh": "I patched iozone for better disk benchmarks on modern macOS",
+      "link": "https://www.jeffgeerling.com/blog/2026/i-patched-iozone-for-better-disk-benchmarks-on-modern-macos/",
+      "source": "jeffgeerling.com",
+      "sourceUrl": "https://jeffgeerling.com",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "tools",
+      "score": 20,
+      "scoreBreakdown": {
+        "relevance": 6,
+        "quality": 7,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-27T01:32:00.000Z",
+      "keywords": [
+        "iozone",
+        "disk benchmarking",
+        "macOS",
+        "performance"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 12,
+      "title": "CHAOSS Metrics in 2026",
+      "titleZh": "CHAOSS Metrics in 2026",
+      "link": "https://nesbitt.io/2026/05/27/chaoss-metrics-in-2026.html",
+      "source": "nesbitt.io",
+      "sourceUrl": "https://nesbitt.io",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "engineering",
+      "score": 20,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 6
+      },
+      "pubDate": "2026-05-27T10:00:00.000Z",
+      "keywords": [
+        "open source",
+        "metrics",
+        "CHAOSS",
+        "community",
+        "community health"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 13,
+      "title": "Notes on optimizing battery life:",
+      "titleZh": "Notes on optimizing battery life:",
+      "link": "http://maurycyz.com/misc/battery/",
+      "source": "maurycyz.com",
+      "sourceUrl": "https://maurycyz.com",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "engineering",
+      "score": 19,
+      "scoreBreakdown": {
+        "relevance": 5,
+        "quality": 7,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-27T00:00:00.000Z",
+      "keywords": [
+        "battery life",
+        "optimization",
+        "CR2032",
+        "embedded"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 14,
+      "title": "SQLAlchemy 2 In Practice - Solutions to the Exercises",
+      "titleZh": "SQLAlchemy 2 In Practice - Solutions to the Exercises",
+      "link": "https://blog.miguelgrinberg.com/post/sqlalchemy-2-in-practice---solutions-to-the-exercises",
+      "source": "miguelgrinberg.com",
+      "sourceUrl": "https://miguelgrinberg.com",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "engineering",
+      "score": 19,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 6,
+        "timeliness": 6
+      },
+      "pubDate": "2026-05-27T19:22:35.000Z",
+      "keywords": [
+        "SQLAlchemy",
+        "Python",
+        "ORM",
+        "tutorial",
+        "SQL"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 15,
+      "title": "The Costco theory of the internet",
+      "titleZh": "The Costco theory of the internet",
+      "link": "https://joanwestenberg.com/6a14f8be2aaad80001c9df7a",
+      "source": "joanwestenberg.com",
+      "sourceUrl": "https://joanwestenberg.com",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "opinion",
+      "score": 17,
+      "scoreBreakdown": {
+        "relevance": 6,
+        "quality": 6,
+        "timeliness": 5
+      },
+      "pubDate": "2026-05-28T01:29:39.000Z",
+      "keywords": [
+        "internet",
+        "business model",
+        "simplicity",
+        "curation",
+        "Costco"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 16,
+      "title": "Het Solvinity besluit in detail, en de mogelijke gevolgen",
+      "titleZh": "Het Solvinity besluit in detail, en de mogelijke gevolgen",
+      "link": "https://berthub.eu/articles/posts/het-solvinity-besluit-gevolgen/",
+      "source": "berthub.eu",
+      "sourceUrl": "https://berthub.eu",
+      "contentType": "news",
+      "eventCluster": "Solvinity 收购禁令",
+      "category": "security",
+      "score": 0,
+      "scoreBreakdown": {
+        "relevance": 0,
+        "quality": 0,
+        "timeliness": 0
+      },
+      "pubDate": "2026-05-27T08:00:00.000Z",
+      "keywords": [
+        "Solvinity",
+        "Kyndryl",
+        "acquisition",
+        "blocked",
+        "cybersecurity"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 17,
+      "title": "The mysterious Hy3 LLM is topping OpenRouter Model Rankings by a large margin",
+      "titleZh": "The mysterious Hy3 LLM is topping OpenRouter Model Rankings by a large margin",
+      "link": "https://minimaxir.com/2026/05/openrouter-hy3/",
+      "source": "minimaxir.com",
+      "sourceUrl": "https://minimaxir.com",
+      "contentType": "news",
+      "eventCluster": "Hy3 LLM 登顶 OpenRouter 排名",
+      "category": "ai-ml",
+      "score": 0,
+      "scoreBreakdown": {
+        "relevance": 0,
+        "quality": 0,
+        "timeliness": 0
+      },
+      "pubDate": "2026-05-26T15:30:00.000Z",
+      "keywords": [
+        "Hy3",
+        "LLM",
+        "OpenRouter",
+        "model ranking",
+        "AI"
+      ],
+      "relatedArticles": []
+    }
+  ]
+}

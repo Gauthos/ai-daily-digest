@@ -1,0 +1,326 @@
+{
+  "date": "2026-05-03",
+  "hours": 48,
+  "topN": 15,
+  "lang": "zh",
+  "totalCandidates": 27,
+  "selected": [
+    {
+      "rank": 1,
+      "title": "Quoting Anthropic",
+      "titleZh": "引述Anthropic",
+      "link": "https://simonwillison.net/2026/May/3/anthropic/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "ai-ml",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-03T15:13:23.000Z",
+      "keywords": [
+        "sycophancy",
+        "Anthropic",
+        "Claude",
+        "AI safety"
+      ]
+    },
+    {
+      "rank": 2,
+      "title": "How backups work depends on the goals of the people setting them up",
+      "titleZh": "备份的工作方式取决于设置它们的人的目标",
+      "link": "https://utcc.utoronto.ca/~cks/space/blog/sysadmin/BackupsDependOnGoals",
+      "source": "utcc.utoronto.ca/~cks",
+      "sourceUrl": "https://utcc.utoronto.ca/~cks",
+      "category": "engineering",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-02T20:12:58.000Z",
+      "keywords": [
+        "backups",
+        "database",
+        "disaster recovery"
+      ]
+    },
+    {
+      "rank": 3,
+      "title": "Have LLMs improved patient outcomes?",
+      "titleZh": "LLM 是否改善了患者的治疗结果？",
+      "link": "https://garymarcus.substack.com/p/have-llms-improved-patient-outcomes",
+      "source": "garymarcus.substack.com",
+      "sourceUrl": "https://garymarcus.substack.com",
+      "category": "ai-ml",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-03T20:00:14.000Z",
+      "keywords": [
+        "LLM",
+        "healthcare",
+        "outcomes"
+      ]
+    },
+    {
+      "rank": 4,
+      "title": "Microsoft’s open sourcing of 86-DOS and what it means",
+      "titleZh": "微软开源86-DOS及其意义",
+      "link": "https://dfarq.homeip.net/?p=41728",
+      "source": "dfarq.homeip.net",
+      "sourceUrl": "https://dfarq.homeip.net",
+      "category": "engineering",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-03T17:20:17.000Z",
+      "keywords": [
+        "DOS",
+        "open-source",
+        "retrocomputing"
+      ]
+    },
+    {
+      "rank": 5,
+      "title": "Why I don't like the \"staff engineer archetypes\"",
+      "titleZh": "我为何不喜欢“Staff工程师原型分类”",
+      "link": "https://seangoedecke.com/staff-engineer-archetypes/",
+      "source": "seangoedecke.com",
+      "sourceUrl": "https://seangoedecke.com",
+      "category": "opinion",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 8,
+        "timeliness": 6
+      },
+      "pubDate": "2026-05-03T00:00:00.000Z",
+      "keywords": [
+        "staff engineer",
+        "career",
+        "archetypes"
+      ]
+    },
+    {
+      "rank": 6,
+      "title": "callgraph analysis",
+      "titleZh": "基于调用图的Rust自定义lint分析",
+      "link": "https://jyn.dev/callgraph-analysis/",
+      "source": "jyn.dev",
+      "sourceUrl": "https://jyn.dev",
+      "category": "engineering",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 8,
+        "timeliness": 6
+      },
+      "pubDate": "2026-05-03T00:00:00.000Z",
+      "keywords": [
+        "Rust",
+        "lints",
+        "callgraph"
+      ]
+    },
+    {
+      "rank": 7,
+      "title": "29th August 2026: a scenario",
+      "titleZh": "2026年8月29日：一个场景",
+      "link": "https://martinalderson.com/posts/august-29-2026-a-scenario/",
+      "source": "martinalderson.com",
+      "sourceUrl": "https://martinalderson.com",
+      "category": "security",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-04T00:00:00.000Z",
+      "keywords": [
+        "AI",
+        "cloud-security",
+        "scenario"
+      ]
+    },
+    {
+      "rank": 8,
+      "title": "Richard Dawkins and The Claude Delusion",
+      "titleZh": "理查德·道金斯与克劳德幻觉",
+      "link": "https://garymarcus.substack.com/p/richard-dawkins-and-the-claude-delusion",
+      "source": "garymarcus.substack.com",
+      "sourceUrl": "https://garymarcus.substack.com",
+      "category": "opinion",
+      "score": 21,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-02T16:19:23.000Z",
+      "keywords": [
+        "AI skepticism",
+        "Claude",
+        "Richard Dawkins"
+      ]
+    },
+    {
+      "rank": 9,
+      "title": "Minimal Viable Zig Error Contexts",
+      "titleZh": "最小可行的Zig错误上下文",
+      "link": "https://matklad.github.io/2026/05/03/zig-error-context.html",
+      "source": "matklad.github.io",
+      "sourceUrl": "https://matklad.github.io",
+      "category": "engineering",
+      "score": 21,
+      "scoreBreakdown": {
+        "relevance": 6,
+        "quality": 8,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-03T00:00:00.000Z",
+      "keywords": [
+        "Zig",
+        "error handling",
+        "diagnostics"
+      ]
+    },
+    {
+      "rank": 10,
+      "title": "A GitHub for maintainers",
+      "titleZh": "维护者的 GitHub：让依赖项获得与复刻同等的待遇",
+      "link": "https://nesbitt.io/2026/05/02/a-github-for-maintainers.html",
+      "source": "nesbitt.io",
+      "sourceUrl": "https://nesbitt.io",
+      "category": "tools",
+      "score": 21,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-02T10:00:00.000Z",
+      "keywords": [
+        "open source",
+        "maintainers",
+        "dependencies"
+      ]
+    },
+    {
+      "rank": 11,
+      "title": "★ Crimes Against Decency Need as Much Cover-Up as Crimes Against the Law",
+      "titleZh": "违背道德底线的罪行，同样需要掩盖——如同违法罪行一样",
+      "link": "https://daringfireball.net/2026/05/crimes_against_decency_need_as_much_cover-up_as_crimes_against_the_law",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "security",
+      "score": 19,
+      "scoreBreakdown": {
+        "relevance": 6,
+        "quality": 6,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-03T23:25:41.000Z",
+      "keywords": [
+        "Meta",
+        "AI Glasses",
+        "privacy",
+        "contractors"
+      ]
+    },
+    {
+      "rank": 12,
+      "title": "png-cmp: like cmp for PNGs",
+      "titleZh": "png-cmp：专为 PNG 图片设计的 cmp 命令",
+      "link": "https://evanhahn.com/png-cmp-is-cmp-but-for-pngs/",
+      "source": "evanhahn.com",
+      "sourceUrl": "https://evanhahn.com",
+      "category": "tools",
+      "score": 19,
+      "scoreBreakdown": {
+        "relevance": 6,
+        "quality": 6,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-03T00:00:00.000Z",
+      "keywords": [
+        "PNG",
+        "image comparison",
+        "CLI tool"
+      ]
+    },
+    {
+      "rank": 13,
+      "title": "Reminder: You Can Stitch Together Lots of Little HTML Pages With Navigations For Interactions",
+      "titleZh": "须知：你可以用导航拼接众多小HTML页面来实现交互",
+      "link": "https://blog.jim-nielsen.com/2026/small-html-pages/",
+      "source": "blog.jim-nielsen.com",
+      "sourceUrl": "https://blog.jim-nielsen.com",
+      "category": "ai-ml",
+      "score": 19,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 6,
+        "timeliness": 6
+      },
+      "pubDate": "2026-05-03T19:00:00.000Z",
+      "keywords": [
+        "LLM",
+        "HTML",
+        "web-dev"
+      ]
+    },
+    {
+      "rank": 14,
+      "title": "Reinventing the Wheel",
+      "titleZh": "重新发明轮子",
+      "link": "https://feed.tedium.co/link/15204/17331178/wheel-reinvention-technology-history",
+      "source": "tedium.co",
+      "sourceUrl": "https://tedium.co",
+      "category": "opinion",
+      "score": 18,
+      "scoreBreakdown": {
+        "relevance": 6,
+        "quality": 7,
+        "timeliness": 5
+      },
+      "pubDate": "2026-05-03T13:41:32.000Z",
+      "keywords": [
+        "reinventing wheel",
+        "engineering culture"
+      ]
+    },
+    {
+      "rank": 15,
+      "title": "Some views on Eglot and lsp-mode in GNU Emacs",
+      "titleZh": "对GNU Emacs中Eglot与lsp-mode的一些看法",
+      "link": "https://utcc.utoronto.ca/~cks/space/blog/programming/EmacsEglotAndLspMode",
+      "source": "utcc.utoronto.ca/~cks",
+      "sourceUrl": "https://utcc.utoronto.ca/~cks",
+      "category": "tools",
+      "score": 17,
+      "scoreBreakdown": {
+        "relevance": 5,
+        "quality": 7,
+        "timeliness": 5
+      },
+      "pubDate": "2026-05-04T02:40:38.000Z",
+      "keywords": [
+        "Emacs",
+        "Eglot",
+        "lsp-mode",
+        "LSP"
+      ]
+    }
+  ]
+}

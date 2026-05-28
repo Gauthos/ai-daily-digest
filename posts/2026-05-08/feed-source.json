@@ -1,0 +1,339 @@
+{
+  "date": "2026-05-08",
+  "hours": 48,
+  "topN": 15,
+  "lang": "zh",
+  "totalCandidates": 42,
+  "selected": [
+    {
+      "rank": 1,
+      "title": "Behind the Scenes Hardening Firefox with Claude Mythos Preview",
+      "titleZh": "幕后揭秘：用Claude Mythos预览版强化Firefox",
+      "link": "https://simonwillison.net/2026/May/7/firefox-claude-mythos/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "security",
+      "score": 26,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 9,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-07T17:56:25.000Z",
+      "keywords": [
+        "Firefox",
+        "Claude",
+        "vulnerabilities",
+        "Mozilla"
+      ]
+    },
+    {
+      "rank": 2,
+      "title": "Canvas Breach Disrupts Schools & Colleges Nationwide",
+      "titleZh": "Canvas平台遭勒索攻击，全美学校和大学教学中断",
+      "link": "https://krebsonsecurity.com/?p=73563",
+      "source": "krebsonsecurity.com",
+      "sourceUrl": "https://krebsonsecurity.com",
+      "category": "security",
+      "score": 26,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 8,
+        "timeliness": 10
+      },
+      "pubDate": "2026-05-08T02:58:46.000Z",
+      "keywords": [
+        "Canvas",
+        "data breach",
+        "ransomware",
+        "education"
+      ]
+    },
+    {
+      "rank": 3,
+      "title": "Pushing Local Models With Focus And Polish",
+      "titleZh": "聚焦与打磨：推动本地模型真正可用",
+      "link": "https://lucumr.pocoo.org/2026/5/8/local-models/",
+      "source": "lucumr.pocoo.org",
+      "sourceUrl": "https://lucumr.pocoo.org",
+      "category": "ai-ml",
+      "score": 25,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 8,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-08T00:00:00.000Z",
+      "keywords": [
+        "local models",
+        "LLM",
+        "coding agent",
+        "AI"
+      ]
+    },
+    {
+      "rank": 4,
+      "title": "Premium: AI's Circular Psychosis",
+      "titleZh": "AI的循环病态",
+      "link": "https://wheresyoured.at/69fdea5bede6c40001e1af38",
+      "source": "wheresyoured.at",
+      "sourceUrl": "https://wheresyoured.at",
+      "category": "ai-ml",
+      "score": 25,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 7,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-08T14:40:45.000Z",
+      "keywords": [
+        "AI economy",
+        "Anthropic",
+        "circular psychosis",
+        "cloud computing"
+      ]
+    },
+    {
+      "rank": 5,
+      "title": "Notes on the xAI/Anthropic data center deal",
+      "titleZh": "xAI与Anthropic数据中心交易笔记",
+      "link": "https://simonwillison.net/2026/May/7/xai-anthropic/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "ai-ml",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 6,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-07T17:09:28.000Z",
+      "keywords": [
+        "Anthropic",
+        "xAI",
+        "data center",
+        "Colossus"
+      ]
+    },
+    {
+      "rank": 6,
+      "title": "AI makes weak engineers less harmful",
+      "titleZh": "AI让能力弱的工程师危害变小",
+      "link": "https://seangoedecke.com/ai-makes-weak-engineers-less-harmful/",
+      "source": "seangoedecke.com",
+      "sourceUrl": "https://seangoedecke.com",
+      "category": "opinion",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 8,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-09T00:00:00.000Z",
+      "keywords": [
+        "AI",
+        "software engineering",
+        "junior developers",
+        "productivity"
+      ]
+    },
+    {
+      "rank": 7,
+      "title": "Agents and ROI",
+      "titleZh": "AI代理的投资回报率困境",
+      "link": "https://garymarcus.substack.com/p/agents-and-roi",
+      "source": "garymarcus.substack.com",
+      "sourceUrl": "https://garymarcus.substack.com",
+      "category": "opinion",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-08T14:58:32.000Z",
+      "keywords": [
+        "AI agents",
+        "ROI",
+        "generative AI",
+        "business"
+      ]
+    },
+    {
+      "rank": 8,
+      "title": "Using Claude Code: The Unreasonable Effectiveness of HTML",
+      "titleZh": "Claude Code实践：HTML的超常效力",
+      "link": "https://simonwillison.net/2026/May/8/unreasonable-effectiveness-of-html/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "ai-ml",
+      "score": 21,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 6,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-08T21:00:11.000Z",
+      "keywords": [
+        "Claude",
+        "HTML",
+        "Markdown",
+        "prompt engineering"
+      ]
+    },
+    {
+      "rank": 9,
+      "title": "Breaking news: “they hadn’t figured out how OpenAI would pay for it”",
+      "titleZh": "突发新闻：“他们还没想好OpenAI怎么付钱”",
+      "link": "https://garymarcus.substack.com/p/breaking-news-they-hadnt-figured",
+      "source": "garymarcus.substack.com",
+      "sourceUrl": "https://garymarcus.substack.com",
+      "category": "opinion",
+      "score": 21,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 5,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-07T21:42:21.000Z",
+      "keywords": [
+        "OpenAI",
+        "funding",
+        "AI industry",
+        "business model"
+      ]
+    },
+    {
+      "rank": 10,
+      "title": "Weekend at Bernie’s",
+      "titleZh": "伯尼的周末：你的哪些依赖在“装死”？",
+      "link": "https://nesbitt.io/2026/05/08/weekend-at-bernies.html",
+      "source": "nesbitt.io",
+      "sourceUrl": "https://nesbitt.io",
+      "category": "engineering",
+      "score": 21,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 6
+      },
+      "pubDate": "2026-05-08T10:00:00.000Z",
+      "keywords": [
+        "dependencies",
+        "software supply chain",
+        "open source",
+        "maintenance"
+      ]
+    },
+    {
+      "rank": 11,
+      "title": "Steering Zig Fmt",
+      "titleZh": "驾驭 Zig Fmt：高效使用的两个技巧",
+      "link": "https://matklad.github.io/2026/05/08/steering-zig-fmt.html",
+      "source": "matklad.github.io",
+      "sourceUrl": "https://matklad.github.io",
+      "category": "engineering",
+      "score": 20,
+      "scoreBreakdown": {
+        "relevance": 6,
+        "quality": 7,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-08T00:00:00.000Z",
+      "keywords": [
+        "Zig",
+        "zig fmt",
+        "code formatting",
+        "tooling"
+      ]
+    },
+    {
+      "rank": 12,
+      "title": "Notes on using GNU Emacs' Tramp system in an unusual shell environment",
+      "titleZh": "在特殊 Shell 环境中使用 GNU Emacs Tramp 的笔记",
+      "link": "https://utcc.utoronto.ca/~cks/space/blog/programming/EmacsTrampNotes",
+      "source": "utcc.utoronto.ca/~cks",
+      "sourceUrl": "https://utcc.utoronto.ca/~cks",
+      "category": "tools",
+      "score": 19,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 5
+      },
+      "pubDate": "2026-05-09T02:09:46.000Z",
+      "keywords": [
+        "Emacs",
+        "Tramp",
+        "remote",
+        "shell"
+      ]
+    },
+    {
+      "rank": 13,
+      "title": "Developing more confidence when tracking renames via Read­Directory­ChangesW",
+      "titleZh": "利用 ReadDirectoryChangesW 跟踪重命名时提升可靠性",
+      "link": "https://devblogs.microsoft.com/oldnewthing/?p=112310",
+      "source": "devblogs.microsoft.com/oldnewthing",
+      "sourceUrl": "https://devblogs.microsoft.com/oldnewthing",
+      "category": "engineering",
+      "score": 19,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 5
+      },
+      "pubDate": "2026-05-08T14:00:00.000Z",
+      "keywords": [
+        "Windows",
+        "API",
+        "file",
+        "rename"
+      ]
+    },
+    {
+      "rank": 14,
+      "title": "Free as in Tribbles",
+      "titleZh": "像 Tribbles 一样的自由",
+      "link": "https://nesbitt.io/2026/05/07/free-as-in-tribbles.html",
+      "source": "nesbitt.io",
+      "sourceUrl": "https://nesbitt.io",
+      "category": "opinion",
+      "score": 19,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 5
+      },
+      "pubDate": "2026-05-07T10:00:00.000Z",
+      "keywords": [
+        "open source",
+        "sustainability",
+        "community",
+        "free software"
+      ]
+    },
+    {
+      "rank": 15,
+      "title": "The Bold Ones Win",
+      "titleZh": "勇者胜",
+      "link": "https://feed.tedium.co/link/15204/17336568/ted-turner-bold-ceo-bets",
+      "source": "tedium.co",
+      "sourceUrl": "https://tedium.co",
+      "category": "opinion",
+      "score": 19,
+      "scoreBreakdown": {
+        "relevance": 4,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-08T00:13:15.000Z",
+      "keywords": [
+        "Ted Turner",
+        "entrepreneurship",
+        "risk-taking",
+        "media"
+      ]
+    }
+  ]
+}

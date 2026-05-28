@@ -1,0 +1,330 @@
+{
+  "date": "2026-05-04",
+  "hours": 48,
+  "topN": 15,
+  "lang": "zh",
+  "totalCandidates": 46,
+  "selected": [
+    {
+      "rank": 1,
+      "title": "AI didn't delete your database, you did",
+      "titleZh": "AI没删你的数据库，是你删的",
+      "link": "https://idiallo.com/blog/ai-didnt-delete-your-database-you-did?src=feed",
+      "source": "idiallo.com",
+      "sourceUrl": "https://idiallo.com",
+      "category": "ai-ml",
+      "score": 27,
+      "scoreBreakdown": {
+        "relevance": 10,
+        "quality": 8,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-04T22:25:00.000Z",
+      "keywords": [
+        "AI agent",
+        "Cursor",
+        "production database",
+        "LLM safety"
+      ]
+    },
+    {
+      "rank": 2,
+      "title": "Redis array type: short story of a long development",
+      "titleZh": "Redis数组类型：一段漫长开发历程的短故事",
+      "link": "http://antirez.com/news/164",
+      "source": "antirez.com",
+      "sourceUrl": "http://antirez.com",
+      "category": "engineering",
+      "score": 25,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 9,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-04T14:21:45.000Z",
+      "keywords": [
+        "Redis",
+        "data type",
+        "array",
+        "database"
+      ]
+    },
+    {
+      "rank": 3,
+      "title": "Commits on GitHub Are Up 14× Year-Over-Year",
+      "titleZh": "GitHub提交量同比暴增14倍",
+      "link": "https://daringfireball.net/linked/2026/03/13/amodei-ai-code-claim-chowder",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "ai-ml",
+      "score": 24,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-04T15:00:33.000Z",
+      "keywords": [
+        "GitHub",
+        "AI coding",
+        "productivity"
+      ]
+    },
+    {
+      "rank": 4,
+      "title": "Granite 4.1 3B SVG Pelican Gallery",
+      "titleZh": "Granite 4.1 3B 模型 SVG 鹈鹕画廊",
+      "link": "https://simonwillison.net/2026/May/4/granite-41-3b-svg-pelican-gallery/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "ai-ml",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 6,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-04T23:49:24.000Z",
+      "keywords": [
+        "Granite",
+        "LLM",
+        "Apache 2.0",
+        "IBM"
+      ]
+    },
+    {
+      "rank": 5,
+      "title": "Redis Array Playground",
+      "titleZh": "Redis 数组游乐场",
+      "link": "https://simonwillison.net/2026/May/4/redis-array/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "engineering",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 6,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-04T15:53:57.000Z",
+      "keywords": [
+        "Redis",
+        "arrays",
+        "data type"
+      ]
+    },
+    {
+      "rank": 6,
+      "title": "Photoshop’s ‘Modern User Interface’ Sucks (and Doesn’t Feel Modern)",
+      "titleZh": "Photoshop 的“现代用户界面”糟糕透顶（而且并不现代）",
+      "link": "https://unsung.aresluna.org/photoshops-challenges-with-focus-pt-2/",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "opinion",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 8,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-04T19:13:06.000Z",
+      "keywords": [
+        "Photoshop",
+        "UI/UX",
+        "software design"
+      ]
+    },
+    {
+      "rank": 7,
+      "title": "Package Manager CWEs",
+      "titleZh": "包管理器中的常见弱点枚举",
+      "link": "https://nesbitt.io/2026/05/04/package-manager-cwes.html",
+      "source": "nesbitt.io",
+      "sourceUrl": "https://nesbitt.io",
+      "category": "security",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-04T10:00:00.000Z",
+      "keywords": [
+        "package manager",
+        "CWE",
+        "supply chain"
+      ]
+    },
+    {
+      "rank": 8,
+      "title": "Premium: The AI Compute Demand Story Is A Lie",
+      "titleZh": "特稿：AI算力需求的故事是谎言",
+      "link": "https://wheresyoured.at/69f4c71e7239b500010b228c",
+      "source": "wheresyoured.at",
+      "sourceUrl": "https://wheresyoured.at",
+      "category": "opinion",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-04T14:09:22.000Z",
+      "keywords": [
+        "AI demand",
+        "compute",
+        "hyperscalers"
+      ]
+    },
+    {
+      "rank": 9,
+      "title": "Working With DARPA to Secure Open Source Infrastructure: CVE-2026-31789",
+      "titleZh": "与DARPA合作保护开源基础设施：CVE-2026-31789",
+      "link": "https://xint.io/blog/170315",
+      "source": "xint.io",
+      "sourceUrl": "https://xint.io",
+      "category": "security",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-04T20:34:41.000Z",
+      "keywords": [
+        "DARPA",
+        "open source",
+        "CVE",
+        "AI defense"
+      ]
+    },
+    {
+      "rank": 10,
+      "title": "Quoting Anthropic",
+      "titleZh": "引用Anthropic：Claude的谄媚行为分析",
+      "link": "https://simonwillison.net/2026/May/3/anthropic/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "ai-ml",
+      "score": 21,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 5,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-03T15:13:23.000Z",
+      "keywords": [
+        "Anthropic",
+        "Claude",
+        "sycophancy",
+        "alignment"
+      ]
+    },
+    {
+      "rank": 11,
+      "title": "TRE Python binding — ReDoS robustness demo",
+      "titleZh": "TRE Python绑定——正则表达式拒绝服务攻击鲁棒性演示",
+      "link": "https://simonwillison.net/2026/May/4/tre-python-binding/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "tools",
+      "score": 20,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 6
+      },
+      "pubDate": "2026-05-04T17:52:00.000Z",
+      "keywords": [
+        "Python",
+        "regex",
+        "ReDoS",
+        "TRE"
+      ]
+    },
+    {
+      "rank": 12,
+      "title": "Google Owns a Big Chunk of Anthropic",
+      "titleZh": "谷歌持有Anthropic大量股份",
+      "link": "https://www.nytimes.com/2025/03/11/technology/google-investment-anthropic.html?unlocked_article_code=1.f1A.eSTf.D5ECvk6f4DZ7",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "ai-ml",
+      "score": 20,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 6,
+        "timeliness": 6
+      },
+      "pubDate": "2026-05-04T21:40:32.000Z",
+      "keywords": [
+        "Google",
+        "Anthropic",
+        "investment"
+      ]
+    },
+    {
+      "rank": 13,
+      "title": "App Store Search Ads and the Slippery Slope",
+      "titleZh": "App Store搜索广告与滑坡效应",
+      "link": "https://blog.thinktapwork.com/post/812803664980967425/ios-app-store-search-is-rotten",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "engineering",
+      "score": 20,
+      "scoreBreakdown": {
+        "relevance": 6,
+        "quality": 7,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-04T21:09:21.000Z",
+      "keywords": [
+        "App Store",
+        "ads",
+        "search relevance"
+      ]
+    },
+    {
+      "rank": 14,
+      "title": "ScopeXR — Cataract Surgery Using Apple Vision Pro Mixed Reality",
+      "titleZh": "ScopeXR：使用Apple Vision Pro混合现实进行白内障手术",
+      "link": "https://www.prnewswire.com/news-releases/sightmds-dr-eric-rosenberg-becomes-first-surgeon-in-the-world-to-perform-cataract-surgery-using-apple-vision-pro-mixed-reality-302754311.html",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "engineering",
+      "score": 20,
+      "scoreBreakdown": {
+        "relevance": 6,
+        "quality": 6,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-04T14:37:26.000Z",
+      "keywords": [
+        "Apple Vision Pro",
+        "surgery",
+        "mixed reality"
+      ]
+    },
+    {
+      "rank": 15,
+      "title": "The growing AI backlash",
+      "titleZh": "日益增长的人工智能抵制潮",
+      "link": "https://garymarcus.substack.com/p/the-growing-ai-backlash",
+      "source": "garymarcus.substack.com",
+      "sourceUrl": "https://garymarcus.substack.com",
+      "category": "ai-ml",
+      "score": 20,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 5,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-04T14:32:37.000Z",
+      "keywords": [
+        "AI",
+        "backlash",
+        "criticism"
+      ]
+    }
+  ]
+}

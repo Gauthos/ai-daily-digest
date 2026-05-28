@@ -1,0 +1,338 @@
+{
+  "date": "2026-04-30",
+  "hours": 48,
+  "topN": 15,
+  "lang": "zh",
+  "totalCandidates": 46,
+  "selected": [
+    {
+      "rank": 1,
+      "title": "Anti-DDoS Firm Heaped Attacks on Brazilian ISPs",
+      "titleZh": "反DDoS公司利用僵尸网络攻击巴西ISP",
+      "link": "https://krebsonsecurity.com/?p=73488",
+      "source": "krebsonsecurity.com",
+      "sourceUrl": "https://krebsonsecurity.com",
+      "category": "security",
+      "score": 28,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 9,
+        "timeliness": 10
+      },
+      "pubDate": "2026-04-30T14:04:26.000Z",
+      "keywords": [
+        "DDoS",
+        "botnet",
+        "Brazil",
+        "ISP"
+      ]
+    },
+    {
+      "rank": 2,
+      "title": "‘Elon Musk Appeared More Petty Than Prepared’",
+      "titleZh": "“伊隆·马斯克显得狭隘而非准备充分”",
+      "link": "https://www.theverge.com/ai-artificial-intelligence/920191/elon-musk-sam-altman-trial-day-one?view_token=eyJhbGciOiJIUzI1NiJ9.eyJpZCI6InBrV1FGdGtlcEEiLCJwIjoiL2FpLWFydGlmaWNpYWwtaW50ZWxsaWdlbmNlLzkyMDE5MS9lbG9uLW11c2stc2FtLWFsdG1hbi10cmlhbC1kYXktb25lIiwiZXhwIjoxNzc3OTA1NDgxLCJpYXQiOjE3Nzc0NzM0ODF9.FkMZ8-YRv8q3d7n6p8q_scJaERWtNumD9pK7kONpTE4",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "ai-ml",
+      "score": 28,
+      "scoreBreakdown": {
+        "relevance": 10,
+        "quality": 8,
+        "timeliness": 10
+      },
+      "pubDate": "2026-04-29T15:15:29.000Z",
+      "keywords": [
+        "OpenAI",
+        "Elon Musk",
+        "trial",
+        "Sam Altman"
+      ]
+    },
+    {
+      "rank": 3,
+      "title": "‘Sordid and Small’",
+      "titleZh": "“肮脏而渺小的诉讼”",
+      "link": "https://www.theatlantic.com/technology/2026/04/openai-trial-elon-musk-sam-altman/686984/?gift=iWa_iB9lkw4UuiWbIbrWGYJmg9p-llxzEAgykQekDFA",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "ai-ml",
+      "score": 28,
+      "scoreBreakdown": {
+        "relevance": 10,
+        "quality": 8,
+        "timeliness": 10
+      },
+      "pubDate": "2026-04-29T15:03:21.000Z",
+      "keywords": [
+        "OpenAI",
+        "lawsuit",
+        "nonprofit",
+        "Musk"
+      ]
+    },
+    {
+      "rank": 4,
+      "title": "OpenAI Trial Starts With Two Very Different Tales of a Company’s Early Years",
+      "titleZh": "OpenAI审判开始：公司早期的两种截然不同说法",
+      "link": "https://www.nytimes.com/2026/04/28/technology/openai-trial-elon-musk-sam-altman.html?unlocked_article_code=1.elA.u75G.-STmUe_pILOO",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "ai-ml",
+      "score": 28,
+      "scoreBreakdown": {
+        "relevance": 10,
+        "quality": 8,
+        "timeliness": 10
+      },
+      "pubDate": "2026-04-29T14:35:42.000Z",
+      "keywords": [
+        "OpenAI",
+        "trial",
+        "history",
+        "Musk Altman"
+      ]
+    },
+    {
+      "rank": 5,
+      "title": "Copy Fail: 732 Bytes to Root on Every Major Linux Distribution.",
+      "titleZh": "拷贝失败：仅732字节即可在所有主流Linux发行版上获取root权限",
+      "link": "https://xint.io/blog/copy-fail-linux-distributions",
+      "source": "xint.io",
+      "sourceUrl": "https://xint.io",
+      "category": "security",
+      "score": 28,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 9,
+        "timeliness": 10
+      },
+      "pubDate": "2026-04-29T16:32:14.000Z",
+      "keywords": [
+        "Linux",
+        "privilege escalation",
+        "vulnerability",
+        "CVE"
+      ]
+    },
+    {
+      "rank": 6,
+      "title": "Pluralistic: How not to ban surveillance pricing (30 Apr 2026)",
+      "titleZh": "Pluralistic：如何不禁止监控定价——马里兰州新法全是漏洞",
+      "link": "https://pluralistic.net/?p=12748",
+      "source": "pluralistic.net",
+      "sourceUrl": "https://pluralistic.net",
+      "category": "security",
+      "score": 26,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 9,
+        "timeliness": 9
+      },
+      "pubDate": "2026-04-30T14:38:35.000Z",
+      "keywords": [
+        "surveillance pricing",
+        "privacy",
+        "Maryland",
+        "consumer protection"
+      ]
+    },
+    {
+      "rank": 7,
+      "title": "The greatest capital misallocation in history?",
+      "titleZh": "史上最大的资本错配？",
+      "link": "https://garymarcus.substack.com/p/the-greatest-capital-misallocation",
+      "source": "garymarcus.substack.com",
+      "sourceUrl": "https://garymarcus.substack.com",
+      "category": "ai-ml",
+      "score": 26,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 8,
+        "timeliness": 9
+      },
+      "pubDate": "2026-04-30T20:37:42.000Z",
+      "keywords": [
+        "AI",
+        "investment",
+        "bubble",
+        "capital misallocation"
+      ]
+    },
+    {
+      "rank": 8,
+      "title": "Our evaluation of OpenAI's GPT-5.5 cyber capabilities",
+      "titleZh": "OpenAI GPT-5.5网络安全能力评估",
+      "link": "https://simonwillison.net/2026/Apr/30/gpt-55-cyber-capabilities/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "ai-ml",
+      "score": 25,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 7,
+        "timeliness": 9
+      },
+      "pubDate": "2026-04-30T23:03:24.000Z",
+      "keywords": [
+        "GPT-5.5",
+        "cybersecurity",
+        "AI evaluation"
+      ]
+    },
+    {
+      "rank": 9,
+      "title": "LLM 0.32a0  is a major backwards-compatible refactor",
+      "titleZh": "LLM 0.32a0：一次向后兼容的重大重构",
+      "link": "https://simonwillison.net/2026/Apr/29/llm/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "tools",
+      "score": 25,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 8,
+        "timeliness": 10
+      },
+      "pubDate": "2026-04-29T19:01:47.000Z",
+      "keywords": [
+        "llm",
+        "refactor",
+        "Python",
+        "CLI"
+      ]
+    },
+    {
+      "rank": 10,
+      "title": "Reiner Pope – The math behind how LLMs are trained and served",
+      "titleZh": "Reiner Pope：LLM训练与部署背后的数学",
+      "link": "https://www.dwarkesh.com/p/reiner-pope",
+      "source": "dwarkesh.com",
+      "sourceUrl": "https://dwarkesh.com",
+      "category": "ai-ml",
+      "score": 25,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 8,
+        "timeliness": 8
+      },
+      "pubDate": "2026-04-29T17:07:03.000Z",
+      "keywords": [
+        "LLM",
+        "training",
+        "math",
+        "inference"
+      ]
+    },
+    {
+      "rank": 11,
+      "title": "Codex CLI 0.128.0 adds /goal",
+      "titleZh": "Codex CLI 0.128.0 新增 /goal 目标循环功能",
+      "link": "https://simonwillison.net/2026/Apr/30/codex-goals/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "tools",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 6,
+        "timeliness": 9
+      },
+      "pubDate": "2026-04-30T23:23:17.000Z",
+      "keywords": [
+        "Codex CLI",
+        "agent",
+        "goal",
+        "loop"
+      ]
+    },
+    {
+      "rank": 12,
+      "title": "The Zig project's rationale for their firm anti-AI contribution policy",
+      "titleZh": "Zig项目坚决反AI贡献政策的背后考量",
+      "link": "https://simonwillison.net/2026/Apr/30/zig-anti-ai/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "engineering",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-04-30T01:24:23.000Z",
+      "keywords": [
+        "Zig",
+        "anti-LLM",
+        "policy",
+        "open source"
+      ]
+    },
+    {
+      "rank": 13,
+      "title": "Three ways to differentiate ReLU",
+      "titleZh": "ReLU函数的三种求导方式",
+      "link": "https://www.johndcook.com/blog/?p=246993",
+      "source": "johndcook.com",
+      "sourceUrl": "https://johndcook.com",
+      "category": "ai-ml",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 8,
+        "timeliness": 7
+      },
+      "pubDate": "2026-04-30T14:51:08.000Z",
+      "keywords": [
+        "ReLU",
+        "derivative",
+        "deep learning",
+        "activation function"
+      ]
+    },
+    {
+      "rank": 14,
+      "title": "★ On the Future of Apple’s Vision Platform",
+      "titleZh": "论Apple Vision平台的未来",
+      "link": "https://daringfireball.net/2026/04/on_the_future_of_apples_vision_platform",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "opinion",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 8,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-01T00:11:15.000Z",
+      "keywords": [
+        "Apple",
+        "Vision Pro",
+        "AR",
+        "VR"
+      ]
+    },
+    {
+      "rank": 15,
+      "title": "Developing a cross-process reader/writer lock with limited readers, part 3: Fairness",
+      "titleZh": "开发跨进程读写锁（有限读者），第三部分：公平性",
+      "link": "https://devblogs.microsoft.com/oldnewthing/?p=112288",
+      "source": "devblogs.microsoft.com/oldnewthing",
+      "sourceUrl": "https://devblogs.microsoft.com/oldnewthing",
+      "category": "engineering",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 8,
+        "timeliness": 7
+      },
+      "pubDate": "2026-04-30T14:00:00.000Z",
+      "keywords": [
+        "reader-writer lock",
+        "concurrency",
+        "synchronization",
+        "Windows"
+      ]
+    }
+  ]
+}

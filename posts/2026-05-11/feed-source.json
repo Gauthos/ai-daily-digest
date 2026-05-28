@@ -1,0 +1,338 @@
+{
+  "date": "2026-05-11",
+  "hours": 48,
+  "topN": 15,
+  "lang": "zh",
+  "totalCandidates": 42,
+  "selected": [
+    {
+      "rank": 1,
+      "title": "Thoughts on GitLab's workforce reduction\" and \"structural and strategic decisions\"",
+      "titleZh": "GitLab 第二幕：面向智能体时代的劳动力缩减与战略调整",
+      "link": "https://simonwillison.net/2026/May/11/gitlab-act-2/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "engineering",
+      "score": 24,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-11T23:58:55.000Z",
+      "keywords": [
+        "GitLab",
+        "workforce reduction",
+        "agentic",
+        "strategy"
+      ]
+    },
+    {
+      "rank": 2,
+      "title": "Your AI Use Is Breaking My Brain",
+      "titleZh": "你的 AI 使用正在让我大脑宕机",
+      "link": "https://simonwillison.net/2026/May/11/zombie-internet/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "opinion",
+      "score": 24,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 8,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-11T19:21:27.000Z",
+      "keywords": [
+        "AI writing",
+        "zombie internet",
+        "content authenticity",
+        "mental fatigue"
+      ]
+    },
+    {
+      "rank": 3,
+      "title": "Learning on the Shop floor",
+      "titleZh": "Shopify 的车间式学习：AI 编码助手 River 的公开实践",
+      "link": "https://simonwillison.net/2026/May/11/learning-on-the-shop-floor/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "engineering",
+      "score": 24,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-11T15:46:36.000Z",
+      "keywords": [
+        "Shopify",
+        "coding agent",
+        "Slack",
+        "River"
+      ]
+    },
+    {
+      "rank": 4,
+      "title": "Misplaced panic over AI progress",
+      "titleZh": "对AI进展的恐慌错位",
+      "link": "https://garymarcus.substack.com/p/misplaced-panic-over-ai-progress",
+      "source": "garymarcus.substack.com",
+      "sourceUrl": "https://garymarcus.substack.com",
+      "category": "ai-ml",
+      "score": 24,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-10T19:44:26.000Z",
+      "keywords": [
+        "AI",
+        "progress",
+        "METR",
+        "time horizon"
+      ]
+    },
+    {
+      "rank": 5,
+      "title": "Weekly Update 503",
+      "titleZh": "每周更新503",
+      "link": "https://troyhunt.com/6a01173bf8a9e20001674907",
+      "source": "troyhunt.com",
+      "sourceUrl": "https://troyhunt.com",
+      "category": "security",
+      "score": 24,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-10T23:52:52.000Z",
+      "keywords": [
+        "breach",
+        "leak",
+        "ransomware",
+        "ShinyHunters"
+      ]
+    },
+    {
+      "rank": 6,
+      "title": "Why Zero Data Retention Should Be Non-Negotiable When Your Team Uses LLMs",
+      "titleZh": "为何使用大语言模型时零数据保留应成为硬性要求",
+      "link": "https://xint.io/blog/zero-data-retention-llms",
+      "source": "xint.io",
+      "sourceUrl": "https://xint.io",
+      "category": "ai-ml",
+      "score": 24,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 8,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-11T17:45:21.000Z",
+      "keywords": [
+        "LLM",
+        "data retention",
+        "privacy",
+        "security"
+      ]
+    },
+    {
+      "rank": 7,
+      "title": "Quoting James Shore",
+      "titleZh": "詹姆斯·肖尔：AI编码加速必须伴随维护成本降低",
+      "link": "https://simonwillison.net/2026/May/11/james-shore/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "opinion",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-11T19:48:32.000Z",
+      "keywords": [
+        "AI coding",
+        "maintenance",
+        "productivity",
+        "technical debt"
+      ]
+    },
+    {
+      "rank": 8,
+      "title": "Thinking Machines and interaction models",
+      "titleZh": "思考机器公司与交互模型",
+      "link": "https://seangoedecke.com/interaction-models/",
+      "source": "seangoedecke.com",
+      "sourceUrl": "https://seangoedecke.com",
+      "category": "ai-ml",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-12T00:00:00.000Z",
+      "keywords": [
+        "Thinking Machines",
+        "interaction models",
+        "AI model"
+      ]
+    },
+    {
+      "rank": 9,
+      "title": "Meta to Start Capturing Employee Mouse Movements, Keystrokes for AI Training Data",
+      "titleZh": "Meta开始采集员工鼠标键盘数据用于AI训练",
+      "link": "https://www.reuters.com/sustainability/boards-policy-regulation/meta-start-capturing-employee-mouse-movements-keystrokes-ai-training-data-2026-04-21/",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "ai-ml",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 6,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-10T14:04:19.000Z",
+      "keywords": [
+        "Meta",
+        "surveillance",
+        "AI training",
+        "privacy"
+      ]
+    },
+    {
+      "rank": 10,
+      "title": "Quoting New York Times Editors’ Note",
+      "titleZh": "纽约时报编辑按语：AI 生成错误引语致报道失实",
+      "link": "https://simonwillison.net/2026/May/10/new-york-times-editors-note/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "ai-ml",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 6,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-10T23:58:49.000Z",
+      "keywords": [
+        "AI-generated content",
+        "journalism",
+        "misinformation",
+        "quotation"
+      ]
+    },
+    {
+      "rank": 11,
+      "title": "iOS 26.5 Includes Beta Support for End-to-End Encrypted RCS Messaging",
+      "titleZh": "iOS 26.5 测试版开始推出端到端加密 RCS 消息功能",
+      "link": "https://www.apple.com/newsroom/2026/05/end-to-end-encrypted-rcs-messaging-begins-rolling-out-today-in-beta/",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "security",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 5,
+        "timeliness": 10
+      },
+      "pubDate": "2026-05-11T22:57:00.000Z",
+      "keywords": [
+        "iOS",
+        "RCS",
+        "end-to-end encryption",
+        "messaging"
+      ]
+    },
+    {
+      "rank": 12,
+      "title": "We Are Not Going to Agree on AI",
+      "titleZh": "关于 AI，我们永远不会达成共识",
+      "link": "https://idiallo.com/blog/we-are-not-going-to-agree-on-ai?src=feed",
+      "source": "idiallo.com",
+      "sourceUrl": "https://idiallo.com",
+      "category": "opinion",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-11T12:00:00.000Z",
+      "keywords": [
+        "AI",
+        "coding",
+        "productivity",
+        "debate"
+      ]
+    },
+    {
+      "rank": 13,
+      "title": "Additional notes on controlling which handles are inherited by Create­Process",
+      "titleZh": "控制 CreateProcess 继承哪些句柄的补充说明",
+      "link": "https://devblogs.microsoft.com/oldnewthing/?p=112313",
+      "source": "devblogs.microsoft.com/oldnewthing",
+      "sourceUrl": "https://devblogs.microsoft.com/oldnewthing",
+      "category": "engineering",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 9,
+        "timeliness": 6
+      },
+      "pubDate": "2026-05-11T14:00:00.000Z",
+      "keywords": [
+        "Windows",
+        "CreateProcess",
+        "handles",
+        "inheritance"
+      ]
+    },
+    {
+      "rank": 14,
+      "title": "Out With the JS, In With the HTML",
+      "titleZh": "抛弃 JavaScript，回归 HTML",
+      "link": "https://blog.jim-nielsen.com/2026/out-with-js-in-with-html/",
+      "source": "blog.jim-nielsen.com",
+      "sourceUrl": "https://blog.jim-nielsen.com",
+      "category": "engineering",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-10T19:00:00.000Z",
+      "keywords": [
+        "HTML",
+        "JavaScript",
+        "frontend",
+        "navigation"
+      ]
+    },
+    {
+      "rank": 15,
+      "title": "Quoting Andrew Quinn",
+      "titleZh": "Andrew Quinn 的洞见：先了解历史工具",
+      "link": "https://simonwillison.net/2026/May/10/andrew-quinn/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "opinion",
+      "score": 21,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 6
+      },
+      "pubDate": "2026-05-10T14:59:17.000Z",
+      "keywords": [
+        "imposter syndrome",
+        "software development",
+        "guilt",
+        "open source"
+      ]
+    }
+  ]
+}

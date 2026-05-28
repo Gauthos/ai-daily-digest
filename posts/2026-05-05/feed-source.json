@@ -1,0 +1,339 @@
+{
+  "date": "2026-05-05",
+  "hours": 48,
+  "topN": 15,
+  "lang": "zh",
+  "totalCandidates": 54,
+  "selected": [
+    {
+      "rank": 1,
+      "title": "Premium: The AI Compute Demand Story Is A Lie",
+      "titleZh": "AI计算需求故事是谎言",
+      "link": "https://wheresyoured.at/69f4c71e7239b500010b228c",
+      "source": "wheresyoured.at",
+      "sourceUrl": "https://wheresyoured.at",
+      "category": "ai-ml",
+      "score": 27,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 8,
+        "timeliness": 10
+      },
+      "pubDate": "2026-05-04T14:09:22.000Z",
+      "keywords": [
+        "AI",
+        "compute",
+        "hardware",
+        "hype"
+      ]
+    },
+    {
+      "rank": 2,
+      "title": "★ Y Combinator’s Stake in OpenAI",
+      "titleZh": "Y Combinator 在 OpenAI 的股份",
+      "link": "https://daringfireball.net/2026/05/y_combinators_stake_in_openai",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "opinion",
+      "score": 26,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 8,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-04T22:47:01.000Z",
+      "keywords": [
+        "Y Combinator",
+        "OpenAI",
+        "Sam Altman",
+        "conflict of interest"
+      ]
+    },
+    {
+      "rank": 3,
+      "title": "Redis array type: short story of a long development",
+      "titleZh": "Redis 数组类型：漫长开发的简短故事",
+      "link": "http://antirez.com/news/164",
+      "source": "antirez.com",
+      "sourceUrl": "http://antirez.com",
+      "category": "engineering",
+      "score": 25,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 9,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-04T14:21:45.000Z",
+      "keywords": [
+        "Redis",
+        "array type",
+        "data structure",
+        "development"
+      ]
+    },
+    {
+      "rank": 4,
+      "title": "What matters (or should matter), at the Musk-OpenAI trial",
+      "titleZh": "马斯克诉OpenAI案：什么才是（或应是）焦点",
+      "link": "https://garymarcus.substack.com/p/what-matters-or-should-matter-at",
+      "source": "garymarcus.substack.com",
+      "sourceUrl": "https://garymarcus.substack.com",
+      "category": "ai-ml",
+      "score": 24,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-05T20:56:51.000Z",
+      "keywords": [
+        "OpenAI",
+        "Elon Musk",
+        "lawsuit",
+        "AI-regulation"
+      ]
+    },
+    {
+      "rank": 5,
+      "title": "The growing AI backlash",
+      "titleZh": "AI抵制浪潮何以愈演愈烈",
+      "link": "https://garymarcus.substack.com/p/the-growing-ai-backlash",
+      "source": "garymarcus.substack.com",
+      "sourceUrl": "https://garymarcus.substack.com",
+      "category": "ai-ml",
+      "score": 24,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-04T14:32:37.000Z",
+      "keywords": [
+        "AI",
+        "backlash",
+        "criticism",
+        "hype"
+      ]
+    },
+    {
+      "rank": 6,
+      "title": "Weekly Update 502",
+      "titleZh": "每周更新 502",
+      "link": "https://troyhunt.com/69fa5f94bda44800012006b5",
+      "source": "troyhunt.com",
+      "sourceUrl": "https://troyhunt.com",
+      "category": "security",
+      "score": 24,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-06T00:14:13.000Z",
+      "keywords": [
+        "data breach",
+        "ShinyHunters",
+        "cybersecurity",
+        "weekly update"
+      ]
+    },
+    {
+      "rank": 7,
+      "title": "Working With DARPA to Secure Open Source Infrastructure: CVE-2026-31789",
+      "titleZh": "携手DARPA保障开源基础设施安全：CVE-2026-31789漏洞发现内幕",
+      "link": "https://xint.io/blog/170315",
+      "source": "xint.io",
+      "sourceUrl": "https://xint.io",
+      "category": "ai-ml",
+      "score": 24,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-04T20:34:41.000Z",
+      "keywords": [
+        "DARPA",
+        "CVE",
+        "open source",
+        "AI security"
+      ]
+    },
+    {
+      "rank": 8,
+      "title": "Granite 4.1 3B SVG Pelican Gallery",
+      "titleZh": "IBM Granite 4.1 3B模型生成的SVG鹈鹕画廊",
+      "link": "https://simonwillison.net/2026/May/4/granite-41-3b-svg-pelican-gallery/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "ai-ml",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 6,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-04T23:49:24.000Z",
+      "keywords": [
+        "Granite",
+        "LLM",
+        "IBM",
+        "Unsloth"
+      ]
+    },
+    {
+      "rank": 9,
+      "title": "★ Software as the Product of Obsession Times Voice",
+      "titleZh": "软件是痴迷与声音的产物",
+      "link": "https://daringfireball.net/2026/05/software_as_the_product_of_obsession_times_voice",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "opinion",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 8,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-05T21:01:05.000Z",
+      "keywords": [
+        "software design",
+        "craft",
+        "obsession",
+        "voice"
+      ]
+    },
+    {
+      "rank": 10,
+      "title": "Commits on GitHub Are Up 14× Year-Over-Year",
+      "titleZh": "GitHub 年同比提交量激增 14 倍",
+      "link": "https://daringfireball.net/linked/2026/03/13/amodei-ai-code-claim-chowder",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "ai-ml",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 8,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-04T15:00:33.000Z",
+      "keywords": [
+        "GitHub",
+        "AI coding",
+        "commits",
+        "Dario Amodei"
+      ]
+    },
+    {
+      "rank": 11,
+      "title": "AI didn't delete your database, you did",
+      "titleZh": "AI 没有删你的数据库，是你自己删的",
+      "link": "https://idiallo.com/blog/ai-didnt-delete-your-database-you-did?src=feed",
+      "source": "idiallo.com",
+      "sourceUrl": "https://idiallo.com",
+      "category": "ai-ml",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-04T22:25:00.000Z",
+      "keywords": [
+        "AI agent",
+        "database",
+        "Cursor",
+        "responsibility"
+      ]
+    },
+    {
+      "rank": 12,
+      "title": "Breaking: Autonomous Agents are a Shitshow",
+      "titleZh": "突发：自主代理糟糕透顶",
+      "link": "https://garymarcus.substack.com/p/breaking-autonomous-agents-are-a",
+      "source": "garymarcus.substack.com",
+      "sourceUrl": "https://garymarcus.substack.com",
+      "category": "ai-ml",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-05T17:54:27.000Z",
+      "keywords": [
+        "AI agents",
+        "LLM",
+        "reliability",
+        "critique"
+      ]
+    },
+    {
+      "rank": 13,
+      "title": "Package Manager Threat Models",
+      "titleZh": "包管理器威胁模型：CVE之外的另一半安全",
+      "link": "https://nesbitt.io/2026/05/05/package-manager-threat-models.html",
+      "source": "nesbitt.io",
+      "sourceUrl": "https://nesbitt.io",
+      "category": "security",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-05T10:00:00.000Z",
+      "keywords": [
+        "package-manager",
+        "security",
+        "threat-model",
+        "supply-chain"
+      ]
+    },
+    {
+      "rank": 14,
+      "title": "Package Manager CWEs",
+      "titleZh": "包管理器常见弱点枚举（CWE）",
+      "link": "https://nesbitt.io/2026/05/04/package-manager-cwes.html",
+      "source": "nesbitt.io",
+      "sourceUrl": "https://nesbitt.io",
+      "category": "security",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-04T10:00:00.000Z",
+      "keywords": [
+        "CWE",
+        "package-manager",
+        "vulnerability",
+        "security"
+      ]
+    },
+    {
+      "rank": 15,
+      "title": "The Impossible Things We Have to Believe",
+      "titleZh": "我们必须相信的那些不可能之事",
+      "link": "https://berthub.eu/articles/posts/the-impossible-things-we-have-to-believe/",
+      "source": "berthub.eu",
+      "sourceUrl": "https://berthub.eu",
+      "category": "security",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-05T15:09:12.000Z",
+      "keywords": [
+        "encryption",
+        "backdoor",
+        "privacy",
+        "policy"
+      ]
+    }
+  ]
+}

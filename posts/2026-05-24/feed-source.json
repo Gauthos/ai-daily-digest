@@ -1,0 +1,389 @@
+{
+  "date": "2026-05-24",
+  "hours": 48,
+  "topN": 15,
+  "lang": "zh",
+  "totalCandidates": 28,
+  "excludedPreviouslyPublished": 0,
+  "contentSplit": {
+    "news": 1,
+    "analysis": 27
+  },
+  "selected": [
+    {
+      "rank": 1,
+      "title": "The memory shortage is causing a repricing of consumer electronics",
+      "titleZh": "The memory shortage is causing a repricing of consumer electronics",
+      "link": "https://simonwillison.net/2026/May/22/memory-shortage/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "other",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-22T22:01:31.000Z",
+      "keywords": [
+        "memory shortage",
+        "consumer electronics",
+        "pricing",
+        "supply chain"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 2,
+      "title": "The commencement speech that shook the world",
+      "titleZh": "The commencement speech that shook the world",
+      "link": "https://idiallo.com/blog/the-commencement-speech-that-shook-the-world?src=feed",
+      "source": "idiallo.com",
+      "sourceUrl": "https://idiallo.com",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "ai-ml",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 6,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-23T01:14:24.000Z",
+      "keywords": [
+        "Eric Schmidt",
+        "AI",
+        "Google",
+        "commencement speech"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 3,
+      "title": "An idea: user level WireGuard for UDP based encryption and authentication",
+      "titleZh": "An idea: user level WireGuard for UDP based encryption and authentication",
+      "link": "https://utcc.utoronto.ca/~cks/space/blog/tech/WireGuardForUDPAuthEncryption",
+      "source": "utcc.utoronto.ca/~cks",
+      "sourceUrl": "https://utcc.utoronto.ca/~cks",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "security",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-24T14:24:46.000Z",
+      "keywords": [
+        "WireGuard",
+        "UDP",
+        "encryption",
+        "authentication"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 4,
+      "title": "Zero Sum Problems and Apple Sports",
+      "titleZh": "零和问题与 Apple Sports 的统计可视化",
+      "link": "https://kieranhealy.org/blog/archives/2026/05/21/zero-sum-problems/",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "opinion",
+      "score": 21,
+      "scoreBreakdown": {
+        "relevance": 6,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-22T17:15:00.000Z",
+      "keywords": [
+        "data visualization",
+        "Apple Sports",
+        "UI design",
+        "zero sum"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 5,
+      "title": "News about Raspberry Pi 6 and Microcontroller Development",
+      "titleZh": "树莓派 6 与微控制器开发新动态",
+      "link": "https://www.jeffgeerling.com/blog/2026/news-about-raspberry-pi-6-and-microcontroller-development/",
+      "source": "jeffgeerling.com",
+      "sourceUrl": "https://jeffgeerling.com",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "engineering",
+      "score": 20,
+      "scoreBreakdown": {
+        "relevance": 6,
+        "quality": 5,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-22T20:15:00.000Z",
+      "keywords": [
+        "Raspberry Pi",
+        "microcontroller",
+        "hardware",
+        "AMA"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 6,
+      "title": "The Ninth Circuit Appeal Ruling in ‘Epic v. Apple’ That Apple Is Seeking to Overturn at the Supreme Court (PDF)",
+      "titleZh": "第九巡回上诉法院对“Epic 诉苹果”案的裁决，苹果正寻求最高法院推翻",
+      "link": "https://cdn.ca9.uscourts.gov/datastore/opinions/2025/12/11/25-2935.pdf",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "other",
+      "score": 20,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 5,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-22T17:39:05.000Z",
+      "keywords": [
+        "Epic v Apple",
+        "antitrust",
+        "legal",
+        "app store"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 7,
+      "title": "How to Talk to Your Coworkers",
+      "titleZh": "如何与同事有效沟通",
+      "link": "https://idiallo.com/blog/how-to-talk-to-your-coworkers?src=feed",
+      "source": "idiallo.com",
+      "sourceUrl": "https://idiallo.com",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "opinion",
+      "score": 18,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 6,
+        "timeliness": 5
+      },
+      "pubDate": "2026-05-22T19:00:00.000Z",
+      "keywords": [
+        "communication",
+        "coworkers",
+        "teamwork",
+        "documentation"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 8,
+      "title": "On the",
+      "titleZh": "<dl> 元素使用指南",
+      "link": "https://simonwillison.net/2026/May/23/on-the-dl/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "engineering",
+      "score": 15,
+      "scoreBreakdown": {
+        "relevance": 6,
+        "quality": 4,
+        "timeliness": 5
+      },
+      "pubDate": "2026-05-23T20:24:48.000Z",
+      "keywords": [
+        "HTML",
+        "dl",
+        "web development",
+        "semantics"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 9,
+      "title": "Which age-gates should be skill-gates and vice-versa?",
+      "titleZh": "哪些年龄门槛应改为技能门槛，反之亦然？",
+      "link": "https://shkspr.mobi/blog/?p=68406",
+      "source": "shkspr.mobi",
+      "sourceUrl": "https://shkspr.mobi",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "other",
+      "score": 12,
+      "scoreBreakdown": {
+        "relevance": 3,
+        "quality": 5,
+        "timeliness": 4
+      },
+      "pubDate": "2026-05-23T11:34:31.000Z",
+      "keywords": [
+        "age verification",
+        "skill-gates",
+        "policy",
+        "society"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 10,
+      "title": "★ The Fonts of the U.S. Federal Courts",
+      "titleZh": "★ The Fonts of the U.S. Federal Courts",
+      "link": "https://daringfireball.net/2026/05/the_fonts_of_the_us_federal_courts",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "other",
+      "score": 11,
+      "scoreBreakdown": {
+        "relevance": 2,
+        "quality": 5,
+        "timeliness": 4
+      },
+      "pubDate": "2026-05-22T20:30:18.000Z",
+      "keywords": [
+        "fonts",
+        "US courts",
+        "typography",
+        "design"
+      ],
+      "relatedArticles": []
+    },
+    {
+      "rank": 11,
+      "title": "How our environment still needs the security boundary of Unix logins",
+      "titleZh": "How our environment still needs the security boundary of Unix logins",
+      "link": "https://utcc.utoronto.ca/~cks/space/blog/sysadmin/WhyWeNeedUnixLoginSecurity",
+      "source": "utcc.utoronto.ca/~cks",
+      "sourceUrl": "https://utcc.utoronto.ca/~cks",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "other",
+      "score": 3,
+      "scoreBreakdown": {
+        "relevance": 1,
+        "quality": 1,
+        "timeliness": 1
+      },
+      "pubDate": "2026-05-23T23:28:33.000Z",
+      "keywords": [],
+      "relatedArticles": []
+    },
+    {
+      "rank": 12,
+      "title": "My views on Flymake and Flycheck in GNU Emacs (as of mid 2026)",
+      "titleZh": "My views on Flymake and Flycheck in GNU Emacs (as of mid 2026)",
+      "link": "https://utcc.utoronto.ca/~cks/space/blog/programming/EmacsFlymakeFlycheck",
+      "source": "utcc.utoronto.ca/~cks",
+      "sourceUrl": "https://utcc.utoronto.ca/~cks",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "other",
+      "score": 3,
+      "scoreBreakdown": {
+        "relevance": 1,
+        "quality": 1,
+        "timeliness": 1
+      },
+      "pubDate": "2026-05-23T02:57:53.000Z",
+      "keywords": [],
+      "relatedArticles": []
+    },
+    {
+      "rank": 13,
+      "title": "Reverse engineering circuitry in a Spacelab computer from 1980",
+      "titleZh": "Reverse engineering circuitry in a Spacelab computer from 1980",
+      "link": "http://www.righto.com/2026/05/reverse-engineering-spacelab-computer.html",
+      "source": "righto.com",
+      "sourceUrl": "https://righto.com",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "other",
+      "score": 3,
+      "scoreBreakdown": {
+        "relevance": 1,
+        "quality": 1,
+        "timeliness": 1
+      },
+      "pubDate": "2026-05-23T16:17:44.885Z",
+      "keywords": [],
+      "relatedArticles": []
+    },
+    {
+      "rank": 14,
+      "title": "Building Pi With Pi",
+      "titleZh": "Building Pi With Pi",
+      "link": "https://lucumr.pocoo.org/2026/5/24/pi-oss/",
+      "source": "lucumr.pocoo.org",
+      "sourceUrl": "https://lucumr.pocoo.org",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "other",
+      "score": 3,
+      "scoreBreakdown": {
+        "relevance": 1,
+        "quality": 1,
+        "timeliness": 1
+      },
+      "pubDate": "2026-05-24T00:00:00.000Z",
+      "keywords": [],
+      "relatedArticles": []
+    },
+    {
+      "rank": 15,
+      "title": "Hilbert transform as an infinite matrix",
+      "titleZh": "Hilbert transform as an infinite matrix",
+      "link": "https://www.johndcook.com/blog/?p=247039",
+      "source": "johndcook.com",
+      "sourceUrl": "https://johndcook.com",
+      "contentType": "analysis",
+      "eventCluster": null,
+      "category": "other",
+      "score": 3,
+      "scoreBreakdown": {
+        "relevance": 1,
+        "quality": 1,
+        "timeliness": 1
+      },
+      "pubDate": "2026-05-23T15:09:34.000Z",
+      "keywords": [],
+      "relatedArticles": []
+    },
+    {
+      "rank": 16,
+      "title": "Weekly Update 505",
+      "titleZh": "Weekly Update 505",
+      "link": "https://troyhunt.com/6a1246387b7e1b000197e3bd",
+      "source": "troyhunt.com",
+      "sourceUrl": "https://troyhunt.com",
+      "contentType": "news",
+      "eventCluster": "ShinyHunters 数据勒索",
+      "category": "security",
+      "score": 0,
+      "scoreBreakdown": {
+        "relevance": 0,
+        "quality": 0,
+        "timeliness": 0
+      },
+      "pubDate": "2026-05-24T01:34:54.000Z",
+      "keywords": [
+        "ShinyHunters",
+        "ransomware",
+        "data breach",
+        "Instructure"
+      ],
+      "relatedArticles": []
+    }
+  ]
+}

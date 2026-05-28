@@ -1,0 +1,41 @@
+{
+  "ShinyHunters 数据勒索": {
+    "first_seen": "2026-05-24",
+    "status": "ongoing",
+    "articles": [
+      {
+        "title": "Weekly Update 505",
+        "link": "https://troyhunt.com/6a1246387b7e1b000197e3bd",
+        "summary": "Well, that didn&apos;t last long! Recording this on Saturday morning my time, I observed ShinyHunters having gone quiet ",
+        "source": "troyhunt.com",
+        "pubDate": "2026-05-24T01:34:54.000Z"
+      }
+    ]
+  },
+  "Solvinity 收购禁令": {
+    "first_seen": "2026-05-28",
+    "status": "ongoing",
+    "articles": [
+      {
+        "title": "Het Solvinity besluit in detail, en de mogelijke gevolgen",
+        "link": "https://berthub.eu/articles/posts/het-solvinity-besluit-gevolgen/",
+        "summary": "Gisteren verscheen de brief waarmee de staatssecretaris van Economische Zaken en Klimaat liet weten dat ze de overname v",
+        "source": "berthub.eu",
+        "pubDate": "2026-05-27T08:00:00.000Z"
+      }
+    ]
+  },
+  "Hy3 LLM 登顶 OpenRouter 排名": {
+    "first_seen": "2026-05-28",
+    "status": "ongoing",
+    "articles": [
+      {
+        "title": "The mysterious Hy3 LLM is topping OpenRouter Model Rankings by a large margin",
+        "link": "https://minimaxir.com/2026/05/openrouter-hy3/",
+        "summary": "Why Hy3?",
+        "source": "minimaxir.com",
+        "pubDate": "2026-05-26T15:30:00.000Z"
+      }
+    ]
+  }
+}

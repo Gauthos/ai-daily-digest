@@ -1,0 +1,336 @@
+{
+  "date": "2026-05-01",
+  "hours": 48,
+  "topN": 15,
+  "lang": "zh",
+  "totalCandidates": 38,
+  "selected": [
+    {
+      "rank": 1,
+      "title": "Anti-DDoS Firm Heaped Attacks on Brazilian ISPs",
+      "titleZh": "巴西反DDoS公司卷入大规模DDoS攻击丑闻",
+      "link": "https://krebsonsecurity.com/?p=73488",
+      "source": "krebsonsecurity.com",
+      "sourceUrl": "https://krebsonsecurity.com",
+      "category": "security",
+      "score": 28,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 9,
+        "timeliness": 10
+      },
+      "pubDate": "2026-04-30T14:04:26.000Z",
+      "keywords": [
+        "DDoS",
+        "botnet",
+        "Brazil",
+        "cybersecurity"
+      ]
+    },
+    {
+      "rank": 2,
+      "title": "Pluralistic: How not to ban surveillance pricing (30 Apr 2026)",
+      "titleZh": "禁止监控定价的失败案例：马里兰州新法漏洞百出",
+      "link": "https://pluralistic.net/?p=12748",
+      "source": "pluralistic.net",
+      "sourceUrl": "https://pluralistic.net",
+      "category": "security",
+      "score": 28,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 9,
+        "timeliness": 10
+      },
+      "pubDate": "2026-04-30T14:38:35.000Z",
+      "keywords": [
+        "surveillance pricing",
+        "privacy",
+        "legislation",
+        "Maryland"
+      ]
+    },
+    {
+      "rank": 3,
+      "title": "Our evaluation of OpenAI's GPT-5.5 cyber capabilities",
+      "titleZh": "GPT-5.5网络安全能力评估：与Claude Mythos旗鼓相当",
+      "link": "https://simonwillison.net/2026/Apr/30/gpt-55-cyber-capabilities/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "security",
+      "score": 27,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 8,
+        "timeliness": 10
+      },
+      "pubDate": "2026-04-30T23:03:24.000Z",
+      "keywords": [
+        "GPT-5.5",
+        "cyber capabilities",
+        "security evaluation",
+        "AI safety"
+      ]
+    },
+    {
+      "rank": 4,
+      "title": "NHS Goes To War Against Open Source",
+      "titleZh": "NHS 向开源宣战",
+      "link": "https://shkspr.mobi/blog/?p=70760",
+      "source": "shkspr.mobi",
+      "sourceUrl": "https://shkspr.mobi",
+      "category": "engineering",
+      "score": 26,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 8,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-01T11:44:04.000Z",
+      "keywords": [
+        "open source",
+        "NHS",
+        "GitHub",
+        "government"
+      ]
+    },
+    {
+      "rank": 5,
+      "title": "The Talk Show: ‘Food and Beverage Director’",
+      "titleZh": "The Talk Show：《餐饮总监》",
+      "link": "https://daringfireball.net/thetalkshow/2026/04/30/ep-446",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "opinion",
+      "score": 24,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-01T02:58:44.000Z",
+      "keywords": [
+        "Apple",
+        "leadership",
+        "Tim Cook"
+      ]
+    },
+    {
+      "rank": 6,
+      "title": "★ On the Future of Apple’s Vision Platform",
+      "titleZh": "苹果 Vision 平台未来展望",
+      "link": "https://daringfireball.net/2026/04/on_the_future_of_apples_vision_platform",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "opinion",
+      "score": 24,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 8,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-01T00:11:15.000Z",
+      "keywords": [
+        "Vision Pro",
+        "Apple",
+        "AR",
+        "VR"
+      ]
+    },
+    {
+      "rank": 7,
+      "title": "“A model that produces code which compiles and passes the tests it was given is not the same as a model that produces correct, secure, maintainable, well-architected software”",
+      "titleZh": "通过编译和测试不等于高质量软件：AI代码生成的局限",
+      "link": "https://garymarcus.substack.com/p/a-model-that-produces-code-which",
+      "source": "garymarcus.substack.com",
+      "sourceUrl": "https://garymarcus.substack.com",
+      "category": "opinion",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-01T20:04:02.000Z",
+      "keywords": [
+        "AI",
+        "code generation",
+        "software quality",
+        "LLM"
+      ]
+    },
+    {
+      "rank": 8,
+      "title": "Codex CLI 0.128.0 adds /goal",
+      "titleZh": "Codex CLI 0.128.0 新增 /goal 命令",
+      "link": "https://simonwillison.net/2026/Apr/30/codex-goals/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "ai-ml",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 6,
+        "timeliness": 9
+      },
+      "pubDate": "2026-04-30T23:23:17.000Z",
+      "keywords": [
+        "Codex CLI",
+        "/goal",
+        "OpenAI",
+        "coding agent"
+      ]
+    },
+    {
+      "rank": 9,
+      "title": "The greatest capital misallocation in history?",
+      "titleZh": "史上最大的资本错配？",
+      "link": "https://garymarcus.substack.com/p/the-greatest-capital-misallocation",
+      "source": "garymarcus.substack.com",
+      "sourceUrl": "https://garymarcus.substack.com",
+      "category": "opinion",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-04-30T20:37:42.000Z",
+      "keywords": [
+        "AI",
+        "investment",
+        "capital misallocation"
+      ]
+    },
+    {
+      "rank": 10,
+      "title": "iNaturalist Sightings",
+      "titleZh": "iNaturalist观察记录聚合工具",
+      "link": "https://simonwillison.net/2026/May/1/inat-sightings/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "tools",
+      "score": 21,
+      "scoreBreakdown": {
+        "relevance": 6,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-01T19:35:41.000Z",
+      "keywords": [
+        "Claude Code",
+        "Python CLI",
+        "iNaturalist",
+        "AI-assisted coding"
+      ]
+    },
+    {
+      "rank": 11,
+      "title": "Quoting Andrew Kelley",
+      "titleZh": "Andrew Kelley谈识别LLM辅助代码的“数字气味”",
+      "link": "https://simonwillison.net/2026/Apr/30/andrew-kelley/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "opinion",
+      "score": 20,
+      "scoreBreakdown": {
+        "relevance": 6,
+        "quality": 7,
+        "timeliness": 7
+      },
+      "pubDate": "2026-04-30T21:24:55.000Z",
+      "keywords": [
+        "LLM",
+        "Andrew Kelley",
+        "code review",
+        "hallucinations"
+      ]
+    },
+    {
+      "rank": 12,
+      "title": "SBC Clusters are a terrible value, but they're fun anyway",
+      "titleZh": "SBC集群性价比极低，但乐在其中",
+      "link": "https://www.jeffgeerling.com/blog/2026/deskpi-super4c-sbc-cluster/",
+      "source": "jeffgeerling.com",
+      "sourceUrl": "https://jeffgeerling.com",
+      "category": "engineering",
+      "score": 20,
+      "scoreBreakdown": {
+        "relevance": 4,
+        "quality": 8,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-01T14:00:00.000Z",
+      "keywords": [
+        "Raspberry Pi",
+        "SBC cluster",
+        "DeskPi Super4C",
+        "CM5"
+      ]
+    },
+    {
+      "rank": 13,
+      "title": "Meta Solved Their Problem With Kenyan Contractors Seeing Footage of AI Glasses Wearers on the Toilet",
+      "titleZh": "Meta解决了肯尼亚承包商窥视AI眼镜用户如厕画面的问题",
+      "link": "https://www.bbc.com/news/articles/c5y7yvgy0w6o",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "security",
+      "score": 20,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 6
+      },
+      "pubDate": "2026-05-01T21:00:36.000Z",
+      "keywords": [
+        "Meta",
+        "smart glasses",
+        "privacy",
+        "AI"
+      ]
+    },
+    {
+      "rank": 14,
+      "title": "Apple Q2 2026 Results",
+      "titleZh": "苹果2026年第二季度财报：营收1112亿美元，iPhone 17需求强劲",
+      "link": "https://www.apple.com/newsroom/2026/04/apple-reports-second-quarter-results/",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "other",
+      "score": 20,
+      "scoreBreakdown": {
+        "relevance": 6,
+        "quality": 5,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-01T00:41:20.000Z",
+      "keywords": [
+        "Apple",
+        "earnings",
+        "Q2 2026",
+        "iPhone"
+      ]
+    },
+    {
+      "rank": 15,
+      "title": "Editing my LLM assisted Articles",
+      "titleZh": "编辑我用大语言模型辅助撰写的文章",
+      "link": "https://idiallo.com/byte-size/editing-llm-assisted-articles?src=feed",
+      "source": "idiallo.com",
+      "sourceUrl": "https://idiallo.com",
+      "category": "ai-ml",
+      "score": 20,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 6,
+        "timeliness": 6
+      },
+      "pubDate": "2026-05-02T03:00:23.000Z",
+      "keywords": [
+        "LLM",
+        "AI writing",
+        "editing"
+      ]
+    }
+  ]
+}
