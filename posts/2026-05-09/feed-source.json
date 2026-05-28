@@ -1,0 +1,339 @@
+{
+  "date": "2026-05-09",
+  "hours": 48,
+  "topN": 15,
+  "lang": "zh",
+  "totalCandidates": 24,
+  "selected": [
+    {
+      "rank": 1,
+      "title": "Using Claude Code: The Unreasonable Effectiveness of HTML",
+      "titleZh": "使用Claude Code：HTML的惊人有效性",
+      "link": "https://simonwillison.net/2026/May/8/unreasonable-effectiveness-of-html/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "ai-ml",
+      "score": 25,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 8,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-08T21:00:11.000Z",
+      "keywords": [
+        "Claude",
+        "HTML",
+        "Markdown",
+        "AI"
+      ]
+    },
+    {
+      "rank": 2,
+      "title": "AI makes weak engineers less harmful",
+      "titleZh": "AI让弱工程师不再那么有害",
+      "link": "https://seangoedecke.com/ai-makes-weak-engineers-less-harmful/",
+      "source": "seangoedecke.com",
+      "sourceUrl": "https://seangoedecke.com",
+      "category": "opinion",
+      "score": 25,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 8,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-09T00:00:00.000Z",
+      "keywords": [
+        "AI",
+        "software engineering",
+        "productivity",
+        "team dynamics"
+      ]
+    },
+    {
+      "rank": 3,
+      "title": "Agents and ROI",
+      "titleZh": "AI代理与投资回报率",
+      "link": "https://garymarcus.substack.com/p/agents-and-roi",
+      "source": "garymarcus.substack.com",
+      "sourceUrl": "https://garymarcus.substack.com",
+      "category": "opinion",
+      "score": 25,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 8,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-08T14:58:32.000Z",
+      "keywords": [
+        "AI agents",
+        "ROI",
+        "generative AI",
+        "MIT study"
+      ]
+    },
+    {
+      "rank": 4,
+      "title": "Premium: AI's Circular Psychosis",
+      "titleZh": "AI的循环癫狂",
+      "link": "https://wheresyoured.at/69fdea5bede6c40001e1af38",
+      "source": "wheresyoured.at",
+      "sourceUrl": "https://wheresyoured.at",
+      "category": "ai-ml",
+      "score": 25,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 7,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-08T14:40:45.000Z",
+      "keywords": [
+        "AI economy",
+        "Anthropic",
+        "cloud costs",
+        "circular funding"
+      ]
+    },
+    {
+      "rank": 5,
+      "title": "Weekend at Bernie’s",
+      "titleZh": "《伯尼的周末》：你的哪些依赖项在装活？",
+      "link": "https://nesbitt.io/2026/05/08/weekend-at-bernies.html",
+      "source": "nesbitt.io",
+      "sourceUrl": "https://nesbitt.io",
+      "category": "security",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-08T10:00:00.000Z",
+      "keywords": [
+        "dependencies",
+        "supply chain",
+        "security",
+        "maintenance"
+      ]
+    },
+    {
+      "rank": 6,
+      "title": "The Mismeasure of Open Source",
+      "titleZh": "开源健康评分的误区：街灯效应",
+      "link": "https://nesbitt.io/2026/05/09/the-mismeasure-of-open-source.html",
+      "source": "nesbitt.io",
+      "sourceUrl": "https://nesbitt.io",
+      "category": "engineering",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-09T10:00:00.000Z",
+      "keywords": [
+        "open source",
+        "project health",
+        "metrics",
+        "streetlight effect"
+      ]
+    },
+    {
+      "rank": 7,
+      "title": "Pluralistic: Trump's fruitless search for a goreable ox (09 May 2026)",
+      "titleZh": "特朗普徒劳寻找‘替罪牛’",
+      "link": "https://pluralistic.net/?p=12791",
+      "source": "pluralistic.net",
+      "sourceUrl": "https://pluralistic.net",
+      "category": "other",
+      "score": 18,
+      "scoreBreakdown": {
+        "relevance": 1,
+        "quality": 8,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-09T12:51:02.000Z",
+      "keywords": [
+        "politics",
+        "Trump",
+        "economy",
+        "policy"
+      ]
+    },
+    {
+      "rank": 8,
+      "title": "Developing more confidence when tracking renames via Read­Directory­ChangesW",
+      "titleZh": "使用 ReadDirectoryChangesW 跟踪重命名时如何更可靠",
+      "link": "https://devblogs.microsoft.com/oldnewthing/?p=112310",
+      "source": "devblogs.microsoft.com/oldnewthing",
+      "sourceUrl": "https://devblogs.microsoft.com/oldnewthing",
+      "category": "engineering",
+      "score": 18,
+      "scoreBreakdown": {
+        "relevance": 6,
+        "quality": 6,
+        "timeliness": 6
+      },
+      "pubDate": "2026-05-08T14:00:00.000Z",
+      "keywords": [
+        "Windows",
+        "API",
+        "filesystem",
+        "rename"
+      ]
+    },
+    {
+      "rank": 9,
+      "title": "extremely low frequencies",
+      "titleZh": "极低频",
+      "link": "https://computer.rip/2026-05-09-extremely-low-frequencies.html",
+      "source": "computer.rip",
+      "sourceUrl": "https://computer.rip",
+      "category": "engineering",
+      "score": 18,
+      "scoreBreakdown": {
+        "relevance": 6,
+        "quality": 7,
+        "timeliness": 5
+      },
+      "pubDate": "2026-05-09T00:00:00.000Z",
+      "keywords": [
+        "submarine",
+        "ELF",
+        "communication",
+        "radio"
+      ]
+    },
+    {
+      "rank": 10,
+      "title": "I Will Not Add Query Strings to Your URLs",
+      "titleZh": "我不会在你的URL中添加查询字符串",
+      "link": "https://susam.net/no-query-strings.html",
+      "source": "susam.net",
+      "sourceUrl": "https://susam.net",
+      "category": "engineering",
+      "score": 17,
+      "scoreBreakdown": {
+        "relevance": 6,
+        "quality": 6,
+        "timeliness": 5
+      },
+      "pubDate": "2026-05-09T00:00:00.000Z",
+      "keywords": [
+        "URL design",
+        "query strings",
+        "web development",
+        "REST"
+      ]
+    },
+    {
+      "rank": 11,
+      "title": "Pluralistic: Lee Lai's \"Cannon\" (08 May 2026)",
+      "titleZh": "Pluralistic: Lee Lai的《Cannon》",
+      "link": "https://pluralistic.net/?p=12787",
+      "source": "pluralistic.net",
+      "sourceUrl": "https://pluralistic.net",
+      "category": "other",
+      "score": 16,
+      "scoreBreakdown": {
+        "relevance": 1,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-08T12:19:36.000Z",
+      "keywords": [
+        "comic",
+        "review",
+        "Lee Lai",
+        "Cannon"
+      ]
+    },
+    {
+      "rank": 12,
+      "title": "Calculating curvature",
+      "titleZh": "计算曲率",
+      "link": "https://www.johndcook.com/blog/?p=247012",
+      "source": "johndcook.com",
+      "sourceUrl": "https://johndcook.com",
+      "category": "other",
+      "score": 16,
+      "scoreBreakdown": {
+        "relevance": 4,
+        "quality": 7,
+        "timeliness": 5
+      },
+      "pubDate": "2026-05-08T13:54:18.000Z",
+      "keywords": [
+        "curvature",
+        "level set",
+        "geometry",
+        "mathematics"
+      ]
+    },
+    {
+      "rank": 13,
+      "title": "Quoting Luke Curley",
+      "titleZh": "引用 Luke Curley",
+      "link": "https://simonwillison.net/2026/May/9/luke-curley/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "engineering",
+      "score": 15,
+      "scoreBreakdown": {
+        "relevance": 6,
+        "quality": 4,
+        "timeliness": 5
+      },
+      "pubDate": "2026-05-09T01:03:58.000Z",
+      "keywords": [
+        "WebRTC",
+        "latency",
+        "audio",
+        "packet loss"
+      ]
+    },
+    {
+      "rank": 14,
+      "title": "Using a Python 3 LSP server with Python 2 code works (more or less)",
+      "titleZh": "使用 Python 3 LSP 服务器处理 Python 2 代码基本可行",
+      "link": "https://utcc.utoronto.ca/~cks/space/blog/python/Python2WithPython3LSP",
+      "source": "utcc.utoronto.ca/~cks",
+      "sourceUrl": "https://utcc.utoronto.ca/~cks",
+      "category": "engineering",
+      "score": 15,
+      "scoreBreakdown": {
+        "relevance": 5,
+        "quality": 6,
+        "timeliness": 4
+      },
+      "pubDate": "2026-05-09T21:57:35.000Z",
+      "keywords": [
+        "Python",
+        "LSP",
+        "Emacs",
+        "legacy"
+      ]
+    },
+    {
+      "rank": 15,
+      "title": "The Real Singularity is the Friends We Made Along the Way",
+      "titleZh": "真正的奇点是我们沿途结交的朋友",
+      "link": "https://geohot.github.io//blog/jekyll/update/2026/05/09/real-singularity.html",
+      "source": "geohot.github.io",
+      "sourceUrl": "https://geohot.github.io",
+      "category": "opinion",
+      "score": 15,
+      "scoreBreakdown": {
+        "relevance": 5,
+        "quality": 5,
+        "timeliness": 5
+      },
+      "pubDate": "2026-05-09T07:00:00.000Z",
+      "keywords": [
+        "singularity",
+        "AI",
+        "humor",
+        "graph"
+      ]
+    }
+  ]
+}

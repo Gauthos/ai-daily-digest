@@ -1,0 +1,328 @@
+{
+  "date": "2026-05-02",
+  "hours": 48,
+  "topN": 15,
+  "lang": "zh",
+  "totalCandidates": 24,
+  "selected": [
+    {
+      "rank": 1,
+      "title": "“A model that produces code which compiles and passes the tests it was given is not the same as a model that produces correct, secure, maintainable, well-architected software”",
+      "titleZh": "能编译并通过测试的代码模型，不等于能产出正确、安全、可维护、架构良好的软件",
+      "link": "https://garymarcus.substack.com/p/a-model-that-produces-code-which",
+      "source": "garymarcus.substack.com",
+      "sourceUrl": "https://garymarcus.substack.com",
+      "category": "ai-ml",
+      "score": 26,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 8,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-01T20:04:02.000Z",
+      "keywords": [
+        "code generation",
+        "LLM",
+        "software quality"
+      ]
+    },
+    {
+      "rank": 2,
+      "title": "NHS Goes To War Against Open Source",
+      "titleZh": "英国国家医疗服务体系向开源宣战",
+      "link": "https://shkspr.mobi/blog/?p=70760",
+      "source": "shkspr.mobi",
+      "sourceUrl": "https://shkspr.mobi",
+      "category": "opinion",
+      "score": 24,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-01T11:44:04.000Z",
+      "keywords": [
+        "NHS",
+        "open source",
+        "government"
+      ]
+    },
+    {
+      "rank": 3,
+      "title": "Why I don't like the \"staff engineer archetypes\"",
+      "titleZh": "为什么我不喜欢“资深工程师原型分类”",
+      "link": "https://seangoedecke.com/staff-engineer-archetypes/",
+      "source": "seangoedecke.com",
+      "sourceUrl": "https://seangoedecke.com",
+      "category": "opinion",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 8,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-03T00:00:00.000Z",
+      "keywords": [
+        "staff engineer",
+        "archetypes",
+        "career"
+      ]
+    },
+    {
+      "rank": 4,
+      "title": "Developing a cross-process reader/writer lock with limited readers, part 4: Abandonment",
+      "titleZh": "开发跨进程限制读者数的读写锁，第4部分：放弃处理",
+      "link": "https://devblogs.microsoft.com/oldnewthing/?p=112291",
+      "source": "devblogs.microsoft.com/oldnewthing",
+      "sourceUrl": "https://devblogs.microsoft.com/oldnewthing",
+      "category": "engineering",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 8,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-01T14:00:00.000Z",
+      "keywords": [
+        "reader-writer lock",
+        "concurrency",
+        "Windows"
+      ]
+    },
+    {
+      "rank": 5,
+      "title": "callgraph analysis",
+      "titleZh": "调用图分析：为乐趣和收益编写自定义Rust lint",
+      "link": "https://jyn.dev/callgraph-analysis/",
+      "source": "jyn.dev",
+      "sourceUrl": "https://jyn.dev",
+      "category": "engineering",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 8,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-03T00:00:00.000Z",
+      "keywords": [
+        "Rust",
+        "lints",
+        "callgraph",
+        "compiler"
+      ]
+    },
+    {
+      "rank": 6,
+      "title": "Richard Dawkins and The Claude Delusion",
+      "titleZh": "理查德·道金斯与克劳德错觉",
+      "link": "https://garymarcus.substack.com/p/richard-dawkins-and-the-claude-delusion",
+      "source": "garymarcus.substack.com",
+      "sourceUrl": "https://garymarcus.substack.com",
+      "category": "ai-ml",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-02T16:19:23.000Z",
+      "keywords": [
+        "AI",
+        "skepticism",
+        "Claude"
+      ]
+    },
+    {
+      "rank": 7,
+      "title": "Editing my LLM assisted Articles",
+      "titleZh": "重写AI辅助撰写的文章",
+      "link": "https://idiallo.com/byte-size/editing-llm-assisted-articles?src=feed",
+      "source": "idiallo.com",
+      "sourceUrl": "https://idiallo.com",
+      "category": "ai-ml",
+      "score": 21,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-02T03:00:23.000Z",
+      "keywords": [
+        "LLM",
+        "writing",
+        "editing",
+        "AI-assisted"
+      ]
+    },
+    {
+      "rank": 8,
+      "title": "iNaturalist Sightings",
+      "titleZh": "iNaturalist观测记录聚类工具",
+      "link": "https://simonwillison.net/2026/May/1/inat-sightings/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "tools",
+      "score": 20,
+      "scoreBreakdown": {
+        "relevance": 6,
+        "quality": 7,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-01T19:35:41.000Z",
+      "keywords": [
+        "iNaturalist",
+        "CLI",
+        "ClaudeCode",
+        "Python"
+      ]
+    },
+    {
+      "rank": 9,
+      "title": "SBC Clusters are a terrible value, but they're fun anyway",
+      "titleZh": "SBC集群：性价比极低，但乐趣无穷",
+      "link": "https://www.jeffgeerling.com/blog/2026/deskpi-super4c-sbc-cluster/",
+      "source": "jeffgeerling.com",
+      "sourceUrl": "https://jeffgeerling.com",
+      "category": "engineering",
+      "score": 20,
+      "scoreBreakdown": {
+        "relevance": 6,
+        "quality": 7,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-01T14:00:00.000Z",
+      "keywords": [
+        "Raspberry Pi",
+        "cluster",
+        "SBC"
+      ]
+    },
+    {
+      "rank": 10,
+      "title": "Meta Solved Their Problem With Kenyan Contractors Seeing Footage of AI Glasses Wearers on the Toilet",
+      "titleZh": "Meta如何“解决”肯尼亚承包商观看AI眼镜佩戴者如厕视频的问题",
+      "link": "https://www.bbc.com/news/articles/c5y7yvgy0w6o",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "security",
+      "score": 20,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 6
+      },
+      "pubDate": "2026-05-01T21:00:36.000Z",
+      "keywords": [
+        "Meta",
+        "privacy",
+        "data labeling",
+        "smart glasses"
+      ]
+    },
+    {
+      "rank": 11,
+      "title": "How backups work depends on the goals of the people setting them up",
+      "titleZh": "备份如何工作，取决于设置者的目标",
+      "link": "https://utcc.utoronto.ca/~cks/space/blog/sysadmin/BackupsDependOnGoals",
+      "source": "utcc.utoronto.ca/~cks",
+      "sourceUrl": "https://utcc.utoronto.ca/~cks",
+      "category": "engineering",
+      "score": 20,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 6
+      },
+      "pubDate": "2026-05-02T20:12:58.000Z",
+      "keywords": [
+        "backup",
+        "database",
+        "recovery"
+      ]
+    },
+    {
+      "rank": 12,
+      "title": "A GitHub for maintainers",
+      "titleZh": "维护者的GitHub：让依赖获得与分支同等的待遇",
+      "link": "https://nesbitt.io/2026/05/02/a-github-for-maintainers.html",
+      "source": "nesbitt.io",
+      "sourceUrl": "https://nesbitt.io",
+      "category": "tools",
+      "score": 20,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 6,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-02T10:00:00.000Z",
+      "keywords": [
+        "dependencies",
+        "maintainers",
+        "GitHub"
+      ]
+    },
+    {
+      "rank": 13,
+      "title": "Patching and forking in package managers",
+      "titleZh": "包管理器中的补丁与复刻：当上游无响应时怎么办",
+      "link": "https://nesbitt.io/2026/05/01/patching-and-forking-in-package-managers.html",
+      "source": "nesbitt.io",
+      "sourceUrl": "https://nesbitt.io",
+      "category": "tools",
+      "score": 20,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 6,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-01T10:00:00.000Z",
+      "keywords": [
+        "patching",
+        "forking",
+        "package manager"
+      ]
+    },
+    {
+      "rank": 14,
+      "title": "Some of our servers revived themselves unexpectedly",
+      "titleZh": "服务器意外自行重启",
+      "link": "https://utcc.utoronto.ca/~cks/space/blog/sysadmin/ServersSurpriseRevival",
+      "source": "utcc.utoronto.ca/~cks",
+      "sourceUrl": "https://utcc.utoronto.ca/~cks",
+      "category": "engineering",
+      "score": 19,
+      "scoreBreakdown": {
+        "relevance": 6,
+        "quality": 6,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-02T03:54:16.000Z",
+      "keywords": [
+        "server",
+        "reboot",
+        "power outage"
+      ]
+    },
+    {
+      "rank": 15,
+      "title": "Disable Auto-Update",
+      "titleZh": "禁用自动更新",
+      "link": "https://idiallo.com/blog/disable-auto-update?src=feed",
+      "source": "idiallo.com",
+      "sourceUrl": "https://idiallo.com",
+      "category": "tools",
+      "score": 17,
+      "scoreBreakdown": {
+        "relevance": 5,
+        "quality": 6,
+        "timeliness": 6
+      },
+      "pubDate": "2026-05-01T23:30:00.000Z",
+      "keywords": [
+        "auto-update",
+        "mobile app",
+        "offline"
+      ]
+    }
+  ]
+}

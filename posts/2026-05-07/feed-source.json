@@ -1,0 +1,339 @@
+{
+  "date": "2026-05-07",
+  "hours": 48,
+  "topN": 15,
+  "lang": "zh",
+  "totalCandidates": 44,
+  "selected": [
+    {
+      "rank": 1,
+      "title": "Why hasn't longer-horizon training slowed AI progress?",
+      "titleZh": "更长周期的训练为何未拖慢AI步伐？",
+      "link": "https://seangoedecke.com/why-hasnt-longer-horizon-training-slowed-ai-progress/",
+      "source": "seangoedecke.com",
+      "sourceUrl": "https://seangoedecke.com",
+      "category": "ai-ml",
+      "score": 27,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 9,
+        "timeliness": 10
+      },
+      "pubDate": "2026-05-07T00:00:00.000Z",
+      "keywords": [
+        "AI",
+        "training",
+        "scaling",
+        "progress"
+      ]
+    },
+    {
+      "rank": 2,
+      "title": "Behind the Scenes Hardening Firefox with Claude Mythos Preview",
+      "titleZh": "幕后揭秘：用Claude Mythos预览版强化Firefox安全",
+      "link": "https://simonwillison.net/2026/May/7/firefox-claude-mythos/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "security",
+      "score": 26,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 9,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-07T17:56:25.000Z",
+      "keywords": [
+        "Firefox",
+        "vulnerability",
+        "Claude",
+        "AI"
+      ]
+    },
+    {
+      "rank": 3,
+      "title": "Asimov's three laws are merely a suggestion",
+      "titleZh": "阿西莫夫三定律不过是一纸空文",
+      "link": "https://idiallo.com/blog/asimov-three-laws-dont-work-with-ai?src=feed",
+      "source": "idiallo.com",
+      "sourceUrl": "https://idiallo.com",
+      "category": "ai-ml",
+      "score": 26,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 8,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-06T12:00:00.000Z",
+      "keywords": [
+        "Asimov",
+        "robotics",
+        "AI safety",
+        "ethics"
+      ]
+    },
+    {
+      "rank": 4,
+      "title": "The war between fast and legitimate is here",
+      "titleZh": "快速迭代与合规监管的战争已经到来",
+      "link": "https://joanwestenberg.com/69fbe42dccfa0c0001fd80f3",
+      "source": "joanwestenberg.com",
+      "sourceUrl": "https://joanwestenberg.com",
+      "category": "ai-ml",
+      "score": 26,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 7,
+        "timeliness": 10
+      },
+      "pubDate": "2026-05-07T01:18:04.000Z",
+      "keywords": [
+        "AI regulation",
+        "EU AI Act",
+        "OpenAI",
+        "technology governance"
+      ]
+    },
+    {
+      "rank": 5,
+      "title": "SQLAlchemy 2 In Practice - Chapter 7: Asynchronous SQLAlchemy",
+      "titleZh": "SQLAlchemy 2实战 — 第七章：异步SQLAlchemy",
+      "link": "https://blog.miguelgrinberg.com/post/sqlalchemy-2-in-practice---chapter-7-asynchronous-sqlalchemy",
+      "source": "miguelgrinberg.com",
+      "sourceUrl": "https://miguelgrinberg.com",
+      "category": "engineering",
+      "score": 26,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 9,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-06T21:49:20.000Z",
+      "keywords": [
+        "SQLAlchemy",
+        "asyncio",
+        "async",
+        "Python"
+      ]
+    },
+    {
+      "rank": 6,
+      "title": "Vibe coding and agentic engineering are getting closer than I'd like",
+      "titleZh": "随感编码与代理式工程的趋同令人不安",
+      "link": "https://simonwillison.net/2026/May/6/vibe-coding-and-agentic-engineering/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "opinion",
+      "score": 25,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 8,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-06T14:24:08.000Z",
+      "keywords": [
+        "vibe-coding",
+        "agentic-engineering",
+        "AI",
+        "coding"
+      ]
+    },
+    {
+      "rank": 7,
+      "title": "Canvas Breach Disrupts Schools & Colleges Nationwide",
+      "titleZh": "Canvas数据泄露波及全美学校和大学",
+      "link": "https://krebsonsecurity.com/?p=73563",
+      "source": "krebsonsecurity.com",
+      "sourceUrl": "https://krebsonsecurity.com",
+      "category": "security",
+      "score": 25,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 10
+      },
+      "pubDate": "2026-05-08T02:58:46.000Z",
+      "keywords": [
+        "Canvas",
+        "breach",
+        "ransomware",
+        "education"
+      ]
+    },
+    {
+      "rank": 8,
+      "title": "Pluralistic: Bubbles are REALLY evil (07 May 2026)",
+      "titleZh": "泡沫的危害不容小觑",
+      "link": "https://pluralistic.net/?p=12778",
+      "source": "pluralistic.net",
+      "sourceUrl": "https://pluralistic.net",
+      "category": "security",
+      "score": 25,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 8,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-07T08:08:49.000Z",
+      "keywords": [
+        "wiretapping",
+        "privacy",
+        "security",
+        "Mozilla"
+      ]
+    },
+    {
+      "rank": 9,
+      "title": "Maybe you shouldn't install new software for a bit",
+      "titleZh": "近期暂缓安装新软件为宜",
+      "link": "https://xeiaso.net/blog/2026/abstain-from-install/",
+      "source": "xeiaso.net",
+      "sourceUrl": "https://xeiaso.net",
+      "category": "security",
+      "score": 25,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 6,
+        "timeliness": 10
+      },
+      "pubDate": "2026-05-07T00:00:00.000Z",
+      "keywords": [
+        "Linux kernel",
+        "vulnerability",
+        "security advisory",
+        "CVE"
+      ]
+    },
+    {
+      "rank": 10,
+      "title": "Pluralistic: In praise of vultures (06 May 2026)",
+      "titleZh": "赞美秃鹫",
+      "link": "https://pluralistic.net/?p=12774",
+      "source": "pluralistic.net",
+      "sourceUrl": "https://pluralistic.net",
+      "category": "security",
+      "score": 24,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 8,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-06T10:15:36.000Z",
+      "keywords": [
+        "spyware",
+        "Linux",
+        "Microsoft",
+        "privacy"
+      ]
+    },
+    {
+      "rank": 11,
+      "title": "New Logic for Programmers (and the future of this newsletter)",
+      "titleZh": "面向程序员的新逻辑（及本通讯的未来）",
+      "link": "https://buttondown.com/hillelwayne/archive/new-logic-for-programmers-and-the-future-of-this/",
+      "source": "buttondown.com/hillelwayne",
+      "sourceUrl": "https://buttondown.com/hillelwayne",
+      "category": "engineering",
+      "score": 24,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 8,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-06T17:03:46.000Z",
+      "keywords": [
+        "logic",
+        "programming",
+        "book",
+        "formal methods"
+      ]
+    },
+    {
+      "rank": 12,
+      "title": "Live blog: Code w/ Claude 2026",
+      "titleZh": "直播博客：Code w/ Claude 2026",
+      "link": "https://simonwillison.net/2026/May/6/code-w-claude-2026/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "ai-ml",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 6,
+        "timeliness": 10
+      },
+      "pubDate": "2026-05-06T15:58:27.000Z",
+      "keywords": [
+        "Anthropic",
+        "Claude",
+        "coding",
+        "live-blog"
+      ]
+    },
+    {
+      "rank": 13,
+      "title": "Claris CEO Ryan McCann on FileMaker in the Age of Agentic Coding",
+      "titleZh": "Claris CEO Ryan McCann：代理编码时代的 FileMaker 定位",
+      "link": "https://www.claris.com/blog/2026/how-claris-is-building-for-what-comes-next",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "ai-ml",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-06T19:41:36.000Z",
+      "keywords": [
+        "FileMaker",
+        "agentic coding",
+        "AI",
+        "low-code"
+      ]
+    },
+    {
+      "rank": 14,
+      "title": "Detecting (or not) the use of -l and -c together in Bourne shells",
+      "titleZh": "Bourne Shell 中 -l 与 -c 选项共用的检测困局",
+      "link": "https://utcc.utoronto.ca/~cks/space/blog/unix/BourneShellLoginWithCommand",
+      "source": "utcc.utoronto.ca/~cks",
+      "sourceUrl": "https://utcc.utoronto.ca/~cks",
+      "category": "engineering",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 9,
+        "timeliness": 5
+      },
+      "pubDate": "2026-05-08T03:31:17.000Z",
+      "keywords": [
+        "Unix",
+        "shell",
+        "POSIX",
+        "Bourne shell"
+      ]
+    },
+    {
+      "rank": 15,
+      "title": "Your Linux distribution may no longer auto-generate new SSH host keys",
+      "titleZh": "为何你的 Linux 发行版不再自动生成 SSH 主机密钥？",
+      "link": "https://utcc.utoronto.ca/~cks/space/blog/linux/SSHHostKeysAndAutogeneration",
+      "source": "utcc.utoronto.ca/~cks",
+      "sourceUrl": "https://utcc.utoronto.ca/~cks",
+      "category": "security",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-07T03:03:13.000Z",
+      "keywords": [
+        "SSH",
+        "host keys",
+        "Linux",
+        "auto-generation"
+      ]
+    }
+  ]
+}

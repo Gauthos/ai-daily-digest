@@ -1,0 +1,337 @@
+{
+  "date": "2026-05-06",
+  "hours": 48,
+  "topN": 15,
+  "lang": "zh",
+  "totalCandidates": 41,
+  "selected": [
+    {
+      "rank": 1,
+      "title": "Weekly Update 502",
+      "titleZh": "每周更新 502",
+      "link": "https://troyhunt.com/69fa5f94bda44800012006b5",
+      "source": "troyhunt.com",
+      "sourceUrl": "https://troyhunt.com",
+      "category": "security",
+      "score": 26,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 8,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-06T00:14:13.000Z",
+      "keywords": [
+        "data-breach",
+        "ShinyHunters",
+        "cybersecurity",
+        "hacking"
+      ]
+    },
+    {
+      "rank": 2,
+      "title": "Open weights are quietly closing up - and that's a problem",
+      "titleZh": "开放权重模型正在悄然关上大门——这是一个问题",
+      "link": "https://martinalderson.com/posts/open-weights-are-quietly-closing-up/",
+      "source": "martinalderson.com",
+      "sourceUrl": "https://martinalderson.com",
+      "category": "ai-ml",
+      "score": 25,
+      "scoreBreakdown": {
+        "relevance": 9,
+        "quality": 8,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-06T00:00:00.000Z",
+      "keywords": [
+        "open-weights",
+        "AI-models",
+        "oligopoly",
+        "price"
+      ]
+    },
+    {
+      "rank": 3,
+      "title": "Live blog: Code w/ Claude 2026",
+      "titleZh": "现场博客：Code w/ Claude 2026",
+      "link": "https://simonwillison.net/2026/May/6/code-w-claude-2026/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "ai-ml",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 6,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-06T15:58:27.000Z",
+      "keywords": [
+        "Claude",
+        "Anthropic",
+        "live-blog",
+        "LLM"
+      ]
+    },
+    {
+      "rank": 4,
+      "title": "Pluralistic: Bubbles are REALLY evil (07 May 2026)",
+      "titleZh": "泡沫真的非常邪恶",
+      "link": "https://pluralistic.net/?p=12778",
+      "source": "pluralistic.net",
+      "sourceUrl": "https://pluralistic.net",
+      "category": "opinion",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-07T08:08:49.000Z",
+      "keywords": [
+        "wiretapping",
+        "privacy",
+        "tech policy",
+        "Cory Doctorow"
+      ]
+    },
+    {
+      "rank": 5,
+      "title": "Pluralistic: In praise of vultures (06 May 2026)",
+      "titleZh": "赞美秃鹫",
+      "link": "https://pluralistic.net/?p=12774",
+      "source": "pluralistic.net",
+      "sourceUrl": "https://pluralistic.net",
+      "category": "opinion",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 9
+      },
+      "pubDate": "2026-05-06T10:15:36.000Z",
+      "keywords": [
+        "vulture capitalism",
+        "Microsoft",
+        "spyware",
+        "tech policy"
+      ]
+    },
+    {
+      "rank": 6,
+      "title": "What to Ask Every AI PenTest Vendor Before You Buy",
+      "titleZh": "购买AI渗透测试工具前，必须问供应商的8个问题",
+      "link": "https://xint.io/blog/what-to-ask-ai-pentest-vendor",
+      "source": "xint.io",
+      "sourceUrl": "https://xint.io",
+      "category": "security",
+      "score": 23,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-06T18:52:00.000Z",
+      "keywords": [
+        "AI",
+        "pentest",
+        "vendor",
+        "evaluation"
+      ]
+    },
+    {
+      "rank": 7,
+      "title": "Vibe coding and agentic engineering are getting closer than I'd like",
+      "titleZh": "氛围编程与智能体工程正以我不愿看到的方式趋近",
+      "link": "https://simonwillison.net/2026/May/6/vibe-coding-and-agentic-engineering/#atom-everything",
+      "source": "simonwillison.net",
+      "sourceUrl": "https://simonwillison.net",
+      "category": "opinion",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-06T14:24:08.000Z",
+      "keywords": [
+        "vibe coding",
+        "agentic engineering",
+        "AI coding"
+      ]
+    },
+    {
+      "rank": 8,
+      "title": "★ Software as the Product of Obsession Times Voice",
+      "titleZh": "软件即痴迷乘以声音的产物",
+      "link": "https://daringfireball.net/2026/05/software_as_the_product_of_obsession_times_voice",
+      "source": "daringfireball.net",
+      "sourceUrl": "https://daringfireball.net",
+      "category": "opinion",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-05T21:01:05.000Z",
+      "keywords": [
+        "software design",
+        "craftsmanship",
+        "software brain",
+        "tech culture"
+      ]
+    },
+    {
+      "rank": 9,
+      "title": "Asimov's three laws are merely a suggestion",
+      "titleZh": "阿西莫夫三定律不过是建议而已",
+      "link": "https://idiallo.com/blog/asimov-three-laws-dont-work-with-ai?src=feed",
+      "source": "idiallo.com",
+      "sourceUrl": "https://idiallo.com",
+      "category": "ai-ml",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-06T12:00:00.000Z",
+      "keywords": [
+        "Asimov",
+        "AI ethics",
+        "robotics",
+        "safety"
+      ]
+    },
+    {
+      "rank": 10,
+      "title": "Your Linux distribution may no longer auto-generate new SSH host keys",
+      "titleZh": "你的 Linux 发行版可能不再自动生成新的 SSH 主机密钥",
+      "link": "https://utcc.utoronto.ca/~cks/space/blog/linux/SSHHostKeysAndAutogeneration",
+      "source": "utcc.utoronto.ca/~cks",
+      "sourceUrl": "https://utcc.utoronto.ca/~cks",
+      "category": "security",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-07T03:03:13.000Z",
+      "keywords": [
+        "SSH",
+        "host keys",
+        "Linux",
+        "security"
+      ]
+    },
+    {
+      "rank": 11,
+      "title": "Why not have changes in API behavior depend on the SDK you link against?",
+      "titleZh": "为什么不让 API 行为的变化取决于你链接的 SDK 版本？",
+      "link": "https://devblogs.microsoft.com/oldnewthing/?p=112303",
+      "source": "devblogs.microsoft.com/oldnewthing",
+      "sourceUrl": "https://devblogs.microsoft.com/oldnewthing",
+      "category": "engineering",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 8,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-06T14:00:00.000Z",
+      "keywords": [
+        "Windows API",
+        "SDK",
+        "static libraries",
+        "backward compatibility"
+      ]
+    },
+    {
+      "rank": 12,
+      "title": "The war between fast and legitimate is here",
+      "titleZh": "速度与合规的战争已经打响",
+      "link": "https://joanwestenberg.com/69fbe42dccfa0c0001fd80f3",
+      "source": "joanwestenberg.com",
+      "sourceUrl": "https://joanwestenberg.com",
+      "category": "ai-ml",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 7,
+        "timeliness": 8
+      },
+      "pubDate": "2026-05-07T01:18:04.000Z",
+      "keywords": [
+        "AI regulation",
+        "EU AI Act",
+        "policy"
+      ]
+    },
+    {
+      "rank": 13,
+      "title": "Package Manager Threat Models",
+      "titleZh": "Package Manager Threat Models",
+      "link": "https://nesbitt.io/2026/05/05/package-manager-threat-models.html",
+      "source": "nesbitt.io",
+      "sourceUrl": "https://nesbitt.io",
+      "category": "security",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-05T10:00:00.000Z",
+      "keywords": [
+        "package-manager",
+        "threat-model",
+        "supply-chain",
+        "security"
+      ]
+    },
+    {
+      "rank": 14,
+      "title": "SQLAlchemy 2 In Practice - Chapter 7: Asynchronous SQLAlchemy",
+      "titleZh": "SQLAlchemy 2 In Practice - Chapter 7: Asynchronous SQLAlchemy",
+      "link": "https://blog.miguelgrinberg.com/post/sqlalchemy-2-in-practice---chapter-7-asynchronous-sqlalchemy",
+      "source": "miguelgrinberg.com",
+      "sourceUrl": "https://miguelgrinberg.com",
+      "category": "engineering",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 7,
+        "quality": 9,
+        "timeliness": 6
+      },
+      "pubDate": "2026-05-06T21:49:20.000Z",
+      "keywords": [
+        "SQLAlchemy",
+        "async",
+        "Python",
+        "database"
+      ]
+    },
+    {
+      "rank": 15,
+      "title": "Vulnerabilities vs. Weaknesses: Why the Distinction Matters",
+      "titleZh": "Vulnerabilities vs. Weaknesses: Why the Distinction Matters",
+      "link": "https://xint.io/blog/171258",
+      "source": "xint.io",
+      "sourceUrl": "https://xint.io",
+      "category": "security",
+      "score": 22,
+      "scoreBreakdown": {
+        "relevance": 8,
+        "quality": 7,
+        "timeliness": 7
+      },
+      "pubDate": "2026-05-05T18:09:33.000Z",
+      "keywords": [
+        "vulnerability",
+        "weakness",
+        "security",
+        "code-analysis"
+      ]
+    }
+  ]
+}
